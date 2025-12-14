@@ -1,8 +1,10 @@
 ;; TODO: https://github.com/juxt/aero?tab=readme-ov-file#hide-passwords-in-local-private-files
 
 {:webserver {:port #or [#env WEBPORT 9999]}
- :database {:name #or [#env DBNAME "fungi"]
-            :user #or [#env DBUSER "fungi"]
+ :database {:engine "postgres"
+            :name #or [#env DBNAME "fungi"]
             :host #or [#env DBHOST "localhost"]
             :port #or [#env DBPORT 5432]
-            :pass #or [#env DBPASS ""]}}
+            :user #or [#env DBUSER "fungi"]
+            :pass #or [#env DBPASS ""]
+            :useSSL #or [#env DBSSL false]}}

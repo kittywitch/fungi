@@ -1,0 +1,2 @@
+{:up ["INSERT INTO users (id, username, email, password) VALUES (DEFAULT, 'kat','kat@inskip.me','nyaa');"]
+ :down ["DELETE FROM users WHERE username = 'kat';"]}

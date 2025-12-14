@@ -1,5 +1,7 @@
 (ns user
-  (:require [fungi.system :as system]))
+  (:require [fungi.system :as system]
+            [fungi.config :as configNs]
+            [ragtime.next-jdbc :as jdbc]))
 
 (def system nil)
 
@@ -27,3 +29,12 @@
 (defn db
   []
   (::system/db system))
+
+(defn config
+  []
+  (::system/config system))
+
+(defn ragtimeConfig
+  []
+  {:datastore  (jdbc/sql-database {:connection-uri (configNs/jdbc-url (config))})
+   :migrations (jdbc/load-resources "migrations")})

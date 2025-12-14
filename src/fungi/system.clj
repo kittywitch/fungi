@@ -9,12 +9,13 @@
 (defn start-db
   [{::keys [config]}]
   (connection/->pool HikariDataSource
-                     {:dbtype "postgres"
-                      :dbname (config/database-name config)
-                      :password (config/database-pass config)
-                      :host (config/database-host config)
-                      :port (config/database-port config)
+                     {:jdbcURL (config/jdbc-url config)
+                      :dbtype (config/database-type config)
                       :username (config/database-user config)}))
+                      ;;:dbname (config/database-name config)
+                      ;;:host (config/database-host config)
+                      ;;:port (config/database-port config)
+                      ;;:password (config/database-pass config)}))
 
 
 (defn stop-db
@@ -40,5 +41,5 @@
 
 (defn stop-system
   [system]
-  (stop-server (::server system)
-               (stop-db (::db system))))
+  (stop-server (::server system))
+    (stop-db (::db system)))

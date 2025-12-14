@@ -3,15 +3,20 @@
             [fungi.system :as-alias system]
             [huff2.core :as h]
             [next.jdbc :as jdbc]
-            [reitit.ring :as reitit-ring]))
+            [reitit.ring :as reitit-ring]
+            [honey.sql :as sql]))
 
 (set! *warn-on-reflection* true)
 
 (defn hello-handler
   [{::system/keys [db]} _request]
-  (let [{:keys [planet]} (jdbc/execute-one!
-                          db
-                          ["SELECT 'earth' as planet"])]
+  (let [(:values [planet]) (jdbc/execute-one!
+                                 db
+                                 (sql/format { :select [:email]
+                                               :from [:users]
+                                               :where [:= :username "kat"]}))]
+
+
     {:status 200
      :headers {"Content-Type" "text/html"}
      :body (str

@@ -8,7 +8,7 @@ run:
 	clojure -M -m fungi.main
 
 nrepl:
-	clojure -M:nREPL -m nrepl.cmdline
+	clojure -M:dev -m nrepl.cmdline
 
 format_check:
 	clojure -M:format -m cljfmt.main check src
@@ -21,6 +21,7 @@ lint:
 
 dbinit:
 	createuser -d fungi
+	postgres -h "localhost" -k "${PGHOST}" -c "CREATE DATABASE fungi WITH OWNER = fungi;"
 
 dbrun:
 	postgres -h "localhost" -k "${PGHOST}"
