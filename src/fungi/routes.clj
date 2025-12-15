@@ -27,7 +27,7 @@
   [:header [:nav [:ul [:li [:h1 "dork.dev"]]]
             [:ul [:li (link "Home" "/home")
                   [:li (link "Blog" "/blog")]
-                  [:Li (link "External" "/external")]]]]])
+                  [:li (link "External" "/external")]]]]])
 
 (defn footer
   []
