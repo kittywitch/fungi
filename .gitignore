@@ -30,3 +30,4 @@
 /target
 /postgres/
 /.direnv/
+/resources/public/assets/css/

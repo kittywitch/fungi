@@ -1,0 +1,109 @@
+@use "sass:map";
+@use "sass:color";
+@use "utility";
+
+$theme: dark !default;
+
+$themes: (
+  light: (
+    bg: #fcfcfc,
+    fg: #333,
+    border: #333,
+    code: #eee,
+    heading: #111,
+    a-link: #16b1bd,
+    a-hover: #37DCE8,
+    a-visited: #3784e8,
+    lightness: -5%,
+  ),
+  dark: (
+    bg: #141414,
+    fg: #ddd,
+    border: #ddd,
+    code: #282828,
+    heading: #eee,
+    a-link: #16b1bd,
+    a-hover: #37DCE8,
+    a-visited: #3784e8,
+    lightness: 5%,
+  )
+);
+
+@function theme-get($name, $theme: $theme) {
+  @return map-get(
+    map-get($themes, $theme),
+    $name
+  );
+}
+
+@mixin link_state($name, $theme: $theme) {
+  $color: theme-get("a-#{$name}", $theme);
+  @if $name == "link" {
+    a, a:#{$name} {
+      color: $color;
+    }
+  }
+  @else {
+    a:#{$name} {
+      color: $color;
+      @if $name == "hover" {
+        border-bottom-color: $color;
+      }
+    }
+  }
+  a:#{$name} {
+    @include utility.headings {
+      color: $color;
+      @if $name == "hover" {
+        border-bottom-color: $color;
+      }
+    }
+  }
+}
+
+@mixin set-colors($theme: $theme) {
+  color: theme-get(fg, $theme);
+  background: color.scale(theme-get(bg, $theme), $lightness: theme-get(lightness, $theme));
+  body {
+    background: theme-get(bg, $theme);
+  }
+  @include utility.headings {
+    color: theme-get(heading, $theme);
+  }
+  code {
+    background: theme-get(code, $theme);
+    border-color: theme-get(border, $theme);
+  }
+  $link_states: "link", "visited", "hover";
+  @each $name in $link_states {
+    @include link_state($name, $theme);
+  }
+
+  a:hover:has(img) img {
+    border-color: theme-get(a-hover, $theme);
+  }
+}
+
+html {
+  @include set-colors;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+  @include set-colors(dark);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  html {
+    @include set-colors(light);
+  }
+}
+
+html:has(#color-scheme-dark:checked) {
+  @include set-colors(dark);
+}
+
+html:has(#color-scheme-light:checked) {
+  @include set-colors(light);
+}

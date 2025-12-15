@@ -1,7 +1,7 @@
 (ns build
   (:refer-clojure :exclude [test])
-  (:require [clojure.tools.deps :as t]
-            [clojure.tools.build.api :as b]))
+  (:require [clojure.tools.build.api :as b]
+            [clojure.tools.deps :as t]))
 
 (def lib 'net.clojars.kittywitch/fungi)
 (def version "0.1.0-SNAPSHOT")

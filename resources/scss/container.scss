@@ -1,0 +1,9 @@
+html:has(body.container) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  min-width: 80ch;
+}

@@ -1,6 +1,6 @@
 (ns fungi.config
-    (:require [aero.core :refer [read-config]]
-                [next.jdbc.connection :as connection]))
+  (:require [aero.core :refer [read-config]]
+            [next.jdbc.connection :as connection]))
 
 (defn readProfile [profile]
   (read-config "config.edn" {:profile profile}))

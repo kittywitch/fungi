@@ -1,0 +1,64 @@
+@use "utility";
+
+$attr: margin;
+
+@mixin set_even($vertical, $horizontal) {
+  @include utility.set_even($attr, $vertical, $horizontal)
+}
+
+@mixin set_triad($top, $horizontal, $bottom) {
+  @include utility.set_triad($attr, $top, $horizontal, $bottom);
+}
+
+@mixin set($top, $right, $bottom, $left) {
+  @include utility.set($attr, $top, $right, $bottom, $left);
+}
+
+@mixin vertical($value) {
+  @include utility.vertical($attr, $value);
+}
+
+@mixin horizontal($value) {
+  @include utility.horizontal($attr, $value);
+}
+
+@mixin oriented($margin, $vertical: false) {
+  @if $vertical {
+    @include vertical($margin);
+  }
+  @else {
+    @include horizontal($margin);
+  }
+}
+
+@mixin between($margin, $vertical: false) {
+  /*
+    :not(:only-child) is not needed here because that block is already handled
+    by setting the same condition to a zero-length at the end!
+
+    why bother wasting an extra conditional?
+  */
+  &:not(:first-child):not(:last-child) {
+    @include oriented($margin, $vertical);
+  }
+
+  &:first-child {
+    @if $vertical {
+      margin-bottom: $margin;
+    }
+    @else {
+      margin-right: $margin;
+    }
+  }
+  &:last-child {
+    @if $vertical {
+      margin-top: $margin;
+    }
+    @else {
+      margin-left: $margin;
+    }
+  }
+  &:only-child {
+    @include oriented(0rem, $vertical);
+  }
+}

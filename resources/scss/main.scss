@@ -1,0 +1,101 @@
+@use "reset";
+@use "utility";
+@use "margin";
+@use "padding";
+@use "sticky-footer";
+@use "container";
+@use "typography";
+@use "colouring";
+
+header nav {
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  justify-content: space-between;
+
+  @include utility.headings {
+    margin: unset;
+    padding: unset;
+  };
+
+  ul {
+    margin: unset;
+    padding: unset;
+    list-style-type: none;
+
+    li {
+      @include margin.between(.5em);
+      display: inline-block;
+    }
+  }
+}
+
+a {
+  text-decoration: none;
+  @include utility.headings {
+    width: fit-content;
+  }
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+body > header, body > main, body > footer,
+.phx-connected > header, .phx-connected > main, .phx-connected > footer {
+  @include padding.horizontal(.5rem);
+
+  border: 1px #000 dashed;
+}
+
+.icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+}
+
+.icon + h2 {
+  margin-left: 0.25em;
+}
+
+dialog header {
+  display: flex;
+  justify-items: stretch;
+  align-items: center;
+
+  @include utility.headings {
+    margin: unset;
+  }
+}
+
+.alert-info {
+  border-color: #0ac;
+}
+
+.alert-error {
+  border-color: red;
+}
+
+button.text {
+  background: none;
+  border: none;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+dialog.one-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  header {
+    display: flex;
+    align-items: center;
+
+    @include utility.headings {
+      margin: unset;
+    }
+  }
+}

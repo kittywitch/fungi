@@ -1,8 +1,8 @@
 (ns fungi.system
-  (:require [fungi.routes :as routes]
+  (:require [fungi.config :as config]
+            [fungi.routes :as routes]
             [next.jdbc.connection :as connection]
-            [ring.adapter.jetty :as jetty]
-            [fungi.config :as config])
+            [ring.adapter.jetty :as jetty])
   (:import (com.zaxxer.hikari HikariDataSource)
            (org.eclipse.jetty.server Server)))
 
@@ -16,7 +16,6 @@
                       ;;:host (config/database-host config)
                       ;;:port (config/database-port config)
                       ;;:password (config/database-pass config)}))
-
 
 (defn stop-db
   [db]
@@ -42,4 +41,4 @@
 (defn stop-system
   [system]
   (stop-server (::server system))
-    (stop-db (::db system)))
+  (stop-db (::db system)))

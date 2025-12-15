@@ -1,0 +1,18 @@
+@use "utility";
+
+body {
+  line-height: 1.6;
+}
+
+@include utility.headings {
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+p {
+  text-wrap: pretty;
+}

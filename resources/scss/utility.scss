@@ -1,0 +1,29 @@
+@mixin fill-height {
+  height: 100%;
+}
+
+@mixin headings {
+  h1, h2, h3, h4, h5, h6 {
+    @content;
+  }
+}
+
+@mixin set_even($attr, $vertical, $horizontal) {
+  #{$attr}: $vertical $horizontal;
+}
+
+@mixin set_triad($attr, $top, $horizontal, $bottom) {
+  #{$attr}: $top $horizontal $bottom;
+}
+
+@mixin set($attr, $top, $right, $bottom, $left) {
+  #{$attr}: $top $right $bottom $left;
+}
+
+@mixin vertical($attr, $value) {
+  #{$attr}: $value 0;
+}
+
+@mixin horizontal($attr, $value) {
+  #{$attr}: 0 $value;
+}

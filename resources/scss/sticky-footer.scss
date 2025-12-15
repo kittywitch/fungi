@@ -1,0 +1,18 @@
+@use "utility";
+
+html {
+  box-sizing: border-box;
+}
+
+html, body {
+  @include utility.fill-height;
+}
+
+body {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+body div.phx-connected {
+  display: contents;
+}

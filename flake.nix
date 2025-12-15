@@ -10,7 +10,9 @@
         packages = with pkgs; [
           clojure
           ispell
+          babashka
           nixd
+          dart-sass
           leiningen
           postgresql
         ];

@@ -1,0 +1,23 @@
+@use "utility";
+
+$attr: padding;
+
+@mixin set_even($vertical, $horizontal) {
+  @include utility.set_even($attr, $vertical, $horizontal)
+}
+
+@mixin set_triad($top, $horizontal, $bottom) {
+  @include utility.set_triad($attr, $top, $horizontal, $bottom);
+}
+
+@mixin set($top, $right, $bottom, $left) {
+  @include utility.set($attr, $top, $right, $bottom, $left);
+}
+
+@mixin vertical($value) {
+  @include utility.vertical($attr, $value);
+}
+
+@mixin horizontal($value) {
+  @include utility.horizontal($attr, $value);
+}

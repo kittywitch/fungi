@@ -1,6 +1,6 @@
 (ns user
-  (:require [fungi.system :as system]
-            [fungi.config :as configNs]
+  (:require [fungi.config :as configNs]
+            [fungi.system :as system]
             [ragtime.next-jdbc :as jdbc]))
 
 (def system nil)
