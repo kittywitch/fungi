@@ -27,5 +27,5 @@
                         (process "postgres" "-h" "localhost" "-k" (System/getenv "PGHOST")))
 
             sass-watch (do
-                         (println "Starting to watch for SCSS")
-                            (process "sass -w resources/scss/:resources/public/assets/css"))}}
+                         (println "Starting to watch for SCSS"
+                            (process "sass" "-w" "resources/scss/:resources/public/assets/css")))}}
