@@ -39,7 +39,7 @@
   [content]
   [:main content])
 
-(defn htmz []
+(defn htmz-frame []
   [:iframe {:hidden "true"
             :name "htmz"
             :onload "setTimeout(()=>document.querySelector(contentWindow.location.hash||null)?.replaceWith(...contentDocument.body.childNodes))"}])
@@ -49,7 +49,7 @@
   [:body {:class "container"} [(header)
                                (main content)
                                (footer)
-                               (htmz)]])
+                               (htmz-frame)]])
 
 (defn page
   [title content]
@@ -72,6 +72,11 @@
    :headers {"Content-Type" "text/html"}
    :body (fragment content)})
 
+(defn htmz-link
+  [text route target]
+  [:a {:href (str route "#" target)
+       :target "htmz"} text])
+
 (defn hello-handler
   [{::system/keys [db]} _request]
   (let [{email :users/email} (jdbc/execute-one!
@@ -82,8 +87,7 @@
     (html-ok "nyaa" [:<> [:h1 (str "Hello, " email)]
                      [:p "awawawa,,"]
                      [:p {:id "hissy"} "This is the target for HTMZ replacement"]
-                     [:a {:href "/nicehiss#hissy"
-                          :target "htmz"} "SteveMRE1989Info"]])))
+                     (htmz-link "Meep" "/nicehiss" "hissy")])))
 
 (defn nicehiss-handler
   [_system _request]
