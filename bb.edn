@@ -24,8 +24,8 @@
 
          postgres-run (do
                          (println "Database starting")
-                        (process "postgres" "-h" "localhost" "-k" (System/getenv "PGHOST")))
+                        (process {:inherit true} "postgres" "-h" "localhost" "-k" (System/getenv "PGHOST")))
 
             sass-watch (do
                          (println "Starting to watch for SCSS"
-                            (process "sass" "-w" "resources/scss/:resources/public/assets/css")))}}
+                            (process {:inherit true} "sass" "-w" "resources/scss/:resources/public/assets/css")))}}

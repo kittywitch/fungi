@@ -4,7 +4,9 @@
             [honey.sql :as sql]
             [huff2.core :as h]
             [next.jdbc :as jdbc]
-            [reitit.ring :as reitit-ring]))
+            [reitit.ring :as reitit-ring]
+            [fungi.middleware :as middleware]
+            [ring.util.anti-forgery :as anti-forgery]))
 
 (set! *warn-on-reflection* true)
 
@@ -25,9 +27,10 @@
 (defn header
   []
   [:header [:nav [:ul [:li [:h1 "dork.dev"]]]
-            [:ul [:li (link "Home" "/home")
+            [:ul [:li (link "Home" "/")
                   [:li (link "Blog" "/blog")]
-                  [:li (link "External" "/external")]]]]])
+                  [:li (link "External" "/external")]
+                  [:li (link "Login" "/login")]]]]])
 
 (defn footer
   []
@@ -40,9 +43,11 @@
   [:main content])
 
 (defn htmz-frame []
-  [:iframe {:hidden "true"
-            :name "htmz"
-            :onload "setTimeout(()=>document.querySelector(contentWindow.location.hash||null)?.replaceWith(...contentDocument.body.childNodes))"}])
+  [:<>
+    [:iframe {:hidden "true"
+                :name "htmz"
+                :onload "window.htmz(this)"}]
+    [:script {:src "/assets/js/htmz.js"}]])
 
 (defn body
   [content]
@@ -75,7 +80,7 @@
 (defn htmz-link
   [text route target]
   [:a {:href (str route "#" target)
-       :target "htmz"} text])
+       :class "htmz"} text])
 
 (defn hello-handler
   [{::system/keys [db]} _request]
@@ -89,8 +94,69 @@
                      [:p {:id "hissy"} "This is the target for HTMZ replacement"]
                      (htmz-link "Meep" "/nicehiss" "hissy")])))
 
-(defn nicehiss-handler
+(defn login-page
   [_system _request]
+  (let [{:keys [user pass submit]}
+        {:user [:div {:class "row"}
+                [:label {:for "username"} "Username"]
+                [:input {:id "username"
+                         :type "text"
+                         :name "username"
+                         :required true
+                         :maxlength 32
+                         :size 20}]]
+         :pass [:div {:class "row"}
+                [:label {:for "password"} "Password"]
+                [:input {:id "password"
+                         :type "password"
+                         :name "password"
+                         :required true
+                         :size 20}]]
+         :submit [:div {:class "row"}
+                  [:div {:class "cell"} " "]
+                  [:input {:class "button-primary"
+                           :type "submit"
+                           :value "Login"}]]}]
+    (html-ok "Login" [:form  {:class "table flex-center htmz"
+                              :method "post"
+                              :action "/login#login-form"
+                              :id "login-form"}
+                      (h/raw (anti-forgery/anti-forgery-field))
+                      [:fieldset
+                       [:legend "Log in to dork.dev"]
+                       user
+                       pass
+                       submit
+                       ]])))
+
+(defn get-user
+  [db username password]
+  (jdbc/execute-one!
+   db
+   (sql/format {:select [:*]
+                :from [:users]
+                :limit 1
+                :where [:and [:= :username username] [:= :password password]] })))
+
+(defn login-success
+  []
+  (html-fragment [:h1 "Security success"]))
+
+(defn login-failure
+  []
+  (html-fragment [:h1 "Security failures"]))
+
+(defn login-action
+  [{::system/keys [db]} request]
+  (println request)
+  (let [{:keys [username password]} (:params request)]
+    (let [user (get-user db username password)]
+      (if (some? user)
+        (login-success)
+        (login-failure)))))
+
+(defn nicehiss-handler
+    [_system _request]
   (html-fragment [:h1 "Let's get that out on a tray"]))
 
 (defn goodbye-handler
@@ -111,10 +177,14 @@
 
 (defn routes
   [system]
-  [["/assets/*" (reitit-ring/create-resource-handler {:root "public/assets/"})]
-   ["/" {:get {:handler (partial #'hello-handler system)}}]
-   ["/nicehiss" {:get {:handler (partial #'nicehiss-handler system)}}]
-   ["/goodbye" {:get {:handler (partial #'goodbye-handler system)}}]])
+  [""
+   {:middleware (middleware/standard-html-route-middleware system)}
+   [["/assets/*" (reitit-ring/create-resource-handler {:root "public/assets/"})]
+    ["/" {:get {:handler (partial #'hello-handler system)}}]
+    ["/login" {:get {:handler (partial #'login-page system)}
+               :post {:handler (partial #'login-action system)}}]
+    ["/nicehiss" {:get {:handler (partial #'nicehiss-handler system)}}]
+    ["/goodbye" {:get {:handler (partial #'goodbye-handler system)}}]]])
 
 (defn root-handler
   [system request]

@@ -13,7 +13,8 @@
         metosin/malli {:mvn/version "0.20.0"}
         party.donut/dbxray {:mvn/version "0.0.70"}
         dev.weavejester/ragtime {:mvn/version "0.12.1"}
-        com.github.seancorfield/honeysql {:mvn/version "2.7.1364"}}
+        com.github.seancorfield/honeysql {:mvn/version "2.7.1364"}
+        ring/ring-defaults {:mvn/version "0.7.0"}}
 
 
  :aliases

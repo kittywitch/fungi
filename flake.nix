@@ -13,6 +13,7 @@
           babashka
           nixd
           dart-sass
+          clojure-lsp
           leiningen
           postgresql
         ];

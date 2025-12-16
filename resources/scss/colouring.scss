@@ -30,8 +30,8 @@ $themes: (
 );
 
 @function theme-get($name, $theme: $theme) {
-  @return map-get(
-    map-get($themes, $theme),
+  @return map.get(
+    map.get($themes, $theme),
     $name
   );
 }

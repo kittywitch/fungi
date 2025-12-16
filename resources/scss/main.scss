@@ -43,7 +43,7 @@ a:hover {
 
 body > header, body > main, body > footer,
 .phx-connected > header, .phx-connected > main, .phx-connected > footer {
-  @include padding.horizontal(.5rem);
+  padding: .5rem;
 
   border: 1px #000 dashed;
 }
@@ -76,13 +76,38 @@ dialog header {
   border-color: red;
 }
 
-button.text {
+button:hover {
+    cursor: pointer;
+}
+
+[class^="button-"] {
+  border: 1px solid #111;
+  border-radius: .25rem;
+}
+
+.button-primary {
+  background: #09d;
+  color: #fff;
+}
+
+.button-warning {
+  background: #da0;
+  color: #fff;
+}
+
+.button-success {
+  background: #0d6;
+  color: #fff;
+}
+
+.button-error {
+  background: #d22;
+  color: #fff;
+}
+
+.button-text {
   background: none;
   border: none;
-
-  &:hover {
-    cursor: pointer;
-  }
 }
 
 dialog.one-line {
@@ -98,4 +123,30 @@ dialog.one-line {
       margin: unset;
     }
   }
+}
+
+.margin-center {
+    margin: 0 auto;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+form.table fieldset {
+    display: table;
+    .row {
+        display: table-row;
+    }
+    label {
+        padding-right: 1rem;
+    }
+    label, input:not([type="submit"]) {
+        margin-bottom: 1rem;
+    }
+    .cell, label, input {
+        display: table-cell;
+    }
 }

@@ -31,3 +31,4 @@
 /postgres/
 /.direnv/
 /resources/public/assets/css/
+.clj-kondo/
