@@ -1,11 +1,11 @@
 (ns fungi.routes
   (:require [clojure.tools.logging :as log]
+            [fungi.middleware :as middleware]
             [fungi.system :as-alias system]
             [honey.sql :as sql]
             [huff2.core :as h]
             [next.jdbc :as jdbc]
             [reitit.ring :as reitit-ring]
-            [fungi.middleware :as middleware]
             [ring.util.anti-forgery :as anti-forgery]))
 
 (set! *warn-on-reflection* true)
@@ -44,10 +44,10 @@
 
 (defn htmz-frame []
   [:<>
-    [:iframe {:hidden "true"
-                :name "htmz"
-                :onload "window.htmz(this)"}]
-    [:script {:src "/assets/js/htmz.js"}]])
+   [:iframe {:hidden "true"
+             :name "htmz"
+             :onload "window.htmz(this)"}]
+   [:script {:src "/assets/js/htmz.js"}]])
 
 (defn body
   [content]
@@ -126,8 +126,7 @@
                        [:legend "Log in to dork.dev"]
                        user
                        pass
-                       submit
-                       ]])))
+                       submit]])))
 
 (defn get-user
   [db username password]
@@ -136,7 +135,7 @@
    (sql/format {:select [:*]
                 :from [:users]
                 :limit 1
-                :where [:and [:= :username username] [:= :password password]] })))
+                :where [:and [:= :username username] [:= :password password]]})))
 
 (defn login-success
   []
@@ -148,7 +147,6 @@
 
 (defn login-action
   [{::system/keys [db]} request]
-  (println request)
   (let [{:keys [username password]} (:params request)]
     (let [user (get-user db username password)]
       (if (some? user)
@@ -156,7 +154,7 @@
         (login-failure)))))
 
 (defn nicehiss-handler
-    [_system _request]
+  [_system _request]
   (html-fragment [:h1 "Let's get that out on a tray"]))
 
 (defn goodbye-handler

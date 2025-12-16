@@ -1,6 +1,6 @@
 (ns fungi.middleware
   (:require
-    [ring.middleware.defaults :as middleware-defaults]))
+   [ring.middleware.defaults :as middleware-defaults]))
 
 (defn standard-html-route-middleware
   [_system]
