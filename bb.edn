@@ -13,6 +13,7 @@
          format-check (do (clojure "-M:format -m cljfmt.main check ."))
          format-fix (do (clojure "-M:format -m cljfmt.main fix ."))
          lint (do (clojure "-M:lint -m clj-kondo.main --lint ."))
+         outdated (do (clojure "-M:outdated"))
 
          ;; Service dependencies
 
