@@ -30,15 +30,15 @@
                            :type "submit"
                            :value "Login"}]]}]
     (html-ok :title "Login" :content [:form  {:class "table flex-center htmz"
-                              :method "post"
-                              :action "/login#login-form"
-                              :id "login-form"}
-                      (h/raw (anti-forgery/anti-forgery-field))
-                      [:fieldset
-                       [:legend "Log in to dork.dev"]
-                       user
-                       pass
-                       submit]])))
+                                              :method "post"
+                                              :action "/login#login-form"
+                                              :id "login-form"}
+                                      (h/raw (anti-forgery/anti-forgery-field))
+                                      [:fieldset
+                                       [:legend "Log in to dork.dev"]
+                                       user
+                                       pass
+                                       submit]])))
 
 (defn get-user
   [db username password]

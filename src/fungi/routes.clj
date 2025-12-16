@@ -3,6 +3,7 @@
             [fungi.auth.login :as auth-login]
             [fungi.components :refer [htmz-link html-ok html-fragment]]
             [fungi.middleware :as middleware]
+            [fungi.static :as static]
             [fungi.system :as-alias system]
             [honey.sql :as sql]
             [huff2.core :as h]
@@ -19,9 +20,9 @@
                                            :from [:users]
                                            :where [:= :username "kat"]}))]
     (html-ok :title "nyaa" :content [:<> [:h1 (str "Hello, " email)]
-                     [:p "awawawa,,"]
-                     [:p {:id "hissy"} "This is the target for HTMZ replacement"]
-                     (htmz-link "Meep" "/nicehiss" "hissy")])))
+                                     [:p "awawawa,,"]
+                                     [:p {:id "hissy"} "This is the target for HTMZ replacement"]
+                                     (htmz-link "Meep" "/nicehiss" "hissy")])))
 
 (defn nicehiss-handler
   [_system _request]
@@ -48,7 +49,7 @@
   [""
    {:middleware (middleware/standard-html-route-middleware system)}
    [(auth-login/routes system)
-    ["/assets/*" (reitit-ring/create-resource-handler {:root "public/assets/"})]
+    (static/routes system)
     ["/" {:get {:handler (partial #'hello-handler system)}}]
     ["/nicehiss" {:get {:handler (partial #'nicehiss-handler system)}}]
     ["/goodbye" {:get {:handler (partial #'goodbye-handler system)}}]]])
