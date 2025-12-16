@@ -2,7 +2,8 @@
   (:require [fungi.config :as config]
             [fungi.routes :as routes]
             [next.jdbc.connection :as connection]
-            [ring.adapter.jetty :as jetty])
+            [ring.adapter.jetty :as jetty]
+            [ring.middleware.session.cookie :as session-cookie])
   (:import (com.zaxxer.hikari HikariDataSource)
            (org.eclipse.jetty.server Server)))
 
@@ -32,9 +33,14 @@
   [server]
   (Server/.stop server))
 
+(defn start-cookie-store
+  []
+  (session-cookie/cookie-store))
+
 (defn start-system
   []
   (let [system-so-far {::config (config/readProfile :dev)}
+        system-so-far (merge system-so-far {::cookie-store (start-cookie-store)})
         system-so-far (merge system-so-far {::db (start-db system-so-far)})]
     (merge system-so-far {::server (start-server system-so-far)})))
 

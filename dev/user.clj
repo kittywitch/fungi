@@ -1,7 +1,8 @@
 (ns user
   (:require [fungi.config :as configNs]
             [fungi.system :as system]
-            [ragtime.next-jdbc :as jdbc]))
+            [ragtime.next-jdbc :as jdbc]
+            [ragtime.repl :as repl]))
 
 (def system nil)
 
@@ -34,7 +35,31 @@
   []
   (::system/config system))
 
-(defn ragtimeConfig
+(defn cookie-store
   []
-  {:datastore  (jdbc/sql-database {:connection-uri (configNs/jdbc-url (config))})
+  (::system/cookie-store system))
+
+(defn ragtime-config
+  [config]
+  {:datastore  (jdbc/sql-database {:connection-uri (configNs/jdbc-url config)})
    :migrations (jdbc/load-resources "migrations")})
+
+(defn systemless-config
+  []
+  (configNs/readProfile :dev))
+
+(defn system-ragtime-config
+  []
+  (ragtime-config (config)))
+
+(defn systemless-ragtime-config
+  []
+  (ragtime-config (systemless-config)))
+
+(defn ragtime-migrate-all-system
+  []
+  (repl/migrate (system-ragtime-config)))
+
+(defn ragtime-migrate-all
+  []
+  (repl/migrate (systemless-ragtime-config)))

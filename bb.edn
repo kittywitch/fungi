@@ -10,6 +10,8 @@
 
          dev:nrepl (do (clojure "-M:dev -m fungi.nrepl"))
 
+         migrate-all (do (clojure "-M:dev -e '(ragtime-migrate-all)'"))
+
          format-check (do (clojure "-M:format -m cljfmt.main check ."))
          format-fix (do (clojure "-M:format -m cljfmt.main fix ."))
          lint (do (clojure "-M:lint -m clj-kondo.main --lint ."))
