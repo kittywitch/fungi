@@ -14,6 +14,7 @@
           nixd
           dart-sass
           clojure-lsp
+          pandoc
           leiningen
           postgresql
         ];

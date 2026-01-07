@@ -8,8 +8,7 @@
 
 (defn login-page
   [_system _request]
-  (let [{:keys [user pass submit]}
-        {:user [:div {:class "row"}
+  (let [user [:div {:class "row"}
                 [:label {:for "username"} "Username"]
                 [:input {:id "username"
                          :type "text"
@@ -17,18 +16,18 @@
                          :required true
                          :maxlength 32
                          :size 20}]]
-         :pass [:div {:class "row"}
+        pass [:div {:class "row"}
                 [:label {:for "password"} "Password"]
                 [:input {:id "password"
                          :type "password"
                          :name "password"
                          :required true
                          :size 20}]]
-         :submit [:div {:class "row"}
+        submit [:div {:class "row"}
                   [:div {:class "cell"} " "]
                   [:input {:class "button-primary"
                            :type "submit"
-                           :value "Login"}]]}]
+                           :value "Login"}]]]
     (html-ok :title "Login" :content [:form  {:class "table flex-center htmz"
                                               :method "post"
                                               :action "/login#login-form"
