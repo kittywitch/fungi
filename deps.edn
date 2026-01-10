@@ -14,8 +14,11 @@
         party.donut/dbxray {:mvn/version "0.0.70"}
         dev.weavejester/ragtime {:mvn/version "0.12.1"}
         com.github.seancorfield/honeysql {:mvn/version "2.7.1364"}
-        ring/ring-defaults {:mvn/version "0.7.0"}}
-
+        ring/ring-defaults {:mvn/version "0.7.0"}
+        cheshire/cheshire {:mvn/version "6.1.0"}
+        com.rpl/specter {:mvn/version "1.1.6"}
+        org.clj-commons/hickory {:mvn/version "0.7.7"}
+        fivetonine/collage {:mvn/version "0.3.0"}}
 
  :aliases
  {:run-m {:main-opts ["-m" "fungi.main"]}
@@ -27,6 +30,12 @@
   :dev {:extra-paths ["dev"]
         :extra-deps {nrepl/nrepl {:mvn/version "1.5.1"}}
                     lambdaisland/kaocha {:mvn/version "1.91.1392"}}
+  :repl/conjure
+    {:extra-deps {nrepl/nrepl       {:mvn/version "1.0.0"}
+                  cider/cider-nrepl {:mvn/version "0.42.1"}}
+     :main-opts  ["--main" "nrepl.cmdline"
+                  "--middleware" "[cider.nrepl/cider-middleware]"
+                  "--interactive"]}
   :test {:extra-paths ["test"]
          :extra-deps {org.clojure/test.check {:mvn/version "1.1.2"}
                       io.github.cognitect-labs/test-runner

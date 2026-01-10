@@ -1,5 +1,5 @@
 ---
-title: "TaimiHUD - finally, I can play Guild Wars 2 on Linux!"
+title: TaimiHUD - finally, I can play Guild Wars 2 on Linux!
 date: 2025-06-20T07:53:23Z
 ---
 
