@@ -1,6 +1,8 @@
 * SSG Miscellanea
 - [ ] Sitemap
 - [ ] RSS Feed
+- [ ] Use frontmatter
+  - [ ] Retrieve from Pandoc using data#frontmatter selection
 
 * Build system adjacent functionality
 - [ ] Dependency graphing
