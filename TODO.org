@@ -1,0 +1,32 @@
+* SSG Miscellanea
+- [ ] Sitemap
+- [ ] RSS Feed
+
+* Build system adjacent functionality
+- [ ] Dependency graphing
+  - [ ] Figure out if this is necessary to have a blog post list
+- [ ] Incremental compilation
+  - [ ] Keep database of hashes of inputs
+  - [ ] Only regenerate output if input hash changes
+
+* Thumbnailing
+- [ ] Move away from transforming a>img via changing src of the img to .thumb
+- [ ] Change markdown documents to omit the link wrap around the images
+- [ ] Automatically create links for all img src= where the path is within the local filesystem
+
+* Compilation pipelining
+- [ ] Be preprocessor independent, support pandoc, asciidoc, commonmark, ...
+- [ ] Figure out pandoc / preprocessor -> template -> output pipelining
+
+* HTML / Templates
+
+** Huff (Hiccup)
+- [X] Write template functions for header, footer, main
+- [ ] Write template function for post embedding
+
+** Lucy (Emmet-like language for HTML)
+- [ ] Look into using either interparse or jasentaa for parsing
+- [ ] Formalize Lucy's grammar
+- [ ] Look into embedded Clojure expressions within Lucy
+- [ ] Avoid actual HTML render effort by converting to Huff/Hiccup under the hood?
+- [ ] Figure out lucy -> clojure -> lucy expression, e.g. for loops over variables, ...

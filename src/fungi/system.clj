@@ -18,31 +18,6 @@
   (:import (com.zaxxer.hikari HikariDataSource)
            (org.eclipse.jetty.server Server)))
 
-(defn start-db
-  [{::keys [config]}]
-  (connection/->pool HikariDataSource
-                     {:jdbcURL (config/jdbc-url config)
-                      :dbtype (config/database-type config)
-                      :username (config/database-user config)}))
-                      ;;:dbname (config/database-name config)
-                      ;;:host (config/database-host config)
-                      ;;:port (config/database-port config)
-                      ;;:password (config/database-pass config)}))
-
-(defn stop-db
-  [db]
-  (HikariDataSource/.close db))
-
-;; TODOs:
-;; - Move away from thumb system, make img -> a>img as a transformer
-;; - Use a parser combinator library or instaparse to provide an emmet parser
-;; -- Emmet tree to huff/hiccup/hickory structure to freeload on HTML generation
-;; - Move away from hybrid approach, go all in on static site generation
-;; - Provide specification of the way something should be compiled, defer computation
-;; -- e.g. allow one to provide the route transformer, but only use the "route" termination
-;;    at the point of compilation completion, by the same means provide the compilation transformer
-;;    but defer it until necessary
-
 (defn pandoc
   [from to toc data]
   (println data)
@@ -229,3 +204,19 @@
 ;   [system]
 ;   (stop-server (::server system))
 ;   (stop-db (::db system)))
+
+; (defn start-db
+;   [{::keys [config]}]
+;   (connection/->pool HikariDataSource
+;                      {:jdbcURL (config/jdbc-url config)
+;                       :dbtype (config/database-type config)
+;                       :username (config/database-user config)}))
+                      ;;:dbname (config/database-name config)
+                      ;;:host (config/database-host config)
+                      ;;:port (config/database-port config)
+                      ;;:password (config/database-pass config)}))
+
+; (defn stop-db
+;   [db]
+;   (HikariDataSource/.close db))
+
