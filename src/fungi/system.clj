@@ -101,23 +101,6 @@
   (with-open [file-writer (io/writer out-path :append false)]
     (.write file-writer data)))
 
-
-(defn compile-markdowns
-  []
-  (let [grammar-matcher (.getPathMatcher
-                          (java.nio.file.FileSystems/getDefault)
-                          "glob:*.{md}")]
-    (->> "posts"
-         io/file
-         file-seq
-         (filter #(.isFile %))
-         (filter #(.matches grammar-matcher (.getFileName (.toPath %))))
-         (mapv #(.getAbsolutePath %))
-         (mapv #(pandoc "markdown_mmd" "html" true %))
-         (mapv #(hic/as-hickory (hic/parse %)))
-         (mapv replace-thumb)
-         )))
-
 (defn add-thumb-to-filename [filename]
   (str/replace filename #"(\.[a-zA-Z0-9]+)$" ".thumb$1"))
 
@@ -216,20 +199,6 @@
          (mapv (partial pipeline-file router compiler))
       )
     ))
-(defn start-server
-  [{::keys [config] :as system}]
-  (jetty/run-jetty
-   (partial #'routes/root-handler system)
-   {:port  (config/webserver-port config)
-    :join? false}))
-
-(defn stop-server
-  [server]
-  (Server/.stop server))
-
-(defn start-cookie-store
-  []
-  (session-cookie/cookie-store))
 
 (defn start-system
   []
@@ -241,7 +210,22 @@
   ;       system-so-far (merge system-so-far {::db (start-db system-so-far)})]
   ;   (merge system-so-far {::server (start-server system-so-far)})))
 
-(defn stop-system
-  [system]
-  (stop-server (::server system))
-  (stop-db (::db system)))
+; (defn start-server
+;   [{::keys [config] :as system}]
+;   (jetty/run-jetty
+;    (partial #'routes/root-handler system)
+;    {:port  (config/webserver-port config)
+;     :join? false}))
+
+; (defn stop-server
+;   [server]
+;   (Server/.stop server))
+
+; (defn start-cookie-store
+;   []
+;   (session-cookie/cookie-store))
+
+; (defn stop-system
+;   [system]
+;   (stop-server (::server system))
+;   (stop-db (::db system)))
