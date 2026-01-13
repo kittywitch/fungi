@@ -187,7 +187,7 @@
 
 (def post-core {:path "posts"
                 :lens {:filter [(glob "*.md")]
-                       :remove [(fn [_] false)]}
+                       :remove []}
                 :recalculate (fn [] true)
                 :router [output-router (refiletyper "md" "html")]
                 :compiler (fn [path out-path]
@@ -204,7 +204,7 @@
                 })
 (def sass-core {:path "resources/scss/"
                 :lens {:filter [(glob "*.scss")]
-                       :remove [(glob "*.sass")]}
+                       :remove []}
                 :router [sass-router (refiletyper "scss" "css")]
                 :compiler (fn [path out-path] (sass path out-path))
                 })
@@ -258,20 +258,20 @@
          {filters :filter
           removes :remove} :lens
          :or {
-              filters [(fn [] true)]
-              removes [(fn [] false)]
+              filters []
+              removes []
               compiler no-op
               router [output-router]
           }
          } core
-        filterer (apply every-pred filters)
-        remover (apply some-fn removes)]
+        filterer (when (> (count filters) 0) (apply every-pred filters))
+        remover (when (> (count removes) 0) (apply some-fn removes))]
     (->> path
          io/file
          file-seq
          (filter #(.isFile %))
-         (filter filterer)
-         (remove remover)
+         (#(if (> (count filters) 0) (filter filterer %) %))
+         (#(if (> (count removes) 0) (remove remover %) %))
          (mapv #(.getAbsolutePath %))
          (mapv (partial pipeline-file router compiler))
       )
