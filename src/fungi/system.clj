@@ -14,14 +14,33 @@
             [hickory.select :as hs]
             [hickory.render :refer [hickory-to-html]]
             [fivetonine.collage.util :as fcu]
-            [fivetonine.collage.core :as fcc])
+            [fivetonine.collage.core :as fcc]
+            [fungi.components :as fc]
+            [cheshire.core :as ch]
+            [clj-commons.digest :as digest]
+            [clojure.edn :as edn])
   (:import (com.zaxxer.hikari HikariDataSource)
            (org.eclipse.jetty.server Server)))
 
 (defn pandoc
   [from to toc data]
-  (println data)
-  (let [{out :out} (shell/sh "pandoc" "-s" "-f" from "-t" to (when toc "--table-of-contents=true") "--template=pandoc-template.html" data :dir "/home/kat/src/fungi")] out))
+  (let [{out :out} (shell/sh "pandoc" "-s"
+                             "-f" from
+                             "-t" to
+                             (when toc "--table-of-contents=true") "--template=pandoc-template.html"
+                             data
+                             :dir "/home/kat/src/fungi")] out))
+
+; https://stackoverflow.com/questions/26170493/function-that-gives-the-relative-path-in-clojure
+(defn relative-path
+  [a b]
+  (let [path-a (.toPath (io/file a))
+        path-b (.toPath (io/file b))
+        can-relativize? (if (.getRoot path-a)
+                          (some? (.getRoot path-b))
+                          (not (.getRoot path-b)))]
+    (when can-relativize?
+      (str (.relativize path-a path-b)))))
 
 ; https://github.com/clj-commons/hickory/issues/41#issuecomment-383893434
 (defn hickory-update [selector-fn hickory-tree zip-fn]
@@ -61,6 +80,30 @@
         (println result)
         result))))
 
+(defn frontmatter-selector []
+  (hs/child (hs/and (hs/tag :data)
+                    (hs/id :frontmatter))))
+
+(defn frontmatter-decode [elem]
+  (let [[elem-delisted] elem
+        {:keys [content]} elem-delisted
+        [content-delisted] content
+        data (ch/parse-string content-delisted)]
+    (print "Frontmatter: ")
+    (pprint/pprint data)
+    (identity data)))
+
+(defn generalized-frontmatter-extractor [tree]
+  (let [frontmatter-elem (hs/select (frontmatter-selector) tree)
+        frontmatter (frontmatter-decode frontmatter-elem)
+        clean-tree (hickory-update
+                     (frontmatter-selector)
+                     tree
+                     zip/remove)]
+    {:cleantree clean-tree
+     :frontmatter frontmatter}
+    ))
+
 (defn replace-thumb [tree]
   (hickory-update
     (select-thumbable)
@@ -88,7 +131,6 @@
   (let [image (fcu/load-image path)
         resized (fcc/resize image :width 600)
         parent (.getParentFile (io/as-file out-path))]
-          (println (str "Running upon " path " will be " out-path))
           (.mkdirs parent)
           (fcu/save resized out-path :quality 0.7 :progressive true)))
 
@@ -119,12 +161,17 @@
                 :lens {:filter [(glob "*.md")]
                        :remove [(fn [_] false)]}
                 :router [output-router (refiletyper "md" "html")]
-                :compiler (fn [path out-path] (->> path
-                                                   (pandoc "markdown" "html" true)
-                                                   ;;#(hic/as-hickory (hic/parse %))
-                                                   ;;(replace-thumb)
-                                                   ;;(hickory-to-html)
-                                                   (simple-writer out-path)))
+                :compiler (fn [path out-path]
+                            (->> path
+                                 (pandoc "markdown" "html" true)
+                                 (#(fc/page-raw :content [:hiccup/raw-html %]
+                                                :title "nyaa~"))
+                                 (#(hic/as-hickory (hic/parse %)))
+                                 ; This let may as well be considered "templateable post context".
+                                 (#(let [{:keys [frontmatter cleantree]} (generalized-frontmatter-extractor %)]
+                                    cleantree))
+                                 (hickory-to-html)
+                                 (simple-writer out-path)))
                 })
 (def image-core {:path "posts"
                  :lens {:filter [(glob "*.{png,jpg,webp,gif,bmp}")]
@@ -141,17 +188,37 @@
 
  (defn pipe [initial-data my-functions] ((apply comp my-functions) initial-data))
 
+(def sha-map (atom {}))
+
+(defn load-output-hashset []
+  (let [file-content (with-open [rdr (io/reader "./fungi.lock")]
+                       (edn/read (new java.io.PushbackReader rdr)))]
+    (reset! sha-map file-content)
+    (println "Loaded prior output hashset")
+    (print "Contents: ")
+    (pprint/pprint @sha-map)))
+
+(defn pipeline-hash [path]
+  (let [path-digest (digest/sha-256 (io/file path))]
+    path-digest))
+
 (defn pipeline-file [router compiler path]
-  (pprint/pprint router)
-  (pprint/pprint compiler)
-  (pprint/pprint path)
-  (let [out-path (pipe path router)]
-    (pprint/pprint (str "Pipeline for file " path " to " out-path))
-    (compiler path out-path)))
+  ; TODO: make this less inefficient?
+  (let [out-path (pipe path router)
+        current-path (.getAbsolutePath (io/file "./"))
+        relative-current (relative-path current-path path)
+        relative-out (relative-path current-path out-path)
+        path-hash (pipeline-hash path)]
+    (println (str "← " relative-current))
+    (println (str "→ " relative-out))
+    (swap! sha-map assoc relative-current path-hash)
+    (println (str "# " path-hash))
+    (let [result (compiler path out-path)]
+      (println)
+      (identity result))))
 
 (defn pipeline
   [core]
-  (pprint/pprint core)
   (let [{:keys [path compiler router]
          {filters :filter
           removes :remove} :lens
@@ -175,10 +242,22 @@
       )
     ))
 
+(defn commit-output-hashset []
+  (println "Committing output hashset")
+  (with-open [w (io/writer "./fungi.lock" :append false)]
+    (.write w (prn-str @sha-map))))
+
 (defn start-system
   []
+  (pprint/pprint (meta #'fc/page-raw))
+  (println "Loading prior output hashset")
+  (load-output-hashset)
+  (println "Starting operation")
   (let [cores [post-core image-core thumb-core]]
-    (mapv pipeline cores)))
+    (mapv pipeline cores))
+  (println "Finished operation")
+  (commit-output-hashset)
+  (shutdown-agents))
   ; (compile-markdowns)
   ; (let [system-so-far {::config (config/readProfile :dev)}
   ;       system-so-far (merge system-so-far {::cookie-store (start-cookie-store)})

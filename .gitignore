@@ -33,3 +33,4 @@
 /resources/public/assets/css/
 .clj-kondo/
 /output
+/fungi.lock

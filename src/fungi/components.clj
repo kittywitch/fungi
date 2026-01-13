@@ -47,6 +47,11 @@
                                (footer)
                                (htmz-frame)]])
 
+(defn page-raw [& {:keys [content title]
+               :or {title "dork.dev"}}]
+  (str (h/html {:allow-raw true} [:html (head title)
+                (body content)])))
+
 (defn page [& {:keys [content title]
                :or {title "dork.dev"}}]
   (str (h/html [:html (head title)

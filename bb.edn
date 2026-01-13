@@ -2,7 +2,6 @@
                     [babashka.fs :as fs])
 
          backend-run (do
-                        (println "Backend starting")
                        (clojure "-M -m fungi.main"))
 
          dev (run '-dev {:parallel true})
