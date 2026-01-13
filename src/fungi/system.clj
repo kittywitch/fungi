@@ -61,25 +61,6 @@
       (reduce #(rec-merge %1 %2) v vs)
       (last vs))))
 
-(defn is-thumb-already [filename]
-  (not (str/includes? filename ".thumd")))
-
-(defn select-thumbable
-  []
-  (hs/child (hs/tag :a) (hs/and (hs/tag :img)
-                                (hs/attr :src is-thumb-already)
-                                hs/first-child
-                                hs/last-child)))
-
-(defn rename-thumb [elem]
-  (let [{{filename :src} :attrs} elem]
-    (println filename)
-    (let [new-filename (str/replace filename "thumb" "thumd")]
-      (println new-filename)
-      (let [result (deep-merge elem {:attrs {:src new-filename}})]
-        (println result)
-        result))))
-
 (defn frontmatter-selector []
   (hs/child (hs/and (hs/tag :data)
                     (hs/id :frontmatter))))
@@ -104,11 +85,54 @@
      :frontmatter frontmatter}
     ))
 
-(defn replace-thumb [tree]
-  (hickory-update
-    (select-thumbable)
-    tree
-    #(zip/edit % rename-thumb)))
+(defn fungi-selector []
+  (hs/tag :fungi))
+
+(defn fungi-cleanup-selector []
+  (hs/tag :fungi-remove))
+
+(defn fungi-title [elem content]
+  (assoc elem :tag :h1 :content [content]))
+
+(defn fungi-date [elem content]
+  (assoc elem
+         :tag :time
+         :attrs {:datetime content}
+         :content [content]))
+
+(defn fungi-embedder [elem frontmatter]
+  (let [{{id :id} :attrs} elem
+        {content id} frontmatter
+        {func (keyword id)} {:date fungi-date
+            :title fungi-title}]
+  (println content)
+  (if content
+    (func elem content)
+    (assoc elem :tag :fungi-remove))))
+
+(defn fungi-title-setter [elem frontmatter]
+  (let [{title "title"} frontmatter]
+    (println title)
+    (if title
+      (assoc elem :content [title " - dork.dev"] :attrs {})
+      elem)))
+
+(defn fungi-replacer [frontmatter tree]
+  (let [embedded (hickory-update
+                   (fungi-selector)
+                   tree
+                   #(zip/edit % fungi-embedder frontmatter))
+        cleaned (hickory-update
+                  (fungi-cleanup-selector)
+                  embedded
+                  zip/remove
+                  )
+        with-title (hickory-update
+                     (hs/and (hs/tag :title)
+                             (hs/id :placeholder))
+                     cleaned
+                     #(zip/edit % fungi-title-setter frontmatter))] with-title))
+
 
 (defn output-router [filename]
   (str/replace filename "posts" "output"))
@@ -160,16 +184,17 @@
 (def post-core {:path "posts"
                 :lens {:filter [(glob "*.md")]
                        :remove [(fn [_] false)]}
+                :recalculate (fn [] true)
                 :router [output-router (refiletyper "md" "html")]
                 :compiler (fn [path out-path]
                             (->> path
                                  (pandoc "markdown" "html" true)
-                                 (#(fc/page-raw :content [:hiccup/raw-html %]
-                                                :title "nyaa~"))
+                                 (#(fc/blogpost :content [:hiccup/raw-html %]
+                                                :title "placeholder"))
                                  (#(hic/as-hickory (hic/parse %)))
                                  ; This let may as well be considered "templateable post context".
                                  (#(let [{:keys [frontmatter cleantree]} (generalized-frontmatter-extractor %)]
-                                    cleantree))
+                                    (fungi-replacer frontmatter cleantree)))
                                  (hickory-to-html)
                                  (simple-writer out-path)))
                 })

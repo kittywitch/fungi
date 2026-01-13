@@ -15,6 +15,16 @@
                   :href "/assets/css/main.css"}]
           [:title title]]])
 
+(defn head-placeholder
+  [title]
+  [:head [:meta {:name "viewport"
+                 :content "width=device-width, initial-scale=1"}
+          [:meta {:charset "UTF-8"}]
+          [:link {:rel "stylesheet"
+                  :type "text/css"
+                  :href "/assets/css/main.css"}]
+          [:title {:id "placeholder"} title]]])
+
 (defn header
   []
   [:header [:nav [:ul [:li [:h1 "dork.dev"]]]
@@ -46,6 +56,11 @@
                                (main content)
                                (footer)
                                (htmz-frame)]])
+
+(defn blogpost [& {:keys [content title]
+               :or {title "dork.dev"}}]
+  (str (h/html {:allow-raw true} [:html (head-placeholder title)
+                (body [:article content])])))
 
 (defn page-raw [& {:keys [content title]
                :or {title "dork.dev"}}]
