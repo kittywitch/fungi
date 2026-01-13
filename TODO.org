@@ -1,14 +1,14 @@
 * SSG Miscellanea
 - [ ] Sitemap
 - [ ] RSS Feed
-- [ ] Use frontmatter
-  - [ ] Retrieve from Pandoc using data#frontmatter selection
+- [x] Use frontmatter
+  - [x] Retrieve from Pandoc using data#frontmatter selection
 
 * Build system adjacent functionality
 - [ ] Dependency graphing
   - [ ] Figure out if this is necessary to have a blog post list
 - [ ] Incremental compilation
-  - [ ] Keep database of hashes of inputs
+  - [x] Keep database of hashes of inputs
   - [ ] Only regenerate output if input hash changes
 
 * Thumbnailing
@@ -17,14 +17,14 @@
 - [ ] Automatically create links for all img src= where the path is within the local filesystem
 
 * Compilation pipelining
-- [ ] Be preprocessor independent, support pandoc, asciidoc, commonmark, ...
-- [ ] Figure out pandoc / preprocessor -> template -> output pipelining
+- [x] Be preprocessor independent, support pandoc, asciidoc, commonmark, ...
+- [x] Figure out pandoc / preprocessor -> template -> output pipelining
 
 * HTML / Templates
 
 ** Huff (Hiccup)
 - [X] Write template functions for header, footer, main
-- [ ] Write template function for post embedding
+- [x] Write template function for post embedding
 
 ** Lucy (Emmet-like language for HTML)
 - [ ] Look into using either interparse or jasentaa for parsing

@@ -200,28 +200,27 @@
                                  (#(let [{:keys [frontmatter cleantree]} (generalized-frontmatter-extractor %)]
                                     (fungi-replacer frontmatter cleantree)))
                                  (hickory-to-html)
-                                 (simple-writer out-path)))
-                })
+                                 (simple-writer out-path)))})
+
 (def sass-core {:path "resources/scss/"
                 :lens {:filter [(glob "*.scss")]
                        :remove []}
                 :router [sass-router (refiletyper "scss" "css")]
-                :compiler (fn [path out-path] (sass path out-path))
-                })
+                :compiler (fn [path out-path] (sass path out-path))})
+
 (def image-core {:path "posts"
                  :lens {:filter [(glob "*.{png,jpg,webp,gif,bmp}")]
                         :remove [(glob "*.thumb.*")]}
                  :router [output-router]
-                 :compiler (fn [path out-path] (copy-file-compiler path out-path))
-                 })
+                 :compiler (fn [path out-path] (copy-file-compiler path out-path))})
+
 (def thumb-core {:path "posts"
                  :lens {:filter [(glob "*.{png,jpg,webp,gif,bmp}")]
                         :remove [(glob "*.thumb.*") thumb-exists]}
                  :router [output-router add-thumb-to-filename]
-                 :compiler (fn [path out-path] (create-thumbnail path out-path))
-                 })
-
- (defn pipe [initial-data my-functions] ((apply comp my-functions) initial-data))
+                 :compiler (fn [path out-path] (create-thumbnail path out-path))})
+ 
+(defn pipe [initial-data my-functions] ((apply comp my-functions) initial-data))
 
 (def sha-map (atom {}))
 
