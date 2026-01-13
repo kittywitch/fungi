@@ -31,6 +31,9 @@
                              data
                              :dir "/home/kat/src/fungi")] out))
 
+(defn sass [in out]
+  (shell/sh "sass" (str in ":" out)))
+
 ; https://stackoverflow.com/questions/26170493/function-that-gives-the-relative-path-in-clojure
 (defn relative-path
   [a b]
@@ -105,14 +108,12 @@
         {content id} frontmatter
         {func (keyword id)} {:date fungi-date
             :title fungi-title}]
-  (println content)
   (if content
     (func elem content)
     (assoc elem :tag :fungi-remove))))
 
 (defn fungi-title-setter [elem frontmatter]
   (let [{title "title"} frontmatter]
-    (println title)
     (if title
       (assoc elem :content [title " - dork.dev"] :attrs {})
       elem)))
@@ -135,7 +136,7 @@
 
 
 (defn output-router [filename]
-  (str/replace filename "posts" "output"))
+  (str/replace filename "posts" "output/posts"))
 
 (defn simple-writer [out-path data]
   (let [parent (.getParentFile (io/as-file out-path))]
@@ -176,10 +177,13 @@
     (io/copy file out-file)))
 
 (defn refiletyper [from to]
-  (fn [file] (str/replace file from to)))
+  (fn [file] (str/replace file (re-pattern (str "(\\." from ")$")) (str "." to))))
 
 (defn glob [criteria]
    (fn [path] (.matches (glob-matcher criteria) (.getFileName (.toPath path)))))
+
+(defn sass-router [filename]
+  (str/replace filename "resources/scss" "output/assets/css"))
 
 (def post-core {:path "posts"
                 :lens {:filter [(glob "*.md")]
@@ -197,6 +201,12 @@
                                     (fungi-replacer frontmatter cleantree)))
                                  (hickory-to-html)
                                  (simple-writer out-path)))
+                })
+(def sass-core {:path "resources/scss/"
+                :lens {:filter [(glob "*.scss")]
+                       :remove [(glob "*.sass")]}
+                :router [sass-router (refiletyper "scss" "css")]
+                :compiler (fn [path out-path] (sass path out-path))
                 })
 (def image-core {:path "posts"
                  :lens {:filter [(glob "*.{png,jpg,webp,gif,bmp}")]
@@ -278,7 +288,7 @@
   (println "Loading prior output hashset")
   (load-output-hashset)
   (println "Starting operation")
-  (let [cores [post-core image-core thumb-core]]
+  (let [cores [post-core sass-core image-core thumb-core]]
     (mapv pipeline cores))
   (println "Finished operation")
   (commit-output-hashset)
