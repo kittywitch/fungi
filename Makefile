@@ -18,11 +18,3 @@ format:
 
 lint:
 	clojure -M:lint -m clj-kondo.main --lint .
-
-dbinit:
-	createuser -d fungi
-	postgres -h "localhost" -k "${PGHOST}" -c "CREATE DATABASE fungi WITH OWNER = fungi;"
-
-dbrun:
-	postgres -h "localhost" -k "${PGHOST}"
-# end

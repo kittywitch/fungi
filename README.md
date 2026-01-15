@@ -1,5 +1,10 @@
-# fungi
+# 草地 (くさち / Kusachi)
 
-* https://caveman.mccue.dev/tutorial/clojure/16_set_up_database_migrations
-* https://github.com/dharrigan/startrek/tree/master
-* https://github.com/weavejester/ragtime
+A Hakyll-inspired Clojure static site generator, written with maintainability for the end user in mind.
+
+```
+# Currently, to run the project:
+bb dev
+```
+
+See [TODO.md](./TODO.md) for remaining work.

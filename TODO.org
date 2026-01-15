@@ -3,10 +3,13 @@
 - [ ] RSS Feed
 - [x] Use frontmatter
   - [x] Retrieve from Pandoc using data#frontmatter selection
+- [x] Post list on index page
 
-* Build system adjacent functionality
-- [ ] Dependency graphing
-  - [ ] Figure out if this is necessary to have a blog post list
+* Quality of Life
+- [ ] Web server
+- [ ] Hot reloading with livereload websocket (self-refer to Gleam project)
+
+* Optimization
 - [ ] Incremental compilation
   - [x] Keep database of hashes of inputs
   - [ ] Only regenerate output if input hash changes

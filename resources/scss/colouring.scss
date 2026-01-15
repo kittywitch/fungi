@@ -11,8 +11,8 @@ $themes: (
     border: #333,
     code: #eee,
     heading: #111,
-    a-link: #16b1bd,
-    a-hover: #37DCE8,
+    //a-link: #16b1bd,
+    a-link: #37DCE8,
     a-visited: #3784e8,
     lightness: -5%,
   ),
@@ -22,8 +22,8 @@ $themes: (
     border: #ddd,
     code: #282828,
     heading: #eee,
-    a-link: #16b1bd,
-    a-hover: #37DCE8,
+    //a-link: #16b1bd,
+    a-link: #37DCE8,
     a-visited: #3784e8,
     lightness: 5%,
   )
@@ -37,25 +37,27 @@ $themes: (
 }
 
 @mixin link_state($name, $theme: $theme) {
-  $color: theme-get("a-#{$name}", $theme);
+  $color: theme-get("a-link", $theme);
   @if $name == "link" {
     a, a:#{$name} {
-      color: $color;
+      color: theme-get("fg", $theme);
+      border-bottom: 2px solid $color;
     }
   }
   @else {
     a:#{$name} {
-      color: $color;
+      color: theme-get("fg", $theme);
       @if $name == "hover" {
-        border-bottom-color: $color;
+        background-color: $color;
+        border-bottom: 2px solid $color;
       }
     }
   }
   a:#{$name} {
     @include utility.headings {
-      color: $color;
+      color: theme-get("fg", $theme);
       @if $name == "hover" {
-        border-bottom-color: $color;
+        border-bottom: 2px solid $color;
       }
     }
   }
@@ -64,7 +66,7 @@ $themes: (
 @mixin set-colors($theme: $theme) {
   color: theme-get(fg, $theme);
   background: color.scale(theme-get(bg, $theme), $lightness: theme-get(lightness, $theme));
-  body {
+  body, main, footer, header {
     background: theme-get(bg, $theme);
   }
   @include utility.headings {

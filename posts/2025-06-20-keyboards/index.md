@@ -37,4 +37,4 @@ Keycaps are KAT Cyberspace.
 
 I spent an awful lot of time debugging issues that were fundamentally my own fault for following the build guide wrong in one way or another, but I feel like it turned out very pretty.
 
-[![Sofle RGB](sofle-rgb-finished.jpg)]
+[![Sofle RGB](sofle-rgb-finished.thumb.jpg)](sofle-rgb-finished.jpg)

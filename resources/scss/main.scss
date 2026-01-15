@@ -18,6 +18,26 @@ header nav {
     padding: unset;
   };
 
+  .logo {
+    vertical-align: middle;
+    a {
+      border-bottom: initial;
+      &:hover {
+        background-color: initial;
+      }
+    }
+    img, h1 {
+      display: inline-block;
+    }
+    img {
+      &:hover {
+        animation: logo-bouncy 1s steps(300) infinite;
+        animation-timing-function: cubic-bezier(0,.75,1,.50);
+        animation-direction: alternate;
+      }
+      height: 5rem;
+    }
+  }
   ul {
     margin: unset;
     padding: unset;
@@ -44,8 +64,6 @@ a:hover {
 body > header, body > main, body > footer,
 .phx-connected > header, .phx-connected > main, .phx-connected > footer {
   padding: .5rem;
-
-  border: 1px #000 dashed;
 }
 
 .icon {
@@ -149,4 +167,10 @@ form.table fieldset {
     .cell, label, input {
         display: table-cell;
     }
+}
+
+@keyframes logo-bouncy {
+    0% { transform: rotate(20deg); padding-bottom: 0px; }
+    50% { transform: rotate(0deg); padding-bottom: 10px; }
+    100% { transform: rotate(-20deg); padding-bottom: 0px; }
 }

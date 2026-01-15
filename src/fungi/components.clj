@@ -14,7 +14,7 @@
           [:meta {:charset "UTF-8"}]
           [:link {:rel "stylesheet"
                   :type "text/css"
-                  :href "/assets/css/main.css"}]
+                  :href "/home/kat/src/fungi/output/assets/css/main.css"}]
           [:title title]]])
 
 (defn head-placeholder
@@ -24,20 +24,21 @@
           [:meta {:charset "UTF-8"}]
           [:link {:rel "stylesheet"
                   :type "text/css"
-                  :href "/assets/css/main.css"}]
+                  :href "/home/kat/src/fungi/output/assets/css/main.css"}]
           [:title {:id "placeholder"} title]]])
 
 (defn header
   []
-  [:header [:nav [:ul [:li [:h1 "dork.dev"]]]
+  [:header [:nav [:ul [:li {:class "logo"} (link [:img {:src "/home/kat/src/fungi/output/assets/img/logo.svg"}] "/")]]
             [:ul [:li (link "Home" "/")
-                  [:li (link "Blog" "/blog")]
                   [:li (link "External" "/external")]
-                  [:li (link "Login" "/login")]]]]])
+                  ]]]])
 
 (defn footer
   []
-  [:footer [:span "Written with "
+  [:footer [:span "Written with " (link [:ruby [:rb "草"] [:rt "くさ"]
+                                        [ :rb "地"] [:rt "ち"]
+                                        [:rp "くさち"]] "https://github.com/kittywitch/kusachi")" using "
             [:a {:href "https://clojure.org/"} "Clojure"]
             " in Canada! 🇨🇦"]])
 
@@ -60,15 +61,14 @@
                                (htmz-frame)]])
 
 (defn postlist [posts]
-  (str (h/html {:allow-raw true} [:html (head "dork.dev")
-                                 (body [:nav [:ul [:<> (map (fn [[path {:strs [title date]}]]
-                                                              [:li (link (str title " - " date) (str/replace path "output/" ""))
-                                                               ]
-                                                              ) posts
-                                                                 )
-                                                                 ]]])]
-                                                   )
-                                                   ))
+  (str (h/html
+         {:allow-raw true}
+         [:html (head "dork.dev")
+          (body [:nav [:h1 "Posts"]
+                 [:ul [:<> (map (fn [[path {:strs [title date]}]]
+                                       [:li (link (str title (when date (str " - " date)))
+                                                  (str/replace path "output/" ""))]
+                                       ) posts)]]])])))
 
 (defn blogpost [& {:keys [content title]
                :or {title "dork.dev"}}]

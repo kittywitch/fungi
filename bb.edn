@@ -1,11 +1,8 @@
 {:tasks {:requires ([babashka.process :refer [shell process exec]]
                     [babashka.fs :as fs])
 
-         backend-run (do
+         dev (do
                        (clojure "-M -m fungi.main"))
-
-         dev (run '-dev {:parallel true})
-         -dev {:depends [postgres-run sass-watch backend-run]}
 
          dev:nrepl (do (clojure "-M:dev -m fungi.nrepl"))
 
@@ -15,19 +12,4 @@
          format-fix (do (clojure "-M:format -m cljfmt.main fix ."))
          lint (do (clojure "-M:lint -m clj-kondo.main --lint ."))
          outdated (do (clojure "-M:outdated"))
-
-         ;; Service dependencies
-
-         postgres-init (do
-                         (process "createuser" "-d" "fungi")
-                         (process
-                          "postgres" "-h" "localhost" "-k" (System/getenv "PGHOST")
-                          "-c" "CREATE DATABASE fungi WITH OWNER = fungi;"))
-
-         postgres-run (do
-                         (println "Database starting")
-                        (process {:inherit true} "postgres" "-h" "localhost" "-k" (System/getenv "PGHOST")))
-
-            sass-watch (do
-                         (println "Starting to watch for SCSS"
-                            (process {:inherit true} "sass" "-w" "resources/scss/:resources/public/assets/css")))}}
+}}
