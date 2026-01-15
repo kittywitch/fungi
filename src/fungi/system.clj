@@ -185,6 +185,8 @@
 (defn sass-router [filename]
   (str/replace filename "resources/scss" "output/assets/css"))
 
+(def post-map (atom {}))
+
 (def post-core {:path "posts"
                 :lens {:filter [(glob "*.md")]
                        :remove []}
@@ -197,7 +199,11 @@
                                                 :title "placeholder"))
                                  (#(hic/as-hickory (hic/parse %)))
                                  ; This let may as well be considered "templateable post context".
-                                 (#(let [{:keys [frontmatter cleantree]} (generalized-frontmatter-extractor %)]
+                                 (#(let [{:keys [frontmatter cleantree]} (generalized-frontmatter-extractor %)
+                                         current-path (.getAbsolutePath (io/file "./"))
+                                         relative-out (relative-path current-path out-path)
+                                         ]
+                                     (swap! post-map assoc relative-out frontmatter)
                                     (fungi-replacer frontmatter cleantree)))
                                  (hickory-to-html)
                                  (simple-writer out-path)))})
@@ -219,7 +225,13 @@
                         :remove [(glob "*.thumb.*") thumb-exists]}
                  :router [output-router add-thumb-to-filename]
                  :compiler (fn [path out-path] (create-thumbnail path out-path))})
- 
+
+(defn generate-index []
+  (println "Generating index page")
+  (let [posts (fc/postlist @post-map)
+        file (simple-writer "output/index.html" posts)]
+    file))
+
 (defn pipe [initial-data my-functions] ((apply comp my-functions) initial-data))
 
 (def sha-map (atom {}))
@@ -272,6 +284,7 @@
          (#(if (> (count filters) 0) (filter filterer %) %))
          (#(if (> (count removes) 0) (remove remover %) %))
          (mapv #(.getAbsolutePath %))
+         (sort)
          (mapv (partial pipeline-file router compiler))
       )
     ))
@@ -289,8 +302,11 @@
   (println "Starting operation")
   (let [cores [post-core sass-core image-core thumb-core]]
     (mapv pipeline cores))
+  (generate-index)
   (println "Finished operation")
   (commit-output-hashset)
+  (println "Post map")
+  (pprint/pprint @post-map)
   (shutdown-agents))
   ; (compile-markdowns)
   ; (let [system-so-far {::config (config/readProfile :dev)}

@@ -1,5 +1,7 @@
 (ns fungi.components
-  (:require [huff2.core :as h]))
+  (:require [huff2.core :as h]
+            [clojure.string :as str]
+            ))
 
 (defn link
   [text url]
@@ -56,6 +58,17 @@
                                (main content)
                                (footer)
                                (htmz-frame)]])
+
+(defn postlist [posts]
+  (str (h/html {:allow-raw true} [:html (head "dork.dev")
+                                 (body [:nav [:ul [:<> (map (fn [[path {:strs [title date]}]]
+                                                              [:li (link (str title " - " date) (str/replace path "output/" ""))
+                                                               ]
+                                                              ) posts
+                                                                 )
+                                                                 ]]])]
+                                                   )
+                                                   ))
 
 (defn blogpost [& {:keys [content title]
                :or {title "dork.dev"}}]
