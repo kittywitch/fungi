@@ -2,11 +2,7 @@
   (:require [clojure.pprint :as pprint]
             [clojure.java.io :as io]
             [clojure.string :as str]
-            [clojure.java.shell :as shell]
-            [clojure.zip :as zip]
-            [hickory.zip :as hz]
             [hickory.core :as hic]
-            [hickory.select :as hs]
             [hickory.render :refer [hickory-to-html]]
             [fivetonine.collage.util :as fcu]
             [fivetonine.collage.core :as fcc]
@@ -14,101 +10,8 @@
             [fungi.core :as fc]
             [fungi.preprocessor :as fp]
             [fungi.routing :as fr]
-            [cheshire.core :as ch]))
+            [fungi.frontmatter :as fm]))
 
-
-(defn sass [in out]
-  (shell/sh "sass" (str in ":" out)))
-
-; https://github.com/clj-commons/hickory/issues/41#issuecomment-383893434
-(defn hickory-update [selector-fn hickory-tree zip-fn]
-  (loop [zip (hz/hickory-zip hickory-tree)
-         next (hs/select-next-loc selector-fn zip)]
-    (if next
-      (let [new-zip (zip-fn next)]
-        (recur new-zip (hs/select-next-loc selector-fn new-zip)))
-      (zip/root zip))))
-
-; https://clojuredocs.org/clojure.core/merge#example-5b80849ee4b00ac801ed9e75
-; Currently unused, but very useful when merging hickory trees
-(defn deep-merge [v & vs]
-  (letfn [(rec-merge [v1 v2]
-            (if (and (map? v1) (map? v2))
-              (merge-with deep-merge v1 v2)
-              v2))]
-    (if (some identity vs)
-      (reduce #(rec-merge %1 %2) v vs)
-      (last vs))))
-
-(defn frontmatter-selector []
-  (hs/child (hs/and (hs/tag :data)
-                    (hs/id :frontmatter))))
-
-(defn frontmatter-decode [elem]
-  (let [[elem-delisted] elem
-        {:keys [content]} elem-delisted
-        [content-delisted] content
-        data (ch/parse-string content-delisted)]
-    (print "Frontmatter: ")
-    (pprint/pprint data)
-    (identity data)))
-
-(defn generalized-frontmatter-extractor [tree]
-  (let [frontmatter-elem (hs/select (frontmatter-selector) tree)
-        frontmatter (frontmatter-decode frontmatter-elem)
-        clean-tree (hickory-update
-                     (frontmatter-selector)
-                     tree
-                     zip/remove)]
-    {:cleantree clean-tree
-     :frontmatter frontmatter}
-    ))
-
-(defn fungi-selector []
-  (hs/tag :fungi))
-
-(defn fungi-cleanup-selector []
-  (hs/tag :fungi-remove))
-
-(defn fungi-title [elem content]
-  (assoc elem :tag :h1 :content [content]))
-
-(defn fungi-date [elem content]
-  (assoc elem
-         :tag :time
-         :attrs {:datetime content}
-         :content [content]))
-
-(defn fungi-embedder [elem frontmatter]
-  (let [{{id :id} :attrs} elem
-        {content id} frontmatter
-        {func (keyword id)} {:date fungi-date
-            :title fungi-title}]
-  (if content
-    (func elem content)
-    (assoc elem :tag :fungi-remove))))
-
-(defn fungi-title-setter [elem frontmatter]
-  (let [{title "title"} frontmatter]
-    (if title
-      (assoc elem :content [title " - dork.dev"] :attrs {})
-      elem)))
-
-(defn fungi-replacer [frontmatter tree]
-  (let [embedded (hickory-update
-                   (fungi-selector)
-                   tree
-                   #(zip/edit % fungi-embedder frontmatter))
-        cleaned (hickory-update
-                  (fungi-cleanup-selector)
-                  embedded
-                  zip/remove
-                  )
-        with-title (hickory-update
-                     (hs/and (hs/tag :title)
-                             (hs/id :placeholder))
-                     cleaned
-                     #(zip/edit % fungi-title-setter frontmatter))] with-title))
 
 
 (defn simple-writer [out-path data]
@@ -165,12 +68,12 @@
                                                 :title "placeholder"))
                                  (#(hic/as-hickory (hic/parse %)))
                                  ; This let may as well be considered "templateable post context".
-                                 (#(let [{:keys [frontmatter cleantree]} (generalized-frontmatter-extractor %)
+                                 (#(let [{:keys [frontmatter cleantree]} (fm/frontmatter-extractor %)
                                          current-path (.getAbsolutePath (io/file "./"))
                                          relative-out (fr/relative-path current-path out-path)
                                          ]
                                      (swap! post-map assoc relative-out frontmatter)
-                                     (fungi-replacer frontmatter cleantree)))
+                                     (fm/fungi-replacer frontmatter cleantree)))
                                  (hickory-to-html)
                                  (simple-writer out-path)))})
 
@@ -192,7 +95,7 @@
                 :lens {:filter [(glob "*.scss")]
                        :remove []}
                 :router [resource-router scss-router (fr/refiletyper "scss" "css")]
-                :compiler (fn [path out-path] (sass path out-path))})
+                :compiler (fn [path out-path] (fp/sass path out-path))})
 
 ; Images from posts
 
@@ -213,7 +116,6 @@
   (let [posts (fco/postlist @post-map)
         file (simple-writer "output/index.html" posts)]
     file))
-
 
 (def sha-map (atom {}))
 

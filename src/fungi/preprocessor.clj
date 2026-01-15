@@ -10,3 +10,6 @@
                              (when toc "--table-of-contents=true") "--template=pandoc-template.html"
                              data
                              :dir (io/as-file "."))] out))
+
+(defn sass [in out]
+  (shell/sh "sass" (str in ":" out)))
