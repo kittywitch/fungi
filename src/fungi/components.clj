@@ -1,7 +1,6 @@
 (ns fungi.components
-  (:require [huff2.core :as h]
-            [clojure.string :as str]
-            ))
+  (:require [clojure.string :as str]
+            [huff2.core :as h]))
 
 (defn link
   [text url]
@@ -31,14 +30,13 @@
   []
   [:header [:nav [:ul [:li {:class "logo"} (link [:img {:src "/home/kat/src/fungi/output/assets/img/logo.svg"}] "/")]]
             [:ul [:li (link "Home" "/")
-                  [:li (link "External" "/external")]
-                  ]]]])
+                  [:li (link "External" "/external")]]]]])
 
 (defn footer
   []
   [:footer [:span "Written with " (link [:ruby [:rb "草"] [:rt "くさ"]
-                                        [ :rb "地"] [:rt "ち"]
-                                        [:rp "くさち"]] "https://github.com/kittywitch/kusachi")" using "
+                                         [:rb "地"] [:rt "ち"]
+                                         [:rp "くさち"]] "https://github.com/kittywitch/kusachi") " using "
             [:a {:href "https://clojure.org/"} "Clojure"]
             " in Canada! 🇨🇦"]])
 
@@ -62,23 +60,22 @@
 
 (defn postlist [posts]
   (str (h/html
-         {:allow-raw true}
-         [:html (head "dork.dev")
-          (body [:nav [:h1 "Posts"]
-                 [:ul [:<> (map (fn [[path {:strs [title date]}]]
-                                       [:li (link (str title (when date (str " - " date)))
-                                                  (str/replace path "output/" ""))]
-                                       ) posts)]]])])))
+        {:allow-raw true}
+        [:html (head "dork.dev")
+         (body [:nav [:h1 "Posts"]
+                [:ul [:<> (map (fn [[path {:strs [title date]}]]
+                                 [:li (link (str title (when date (str " - " date)))
+                                            (str/replace path "output/" ""))]) posts)]]])])))
 
 (defn blogpost [& {:keys [content title]
-               :or {title "dork.dev"}}]
+                   :or {title "dork.dev"}}]
   (str (h/html {:allow-raw true} [:html (head-placeholder title)
-                (body [:article content])])))
+                                  (body [:article content])])))
 
 (defn page-raw [& {:keys [content title]
-               :or {title "dork.dev"}}]
+                   :or {title "dork.dev"}}]
   (str (h/html {:allow-raw true} [:html (head title)
-                (body content)])))
+                                  (body content)])))
 
 (defn page [& {:keys [content title]
                :or {title "dork.dev"}}]

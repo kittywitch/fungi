@@ -1,9 +1,9 @@
 (ns fungi.frontmatter
-  (:require [clojure.zip :as zip]
+  (:require [cheshire.core :as ch]
             [clojure.pprint :as pprint]
-            [hickory.select :as hs]
+            [clojure.zip :as zip]
             [fungi.hickory :as fh]
-            [cheshire.core :as ch]))
+            [hickory.select :as hs]))
 
 (defn frontmatter-selector []
   (hs/child (hs/and (hs/tag :data)
@@ -22,12 +22,11 @@
   (let [frontmatter-elem (hs/select (frontmatter-selector) tree)
         frontmatter (frontmatter-decode frontmatter-elem)
         clean-tree (fh/hickory-update
-                     (frontmatter-selector)
-                     tree
-                     zip/remove)]
+                    (frontmatter-selector)
+                    tree
+                    zip/remove)]
     {:cleantree clean-tree
-     :frontmatter frontmatter}
-    ))
+     :frontmatter frontmatter}))
 
 (defn fungi-selector []
   (hs/tag :fungi))
@@ -48,10 +47,10 @@
   (let [{{id :id} :attrs} elem
         {content id} frontmatter
         {func (keyword id)} {:date fungi-date
-            :title fungi-title}]
-  (if content
-    (func elem content)
-    (assoc elem :tag :fungi-remove))))
+                             :title fungi-title}]
+    (if content
+      (func elem content)
+      (assoc elem :tag :fungi-remove))))
 
 (defn fungi-title-setter [elem frontmatter]
   (let [{title "title"} frontmatter]
@@ -61,16 +60,15 @@
 
 (defn fungi-replacer [frontmatter tree]
   (let [embedded (fh/hickory-update
-                   (fungi-selector)
-                   tree
-                   #(zip/edit % fungi-embedder frontmatter))
+                  (fungi-selector)
+                  tree
+                  #(zip/edit % fungi-embedder frontmatter))
         cleaned (fh/hickory-update
-                  (fungi-cleanup-selector)
-                  embedded
-                  zip/remove
-                  )
+                 (fungi-cleanup-selector)
+                 embedded
+                 zip/remove)
         with-title (fh/hickory-update
-                     (hs/and (hs/tag :title)
-                             (hs/id :placeholder))
-                     cleaned
-                     #(zip/edit % fungi-title-setter frontmatter))] with-title))
+                    (hs/and (hs/tag :title)
+                            (hs/id :placeholder))
+                    cleaned
+                    #(zip/edit % fungi-title-setter frontmatter))] with-title))

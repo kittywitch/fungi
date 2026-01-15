@@ -1,6 +1,6 @@
 (ns fungi.routing
-  (:require [clojure.string :as str]
-            [clojure.java.io :as io]))
+  (:require [clojure.java.io :as io]
+            [clojure.string :as str]))
 
 ; https://stackoverflow.com/questions/26170493/function-that-gives-the-relative-path-in-clojure
 (defn relative-path

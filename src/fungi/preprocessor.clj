@@ -1,6 +1,6 @@
 (ns fungi.preprocessor
-  (:require [clojure.java.shell :as shell]
-            [clojure.java.io :as io]))
+  (:require [clojure.java.io :as io]
+            [clojure.java.shell :as shell]))
 
 (defn pandoc
   [from to toc data]

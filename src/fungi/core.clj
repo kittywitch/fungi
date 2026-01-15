@@ -1,11 +1,9 @@
 (ns fungi.core
   (:require [clj-commons.digest :as digest]
-            [fungi.routing :as fr]
-            [clojure.java.io :as io]
             [clojure.edn :as edn]
-            [clojure.pprint :as pprint]))
-
-
+            [clojure.java.io :as io]
+            [clojure.pprint :as pprint]
+            [fungi.routing :as fr]))
 
 (defn pipe [initial-data my-functions] ((apply comp my-functions) initial-data))
 
@@ -33,13 +31,10 @@
   (let [{:keys [path compiler router]
          {filters :filter
           removes :remove} :lens
-         :or {
-              filters []
+         :or {filters []
               removes []
               compiler (fn [])
-              router [fr/output-router]
-          }
-         } core
+              router [fr/output-router]}} core
         filterer (when (> (count filters) 0) (apply every-pred filters))
         remover (when (> (count removes) 0) (apply some-fn removes))]
     (->> path
@@ -51,10 +46,7 @@
          (mapv #(.getAbsolutePath %))
          (sort)
          (reverse)
-         (mapv (partial pipeline-file sha-map router compiler))
-      )
-    ))
-
+         (mapv (partial pipeline-file sha-map router compiler)))))
 
 (defn load-output-hashset [sha-map]
   (let [file-content (with-open [rdr (io/reader "./fungi.lock")]
@@ -63,7 +55,6 @@
     (println "Loaded prior output hashset")
     (print "Contents: ")
     (pprint/pprint @sha-map)))
-
 
 (defn commit-output-hashset [sha-map]
   (println "Committing output hashset")

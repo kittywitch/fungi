@@ -1,18 +1,16 @@
 (ns fungi.main
-  (:require [clojure.pprint :as pprint]
-            [clojure.java.io :as io]
+  (:require [clojure.java.io :as io]
+            [clojure.pprint :as pprint]
             [clojure.string :as str]
-            [hickory.core :as hic]
-            [hickory.render :refer [hickory-to-html]]
-            [fivetonine.collage.util :as fcu]
             [fivetonine.collage.core :as fcc]
+            [fivetonine.collage.util :as fcu]
             [fungi.components :as fco]
             [fungi.core :as fc]
+            [fungi.frontmatter :as fm]
             [fungi.preprocessor :as fp]
             [fungi.routing :as fr]
-            [fungi.frontmatter :as fm]))
-
-
+            [hickory.core :as hic]
+            [hickory.render :refer [hickory-to-html]]))
 
 (defn simple-writer [out-path data]
   (let [parent (.getParentFile (io/as-file out-path))]
@@ -32,17 +30,16 @@
   (let [image (fcu/load-image path)
         resized (fcc/resize image :width 600)
         parent (.getParentFile (io/as-file out-path))]
-          (.mkdirs parent)
-          (fcu/save resized out-path :quality 0.7 :progressive true)))
-
+    (.mkdirs parent)
+    (fcu/save resized out-path :quality 0.7 :progressive true)))
 
 (defn glob-criteria [criteria]
   (str "glob:" criteria))
 
 (defn glob-matcher [criteria]
   (.getPathMatcher
-    (java.nio.file.FileSystems/getDefault)
-    (glob-criteria criteria)))
+   (java.nio.file.FileSystems/getDefault)
+   (glob-criteria criteria)))
 
 (defn copy-file-compiler [path out-path]
   (let [file (io/as-file path)
@@ -52,7 +49,7 @@
     (io/copy file out-file)))
 
 (defn glob [criteria]
-   (fn [path] (.matches (glob-matcher criteria) (.getFileName (.toPath path)))))
+  (fn [path] (.matches (glob-matcher criteria) (.getFileName (.toPath path)))))
 
 (def post-map (atom {}))
 
@@ -65,13 +62,12 @@
                             (->> path
                                  (fp/pandoc "markdown" "html" true)
                                  (#(fco/blogpost :content [:hiccup/raw-html %]
-                                                :title "placeholder"))
+                                                 :title "placeholder"))
                                  (#(hic/as-hickory (hic/parse %)))
                                  ; This let may as well be considered "templateable post context".
                                  (#(let [{:keys [frontmatter cleantree]} (fm/frontmatter-extractor %)
                                          current-path (.getAbsolutePath (io/file "./"))
-                                         relative-out (fr/relative-path current-path out-path)
-                                         ]
+                                         relative-out (fr/relative-path current-path out-path)]
                                      (swap! post-map assoc relative-out frontmatter)
                                      (fm/fungi-replacer frontmatter cleantree)))
                                  (hickory-to-html)
@@ -84,7 +80,7 @@
 
 (def logo-core {:path "resources/img"
                 :lens {:filter [(glob "*.svg")]
-                      :remove []}
+                       :remove []}
                 :router [resource-router]
                 :compiler (fn [path out-path] (copy-file-compiler path out-path))})
 
