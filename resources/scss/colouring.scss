@@ -10,8 +10,9 @@ $themes: (
     fg: #333,
     border: #333,
     code: #eee,
+    bodyfuzz: #ccc,
     heading: #111,
-    //a-link: #16b1bd,
+    a-hover: #16b1bd,
     a-link: #37DCE8,
     a-visited: #3784e8,
     lightness: -5%,
@@ -21,8 +22,9 @@ $themes: (
     fg: #ddd,
     border: #ddd,
     code: #282828,
+    bodyfuzz: #505050,
     heading: #eee,
-    //a-link: #16b1bd,
+    a-hover: #16b1bd,
     a-link: #37DCE8,
     a-visited: #3784e8,
     lightness: 5%,
@@ -63,26 +65,51 @@ $themes: (
   }
 }
 
+hr {
+  border: none;
+  border-top: 3px double transparent;
+  overflow: visible;
+  text-align: center;
+  height: 5px;
+}
+
+hr::after {
+  content: "✩";
+  padding: 0 4px;
+  position: relative;
+  top: -15px;
+}
+
+
 @mixin set-colors($theme: $theme) {
   color: theme-get(fg, $theme);
   background: color.scale(theme-get(bg, $theme), $lightness: theme-get(lightness, $theme));
   body, main, footer, header {
     background: theme-get(bg, $theme);
   }
+
+  hr {
+    color: theme-get(border, $theme);
+    border-top-color: theme-get(border, $theme);
+    &::after {
+      background: theme-get(bg, $theme);
+      color: theme-get(fg, $theme);
+    }
+  }
+
+  body div.body-wrapper {
+    box-shadow: theme-get(bodyfuzz, $theme) 0rem 0rem 1rem 1rem;
+  }
   @include utility.headings {
     color: theme-get(heading, $theme);
   }
-  code {
+  /*pre {
     background: theme-get(code, $theme);
     border-color: theme-get(border, $theme);
-  }
+  }*/
   $link_states: "link", "visited", "hover";
   @each $name in $link_states {
     @include link_state($name, $theme);
-  }
-
-  a:hover:has(img) img {
-    border-color: theme-get(a-hover, $theme);
   }
 }
 

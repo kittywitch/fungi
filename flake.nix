@@ -17,6 +17,7 @@
           pandoc
           leiningen
           postgresql
+          cargo
         ];
         shellHook = ''
     set -e

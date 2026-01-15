@@ -5,6 +5,7 @@
 @use "sticky-footer";
 @use "container";
 @use "typography";
+@use "code";
 @use "colouring";
 
 header nav {
@@ -30,6 +31,7 @@ header nav {
       display: inline-block;
     }
     img {
+      filter: drop-shadow(colouring.theme-get("bodyfuzz", colouring.$theme) 0rem 0rem .2rem);
       &:hover {
         animation: logo-bouncy 1s steps(300) infinite;
         animation-timing-function: cubic-bezier(0,.75,1,.50);
@@ -50,6 +52,12 @@ header nav {
   }
 }
 
+dl#frontmatter {
+  dt {
+    margin-left: 1rem;
+  }
+}
+
 a {
   text-decoration: none;
   @include utility.headings {
@@ -57,12 +65,37 @@ a {
   }
 }
 
-a:hover {
-  text-decoration: underline;
+blockquote {
+  border-left: .5rem solid colouring.theme-get("border", colouring.$theme);
+  padding: .25rem 1rem;
+  margin: .5rem;
+}
+
+aside {
+  box-shadow: inset 5px 0 5px -5px colouring.theme-get(fg, colouring.$theme);
+  padding: .25rem 1rem;
+  margin: 1rem;
+}
+
+cite::before {
+  content: "—"
+}
+
+ul#tags {
+  li {
+    margin-left: .1rem;
+  }
+}
+
+ul.inline-list {
+  display: inline-block;
+  margin: unset;
+  padding: unset;
+  list-style-type: none;
 }
 
 body > header, body > main, body > footer,
-.phx-connected > header, .phx-connected > main, .phx-connected > footer {
+.body-wrapper > header, .body-wrapper > main, .body-wrapper > footer {
   padding: .5rem;
 }
 
@@ -128,6 +161,24 @@ button:hover {
   border: none;
 }
 
+main {
+  a:has(img) {
+    img {
+      display: block;
+      margin: 0 auto;
+      border-bottom: 4px solid colouring.theme-get("a-link", colouring.$theme);
+    }
+  }
+  a:has(img) + a:has(img) {
+    img {
+      margin-top: 1rem;
+    }
+  }
+  a:has(img):hover img {
+    border-bottom: 4px solid colouring.theme-get("a-hover", colouring.$theme);
+  }
+}
+
 dialog.one-line {
   display: flex;
   align-items: center;
@@ -167,6 +218,10 @@ form.table fieldset {
     .cell, label, input {
         display: table-cell;
     }
+}
+
+div.quote {
+  padding: 1rem;
 }
 
 @keyframes logo-bouncy {

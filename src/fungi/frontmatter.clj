@@ -34,8 +34,37 @@
 (defn fungi-cleanup-selector []
   (hs/tag :fungi-remove))
 
+(defn fallback-func [elem content]
+  (assoc elem :tag :span :content [content]))
+
 (defn fungi-title [elem content]
   (assoc elem :tag :h1 :content [content]))
+
+(defn hickory-link [destination text]
+  {:type :element
+   :tag :a
+   :attrs {:href destination}
+   :content [text]})
+
+(defn tag-list [lst]
+  {:type :element
+   :tag :ul
+   :attrs {:class "inline-list" :id "tags"}
+   :content (for [el lst]
+              {:type :element
+               :tag :li
+               :attrs nil
+               :content [(hickory-link (str "/tags/" el) (str el))]})})
+
+(defn fungi-tags [elem content]
+  (assoc elem
+         :tag :dt
+         :content [(tag-list content)]))
+
+(defn fungi-draft [elem content]
+  (if content
+    (assoc elem :tag :i :content ["This page is a draft!"])
+    (assoc elem :tag :fungi-remove)))
 
 (defn fungi-date [elem content]
   (assoc elem
@@ -47,9 +76,11 @@
   (let [{{id :id} :attrs} elem
         {content id} frontmatter
         {func (keyword id)} {:date fungi-date
-                             :title fungi-title}]
+                             :title fungi-title
+                             :draft fungi-draft
+                             :tags fungi-tags}]
     (if content
-      (func elem content)
+      (if func (func elem content) (fallback-func elem content))
       (assoc elem :tag :fungi-remove))))
 
 (defn fungi-title-setter [elem frontmatter]

@@ -44,8 +44,6 @@
          (#(if (> (count filters) 0) (filter filterer %) %))
          (#(if (> (count removes) 0) (remove remover %) %))
          (mapv #(.getAbsolutePath %))
-         (sort)
-         (reverse)
          (mapv (partial pipeline-file sha-map router compiler)))))
 
 (defn load-output-hashset [sha-map]

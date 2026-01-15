@@ -1,0 +1,35 @@
+:root {
+  --arb-bg-dark: #1a1b26;
+  --arb-fg-dark: #a9b1d6;
+}
+
+pre {
+  padding: 5pt 5pt;
+  margin: 0;
+  border: 2px transparent solid;
+  overflow-y: scroll;
+  display: inline-block;
+  width: 100%;
+  max-width: 100%;
+  background: var(--arb-bg-dark, var(--arb-bg-light));
+  color: var(--arb-fg-dark, var(--arb-fg-light));
+  border: 2px solid var(--arb-fg-dark, var(--arb-fg-light));
+}
+
+.arborium-wrapper {
+  padding: .5rem;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+:not(pre) > code {
+  padding: .1rem .25rem;
+  border: 1px solid var(--arb-fg-dark, var(--arb-fg-light));
+}
+
+code {
+  background: var(--arb-bg-dark, var(--arb-bg-light));
+  color: var(--arb-fg-dark, var(--arb-fg-light));
+}

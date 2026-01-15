@@ -8,11 +8,11 @@ html, body {
   @include utility.fill-height;
 }
 
-body {
-  display: grid;
-  grid-template-rows: auto 1fr auto;
+div.body-wrapper {
+  min-height: 100vh;
 }
 
-body div.phx-connected {
-  display: contents;
+body div.body-wrapper {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
 }

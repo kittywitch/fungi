@@ -12,6 +12,7 @@ Inspired by a video sent to me by a friend, ["Building a Split USB-C Handwired K
 I moved onto a Planck-like shortly afterwards, initially I was using a large RP2040 devboard, but I settled on an RP2040 Zero (not pictured!).
 
 Keyswitches:
+
 * Inner: Matrix Lab FFFF (Tactile)
 * Outer: Nightwalker Glow-in-the-Dark Nightcall (Silent Linear)
 
@@ -26,10 +27,13 @@ Keycaps were KAT Cyberspace.
 ## Sofle RGB
 
 Case design: ["Sofle V2.1/RGB Sandwich Mount Case w/ Tenting" by onglez](https://www.thingiverse.com/thing:5407420)
+
 PCB vendor: [PandaKB's modified Sofle RGB](https://pandakb.com/products/pcb-kit/sofle-rgb-mx-pcb-kit/) (I did not use the kit!)
+
 Keyboard design: ["Sofle" by  Josef Adamcik, "Sofle RGB" by Dane Evans](https://josefadamcik.github.io/SofleKeyboard/) (Sofle RGB)
 
 Keyswitches:
+
 * Turquoise Tealios (Linears) for alphas
 * Zealio V2 (Tactile) for all other keys
 

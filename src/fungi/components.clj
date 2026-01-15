@@ -14,6 +14,12 @@
           [:link {:rel "stylesheet"
                   :type "text/css"
                   :href "/home/kat/src/fungi/output/assets/css/main.css"}]
+          [:link {:rel "stylesheet"
+                  :type "text/css"
+                  :href "https://cdn.jsdelivr.net/npm/@arborium/arborium/dist/themes/base-rustdoc.css"}]
+          [:link {:rel "stylesheet"
+                  :type "text/css"
+                  :href "https://cdn.jsdelivr.net/npm/@arborium/arborium/dist/themes/tokyo-night.css"}]
           [:title title]]])
 
 (defn head-placeholder
@@ -24,6 +30,12 @@
           [:link {:rel "stylesheet"
                   :type "text/css"
                   :href "/home/kat/src/fungi/output/assets/css/main.css"}]
+          [:link {:rel "stylesheet"
+                  :type "text/css"
+                  :href "https://cdn.jsdelivr.net/npm/@arborium/arborium/dist/themes/base-rustdoc.css"}]
+          [:link {:rel "stylesheet"
+                  :type "text/css"
+                  :href "https://cdn.jsdelivr.net/npm/@arborium/arborium/dist/themes/tokyo-night.css"}]
           [:title {:id "placeholder"} title]]])
 
 (defn header
@@ -53,19 +65,19 @@
 
 (defn body
   [content]
-  [:body {:class "container"} [(header)
-                               (main content)
-                               (footer)
-                               (htmz-frame)]])
+  [:body {:class "container"} [[:div {:class "body-wrapper"} [(header)
+                                                              (main content)
+                                                              (footer)]]]])
 
 (defn postlist [posts]
   (str (h/html
         {:allow-raw true}
-        [:html (head "dork.dev")
+        [:html
+         (head "dork.dev")
          (body [:nav [:h1 "Posts"]
                 [:ul [:<> (map (fn [[path {:strs [title date]}]]
                                  [:li (link (str title (when date (str " - " date)))
-                                            (str/replace path "output/" ""))]) posts)]]])])))
+                                            (str/replace path "output/" ""))]) (into (sorted-map-by #(compare %2 %1)) posts))]]])])))
 
 (defn blogpost [& {:keys [content title]
                    :or {title "dork.dev"}}]

@@ -7,6 +7,8 @@
             [fungi.components :as fco]
             [fungi.core :as fc]
             [fungi.frontmatter :as fm]
+            [fungi.headings :as fhe]
+            [fungi.highlighting :as fhi]
             [fungi.preprocessor :as fp]
             [fungi.routing :as fr]
             [hickory.core :as hic]
@@ -70,6 +72,8 @@
                                          relative-out (fr/relative-path current-path out-path)]
                                      (swap! post-map assoc relative-out frontmatter)
                                      (fm/fungi-replacer frontmatter cleantree)))
+                                 (fhi/code-replacer)
+                                 (fhe/heading-linker)
                                  (hickory-to-html)
                                  (simple-writer out-path)))})
 
