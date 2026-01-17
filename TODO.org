@@ -4,9 +4,9 @@
 - [x] Use frontmatter
   - [x] Retrieve from Pandoc using data#frontmatter selection
 - [x] Post list on index page
-- [ ] Syntax highlighting
+- [x] Syntax highlighting
   - Consider https://fasterthanli.me/articles/introducing-arborium ?
-- [ ] Heading self-permalink affix
+- [x] Heading self-permalink affix
 
 * Quality of Life
 - [ ] Web server
