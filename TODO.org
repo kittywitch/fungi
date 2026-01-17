@@ -5,8 +5,15 @@
   - [x] Retrieve from Pandoc using data#frontmatter selection
 - [x] Post list on index page
 - [x] Syntax highlighting
-  - Consider https://fasterthanli.me/articles/introducing-arborium ?
+  - [x] Consider https://fasterthanli.me/articles/introducing-arborium ?
+  - [ ] Syntax highlighting theme selector (Arborium)
 - [x] Heading self-permalink affix
+- [ ] Theme selector (light/dark)
+- [ ] Tags
+  - [x] Add to post template
+  - [ ] Make tag collection pages
+  - [ ] Make tag list (with counters)
+  - [ ] Add to posts
 
 * Quality of Life
 - [ ] Web server
