@@ -56,13 +56,6 @@
   [content]
   [:main content])
 
-(defn htmz-frame []
-  [:<>
-   [:iframe {:hidden "true"
-             :name "htmz"
-             :onload "window.htmz(this)"}]
-   [:script {:src "/assets/js/htmz.js"}]])
-
 (defn body
   [content]
   [:body {:class "container"} [[:div {:class "body-wrapper"} [(header)
@@ -88,28 +81,3 @@
                    :or {title "dork.dev"}}]
   (str (h/html {:allow-raw true} [:html (head title)
                                   (body content)])))
-
-(defn page [& {:keys [content title]
-               :or {title "dork.dev"}}]
-  (str (h/html [:html (head title)
-                (body content)])))
-
-(defn fragment
-  [content]
-  (str (h/html content)))
-
-(defn html-ok [& {:as all}]
-  {:status 200
-   :headers {"Content-Type" "text/html"}
-   :body (page all)})
-
-(defn html-fragment
-  [content]
-  {:status 200
-   :headers {"Content-Type" "text/html"}
-   :body (fragment content)})
-
-(defn htmz-link
-  [text route target]
-  [:a {:href (str route "#" target)
-       :class "htmz"} text])
