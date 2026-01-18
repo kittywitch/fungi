@@ -1,4 +1,4 @@
-(ns fungi.headings
+(ns fungi.aside
   (:require [clojure.pprint :as pprint]
             [clojure.zip :as zip]
             [fungi.hickory :as fh]

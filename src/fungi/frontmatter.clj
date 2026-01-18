@@ -54,7 +54,7 @@
               {:type :element
                :tag :li
                :attrs nil
-               :content [(hickory-link (str "/tags/" el) (str el))]})})
+               :content [(hickory-link (str "/tags/" el ".html") (str el))]})})
 
 (defn fungi-tags [elem content]
   (assoc elem

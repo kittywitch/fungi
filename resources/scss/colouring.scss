@@ -71,13 +71,12 @@ hr {
   overflow: visible;
   text-align: center;
   height: 5px;
-}
-
-hr::after {
-  content: "✩";
-  padding: 0 4px;
-  position: relative;
-  top: -15px;
+  &::after {
+    content: "✩";
+    padding: 0 4px;
+    position: relative;
+    top: -15px;
+  }
 }
 
 
@@ -86,6 +85,14 @@ hr::after {
   background: color.scale(theme-get(bg, $theme), $lightness: theme-get(lightness, $theme));
   body, main, footer, header {
     background: theme-get(bg, $theme);
+  }
+
+  #taglist a {
+    .counter {
+      border-left: 1px solid theme-get(border, $theme);
+    }
+    border: 1px solid theme-get(border, $theme);
+    color: theme-get(fg, $theme);
   }
 
   hr {

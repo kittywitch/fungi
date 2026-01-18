@@ -2,15 +2,29 @@
 title: "Zola is dead to me. Long live Kusachi!"
 date: 2026-01-15T03:18Z
 draft: true
-tags: [ssg]
+tags: [ssg, programming]
 ---
 
 ## In unfair Zola, where we lay our scene (impetus)
 
-I've been tired with Zola's handling of template contexts, among other criticisms I can levy. I don't really like static site generators that insist upon using configuration to make up for the fact that their code is no longer extensible for the end user.
+*record scratch*
+
+*freeze frame*
+
+Yep, that's me. You're probably wondering how I got here!
+
+<aside>
+why the fuck did i start my ~~very~~ mildly serious, extremely high effort blogpost like this? now they're gonna think it's a shitpost.
+
+but kat, when are you not shitposting? do you *want* everything to be taken seriously?
+
+touché! certainly not! thank god i have jester's privilege
+
+</aside>
+
+So, what problems do I have with Zola? Well I'm glad you ~~didn't ask~~ asked!
 
 ### Template syntax complexity
-
 
 #### Title handling
 
@@ -58,7 +72,42 @@ So, I liked to showcase external posts on the last iteration of my website, here
 
 Once again, we see some potential verbosity where optionals are concerned. One could contemplate any manner of syntactic sugar for this if one so desired but evidently, there was not any here.
 
-#### Image optimization
+### Image processing
+
+<div class="quote">
+<blockquote cite="https://www.getzola.org/documentation/content/image-processing/">
+Zola provides support for automatic image resizing through the built-in function `resize_image`, which is available in template code as well as in shortcodes.
+
+The function usage is as follows:
+
+```
+resize_image(path, width, height, op, format, quality, speed)
+```
+
+### Arguments
+
+`path`: The path to the source image. The following directories will be searched, in this order:
+
+- `/ (the root of the project; that is, the directory with your config.toml)`
+- `/static`
+- `/content`
+- `/public`
+- `/themes/current-theme/static`
+
+</blockquote>
+<cite>[Image processing | Zola](https://www.getzola.org/documentation/content/image-processing/)</cite>
+</div>
+
+
+I like to keep my posts that have images in a separate subfolder of their parent. This is to keep the whole structure of my project less messy and indirect with references; images for a post go with the post markdown! It makes it easier to link to too.
+
+The way the image processing system within Zola works, no context of the caller is being provided to the image resizer function, it also doesn't search the nested file structure for the path at all other than what is said above. This means that unless I want to put my files in `content/` or `public/`, I'm shit out of luck for maintaining my ideal for how I would like my blog structured while maintaining the thumbnailing / image processing. Of course, I could've used an external image processing pipeline but then why have one in the static site generator at all? D:
+
+This for me was the last straw!
+
+### Conclusion on Zola
+
+I have come to understand that I personally really don't like the kind of static site generators that insist upon using configuration to make up for the fact that their code is no longer *truly* extensible for the end user. Where the function call stack is not yours to mutate, you are in deep need of liberation.
 
 ## On jyn514/flower (inspiration and motivation)
 
@@ -72,7 +121,7 @@ I think the project, its goals and execution are however, laudable; it's clear t
 
 ## The research journey (ecosystems and paradigms)
 
-### Luau on Lune (glade)
+### The initial experiment; Luau on Lune (glade)
 
 [Repository](https://github.com/kittywitch/glade)
 
@@ -84,23 +133,34 @@ The intention was to have the capacity to express both transformation of file pa
 
 The graph itself was built with file-based rules that expressed dependencies upon additional processes at runtime, e.g. a markdown post demands a template, a template demands its own compilation, the site root demands all of this to output a file.
 
+<aside>
+<hr id="note">
+![Graphviz generated dependency directed acyclic graph](ssg_graph.thumb.png)
+
+i also thought it was super cute to have [graphviz](https://graphviz.org/) generate an <abbr title="Scalable Vector Graphics">SVG</abbr> of the dependency <abbr title="Directed acyclic graph">DAG</abbr> once it was formed :3
+
+<hr id="note">
+</aside>
+
 This was my attempt at "static site generator as build system in a dynamic language"; I liked it but it made for additional complexity in graph creation that I felt wasn't sufficiently isolated from the end user. Equally, a templating system which allowed for embedded expression evaluation and variable interpolation was present within this project.
 
 I think a lot lately about [Fennel](https://fennel-lang.org/) and how one can have a Lisp that uses Lua as a compile target.
 
 This project was surprisingly close to being done and I think without Luau/Lune I would've just completed it and called it a day, so... yay, type systems? ~~Who knew extrinsic type systems were so complicated?~~ All that would've been required to get a working project out of it was implementing the graph traversal to produce the site output.
 
-### Dynamic Sites
+### A shift to experimenting with dynamic websites
 
-#### Gleam on BEAM (fauna)
+#### Gleam on BEAM & Dream (fauna)
 
 [Repository](https://github.com/kittywitch/fauna)
 
 The static type-checking at compile time meaning that hot-reloading is not plausible while maintaining the type safety of the whole program made a vast majority of the work I was doing with Gleam pointless, given that in comparison to dynamic languages on the BEAM, it would be ignoring the advantages of the BEAM VM and paradigms espoused by other BEAM languages.
 
+I also look down upon the people who made Dream, despite it being somewhat better than the alternatives (in that it provides websocket support). This is mostly for [this issue](https://github.com/TrustBound/dream/issues/31). I love to ship my library with AI-written documentation, wholly unchecked and with *if statements in a language that entirely lacks them!* Not very poggers, not very poggers at all.
+
 I however, did manage to implement a hot-reloading website in Gleam regardless. It was a somewhat enjoyable experience other than the fact that BEAM languages need a library with non-BEAM components in order to be able to close stdin separately from stdout and stderr. Issues remained there with many of the libraries either not being finished or being unmaintained.
 
-#### Elixir (animalia)
+#### Elixir & Phoenix (animalia)
 
 [Repository](https://github.com/kittywitch/animalia)
 
@@ -108,13 +168,13 @@ I found Phoenix interesting, but it could not be more than a curiosity given the
 
 That amount of work required to cut it out of everything any time you so much as interact with new potential pieces to integrate really soured me on it. I think Tailwind CSS is a poor default for Phoenix, even if it helps many others be productive, that sort of thing is truly too "frameworky", I like to have to put the batteries in myself, I guess?
 
-#### Haskell (Unreleased)
+#### Haskell & Servant (Unreleased)
 
 Haskell didn't feel like a good fit overall, but it was nice to play with and I will probably be back for it to sate my curiosity with it and the family of languages it resides within.
 
-### Static Site Generators
+### Other static site generators
 
-#### Haskell (hakyll-dorkdev)
+#### Haskell & Hakyll (hakyll-dorkdev)
 
 [Repository](https://github.com/kittywitch/hakyll-dorkdev)
 
@@ -124,7 +184,7 @@ The cognitive overhead is particularly high with Haskell in general. The underly
 
 I did not enjoy how the compilation of the binary separated rules and processing into compile-time, whereas site creation was done at runtime.
 
-#### Racket (Theory)
+#### In theory only; Racket & Pollen
 
 Research only, main subject of interest: [Pollen](https://docs.racket-lang.org/pollen/)
 
@@ -204,7 +264,7 @@ The same for SCSS/SASS implementations, although I'm pretty sure the Rust implem
 I found Arborium, presumably from browsing [Hacker News](https://news.ycombinator.com/item?id=46270298) where I came across [this post](https://fasterthanli.me/articles/introducing-arborium). After prior experiences attempting to get tree-sitter alone working for syntax highlighting with their horrible, inconsistent CLI experience where certain switches don't apply to other subcommands and their handling is reimplemented in several separate places for *NO GOOD REASON*, I was more than happy to use a tool that actually made tree-sitter palatable.
 
 <aside>
-[Wow, Amos rocks.](https://github.com/bearcove/arborium/issues/131) Wait, I guess they tree?
+[wow, amos rocks.](https://github.com/bearcove/arborium/issues/131) wait, i guess they tree? gosh.
 
 </aside>
 

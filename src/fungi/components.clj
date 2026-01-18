@@ -4,8 +4,8 @@
             [huff2.core :as h]))
 
 (defn link
-  [text url]
-  [:a {:href url} text])
+  [text url & {:as attrs}]
+  [:a (merge {:href url} attrs) text])
 
 (defn head
   [title]
@@ -76,11 +76,12 @@
 
 (defn taglist [tags]
   (pprint/pprint tags)
-  [:ul {:class "inline-list" :id "tags"}
+  [:ul {:class "inline-list" :id "taglist"}
       [:<> (map (fn [[tag paths]]
       [:li
        (link
-         (str tag " (" (count paths) ")")
+         [:<> tag
+          [:span {:class "counter"} (count paths)]]
          (str "tags/" tag ".html"))
       ]) tags)]])
 
