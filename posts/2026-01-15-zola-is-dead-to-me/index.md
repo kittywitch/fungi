@@ -134,12 +134,10 @@ The intention was to have the capacity to express both transformation of file pa
 The graph itself was built with file-based rules that expressed dependencies upon additional processes at runtime, e.g. a markdown post demands a template, a template demands its own compilation, the site root demands all of this to output a file.
 
 <aside>
-<hr id="note">
 ![Graphviz generated dependency directed acyclic graph](ssg_graph.thumb.png)
 
 i also thought it was super cute to have [graphviz](https://graphviz.org/) generate an <abbr title="Scalable Vector Graphics">SVG</abbr> of the dependency <abbr title="Directed acyclic graph">DAG</abbr> once it was formed :3
 
-<hr id="note">
 </aside>
 
 This was my attempt at "static site generator as build system in a dynamic language"; I liked it but it made for additional complexity in graph creation that I felt wasn't sufficiently isolated from the end user. Equally, a templating system which allowed for embedded expression evaluation and variable interpolation was present within this project.

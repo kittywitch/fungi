@@ -21,7 +21,7 @@
 - [ ] Web server
 - [ ] Hot reloading with livereload websocket (self-refer to Gleam project)
 - [ ] Automatic archive.is for all external content
-- [ ] Append and prepend hr#note to the content of all aside
+- [x] Append and prepend hr#note to the content of all aside
 
 * Optimization
 - [ ] Incremental compilation

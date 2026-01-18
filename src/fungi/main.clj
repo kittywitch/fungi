@@ -9,6 +9,7 @@
             [fungi.frontmatter :as fm]
             [fungi.headings :as fhe]
             [fungi.highlighting :as fhi]
+            [fungi.aside :as fas]
             [fungi.preprocessor :as fp]
             [fungi.routing :as fr]
             [hickory.core :as hic]
@@ -88,6 +89,7 @@
                                      (assign-post-to-tags relative-out frontmatter)
                                      (fm/fungi-replacer frontmatter cleantree)))
                                  (fhi/code-replacer)
+                                 (fas/aside-noter)
                                  (fhe/heading-linker)
                                  (hickory-to-html)
                                  (simple-writer out-path)))})
