@@ -11,11 +11,13 @@
 - [ ] Theme selector (light/dark)
 - [ ] Tags
   - [x] Add to post template
-  - [ ] Make tag collection pages
-  - [ ] Make tag list (with counters)
+  - [x] Make tag collection pages
+  - [x] Make tag list (with counters)
   - [ ] Add to posts
 
 * Quality of Life
+- [ ] Figure out a nicer way to handle paths
+  - [ ] Replace output router with something that isn't so delirious, same for resource router
 - [ ] Web server
 - [ ] Hot reloading with livereload websocket (self-refer to Gleam project)
 

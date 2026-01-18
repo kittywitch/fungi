@@ -1,5 +1,6 @@
 (ns fungi.components
   (:require [clojure.string :as str]
+            [clojure.pprint :as pprint]
             [huff2.core :as h]))
 
 (defn link
@@ -62,15 +63,44 @@
                                                               (main content)
                                                               (footer)]]]])
 
-(defn postlist [posts]
+(defn postlist-for-tag [tag posts]
+  (pprint/pprint posts)
   (str (h/html
         {:allow-raw true}
         [:html
-         (head "dork.dev")
-         (body [:nav [:h1 "Posts"]
-                [:ul [:<> (map (fn [[path {:strs [title date]}]]
+         (head (str "Posts under tag " tag " - dork.dev"))
+         (body [:nav [:h1 (str "Posts under tag: " tag " (" (count posts) ")")]
+                [:ul [:<> (map (fn [{:strs [path title date]}]
                                  [:li (link (str title (when date (str " - " date)))
-                                            (str/replace path "output/" ""))]) (into (sorted-map-by #(compare %2 %1)) posts))]]])])))
+                                            (str/replace path "output/" ""))]) (sort-by #(get % "path") #(compare %2 %1) posts))]]])])))
+
+(defn taglist [tags]
+  (pprint/pprint tags)
+  [:ul {:class "inline-list" :id "tags"}
+      [:<> (map (fn [[tag paths]]
+      [:li
+       (link
+         (str tag " (" (count paths) ")")
+         (str "tags/" tag ".html"))
+      ]) tags)]])
+
+(defn postlist [posts tags]
+  (let [
+        taglist [:nav [:h3 "Tags"]
+                 (taglist tags)
+                 ]
+        postlist [:nav [:h2 "Posts"]
+                  [:ul [:<> (map (fn [[path {:strs [title date]}]]
+                                   [:li (link (str title (when date (str " - " date)))
+                                              (str/replace path "output/" ""))]) (into (sorted-map-by #(compare %2 %1)) posts))]]]
+        ]
+    (str (h/html
+           {:allow-raw true}
+           [:html
+            (head "dork.dev")
+            (body [:<> postlist
+                   taglist
+                   ])]))))
 
 (defn blogpost [& {:keys [content title]
                    :or {title "dork.dev"}}]

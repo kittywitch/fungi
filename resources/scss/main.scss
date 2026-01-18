@@ -81,16 +81,12 @@ cite::before {
   content: "—"
 }
 
-ul#tags {
-  li {
-    margin-left: .1rem;
-  }
-}
-
 ul.inline-list {
   display: inline-block;
+  li { display: inline-block; }
   margin: unset;
   padding: unset;
+  li + li { margin-left: .5rem; }
   list-style-type: none;
 }
 

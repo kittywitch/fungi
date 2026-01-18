@@ -54,6 +54,20 @@
   (fn [path] (.matches (glob-matcher criteria) (.getFileName (.toPath path)))))
 
 (def post-map (atom {}))
+(def tag-map (atom {}))
+
+(defn assign-post-to-tags [path frontmatter]
+  (println "assigner! hawo")
+  (let [{tags "tags"} frontmatter]
+    (pprint/pprint tags)
+    (doseq [tag tags]
+        (let [
+            {tag-data tag :or {tag-data []}} @tag-map
+        ]
+        (pprint/pprint tag-data)
+        (println tag)
+        (swap! tag-map assoc tag (conj tag-data path)))
+      )))
 
 (def post-core {:path "posts"
                 :lens {:filter [(glob "*.md")]
@@ -71,6 +85,7 @@
                                          current-path (.getAbsolutePath (io/file "./"))
                                          relative-out (fr/relative-path current-path out-path)]
                                      (swap! post-map assoc relative-out frontmatter)
+                                     (assign-post-to-tags relative-out frontmatter)
                                      (fm/fungi-replacer frontmatter cleantree)))
                                  (fhi/code-replacer)
                                  (fhe/heading-linker)
@@ -111,9 +126,25 @@
                  :router [fr/output-router add-thumb-to-filename]
                  :compiler (fn [path out-path] (create-thumbnail path out-path))})
 
+(defn generate-tag [tag paths]
+  (let [tag-post-list (map (fn [path]
+           (assoc (get @post-map path)
+                  "path" path)
+           ) paths)]
+    (fco/postlist-for-tag tag tag-post-list)))
+
+(defn generate-tags []
+  (println "Generating tag pages")
+  (doseq [[tag paths]
+          @tag-map]
+    (println (str "Generating page for tag " tag))
+    (let [taglist (generate-tag tag paths)
+      file (simple-writer (str "output/tags/" tag ".html") taglist)]
+      file )))
+
 (defn generate-index []
   (println "Generating index page")
-  (let [posts (fco/postlist @post-map)
+  (let [posts (fco/postlist @post-map @tag-map)
         file (simple-writer "output/index.html" posts)]
     file))
 
@@ -127,9 +158,12 @@
   (println "Starting operation")
   (let [cores [post-core sass-core image-core logo-core thumb-core]]
     (mapv (partial fc/pipeline sha-map) cores))
+  (generate-tags)
   (generate-index)
   (println "Finished operation")
   (fc/commit-output-hashset sha-map)
   (println "Post map")
   (pprint/pprint @post-map)
+  (println "Tag map")
+  (pprint/pprint @tag-map)
   (shutdown-agents))

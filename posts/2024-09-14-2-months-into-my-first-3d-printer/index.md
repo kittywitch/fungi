@@ -1,6 +1,7 @@
 ---
 title: "2 months into my first 3D printer"
 date: 2024-09-14T19:26:06Z
+tags: ["3d printing"]
 ---
 [![Ender 3 V3 SE](printer.thumb.jpg)](printer.jpg)
 

@@ -1,6 +1,7 @@
 ---
 title: "I built two keyboards over the last year!"
 date: 2025-06-20T07:53:17Z
+tags: ["3d printing"]
 ---
 
 ## Handwired
