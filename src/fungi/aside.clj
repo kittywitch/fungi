@@ -15,7 +15,6 @@
             :content nil})
 
 (defn aside-editor [elem]
-  (println elem)
   (let [{content :content} elem
         new-content (concat [note-rule] content [note-rule])]
     (assoc elem :content new-content)))

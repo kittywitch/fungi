@@ -72,6 +72,7 @@ blockquote {
 }
 
 hr#note {
+  border-top-style: solid;
   margin: 1rem 0;
   &::after {
     content: "※";

@@ -21,9 +21,9 @@ Stabilizers were hand-lubricated.
 
 Keycaps were KAT Cyberspace.
 
-[![The matrix of the keyboard](handwire-keyboard-matrix.thumb.jpg)](handwire-keyboard-matrix.jpg)
-[![The wiring of the matrix and mcu of the keyboard](handwire-keyboard-mcu.thumb.jpg)](handwire-keyboard-mcu.jpg)
-[![The finished keyboard](handwire-keyboard.thumb.jpg)](handwire-keyboard.jpg)
+![The matrix of the keyboard](handwire-keyboard-matrix.jpg)
+![The wiring of the matrix and mcu of the keyboard](handwire-keyboard-mcu.jpg)
+![The finished keyboard](handwire-keyboard.jpg)
 
 ## Sofle RGB
 
@@ -42,4 +42,4 @@ Keycaps are KAT Cyberspace.
 
 I spent an awful lot of time debugging issues that were fundamentally my own fault for following the build guide wrong in one way or another, but I feel like it turned out very pretty.
 
-[![Sofle RGB](sofle-rgb-finished.thumb.jpg)](sofle-rgb-finished.jpg)
+![Sofle RGB](sofle-rgb-finished.jpg)

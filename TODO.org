@@ -29,12 +29,12 @@
   - [ ] Only regenerate output if input hash changes
 
 * Thumbnailing
-- [ ] Build a list of local image files in traversal of the file structure
+- [x] Build a list of local image files in traversal of the file structure
 - [ ] When processing links within the markdown, check if they are within the list of images
 - [ ] When that is the case, transform them into the thumbnail & link
 
-- [ ] Move away from transforming a>img via changing src of the img to .thumb
-- [ ] Change markdown documents to omit the link wrap around the images
+- [x] Move away from transforming a>img via changing src of the img to .thumb
+- [x] Change markdown documents to omit the link wrap around the images
 - [ ] Automatically create links for all img src= where the path is within the local filesystem
 
 * Compilation pipelining

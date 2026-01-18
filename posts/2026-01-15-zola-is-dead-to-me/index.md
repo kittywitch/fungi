@@ -134,7 +134,7 @@ The intention was to have the capacity to express both transformation of file pa
 The graph itself was built with file-based rules that expressed dependencies upon additional processes at runtime, e.g. a markdown post demands a template, a template demands its own compilation, the site root demands all of this to output a file.
 
 <aside>
-![Graphviz generated dependency directed acyclic graph](ssg_graph.thumb.png)
+![Graphviz generated dependency directed acyclic graph](ssg_graph.png)
 
 i also thought it was super cute to have [graphviz](https://graphviz.org/) generate an <abbr title="Scalable Vector Graphics">SVG</abbr> of the dependency <abbr title="Directed acyclic graph">DAG</abbr> once it was formed :3
 

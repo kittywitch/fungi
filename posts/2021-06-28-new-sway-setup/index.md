@@ -9,19 +9,19 @@ Tomorrow will be moving to wofi, updating foot and submitting a PR for it to nix
 
 ## Clean:
 
-[![Desktop without any windows open](clean.thumb.png)](clean.png)
+![Desktop without any windows open](clean.png)
 
 ## One Window:
 
-[![Desktop with a single terminal open](singleterm.thumb.png)](singleterm.png)
+![Desktop with a single terminal open](singleterm.png)
 
 ## No Gaps, Several Terminals:
 
-[![Desktop with several terminals open](ungaps.thumb.png)](ungaps.png)
+![Desktop with several terminals open](ungaps.png)
 
 ## Gaps, Several Terminals and Neofetch:
 
-[![Desktop with several terminal open with gaps, tmux and neofetch](gaps.thumb.png)](gaps.png)
+![Desktop with several terminal open with gaps, tmux and neofetch](gaps.png)
 
 ## Wallpaper
 

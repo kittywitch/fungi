@@ -11,6 +11,7 @@
             [fungi.highlighting :as fhi]
             [fungi.aside :as fas]
             [fungi.preprocessor :as fp]
+            [fungi.thumbnailing :as ft]
             [fungi.routing :as fr]
             [hickory.core :as hic]
             [hickory.render :refer [hickory-to-html]]))
@@ -28,8 +29,11 @@
   (let [thumb-filename (add-thumb-to-filename (.getAbsolutePath file))]
     (.exists (io/as-file thumb-filename))))
 
+(def img-map (atom {}))
+
 (defn create-thumbnail
   [path out-path]
+  (swap! img-map assoc out-path path)
   (let [image (fcu/load-image path)
         resized (fcc/resize image :width 600)
         parent (.getParentFile (io/as-file out-path))]
@@ -58,15 +62,11 @@
 (def tag-map (atom {}))
 
 (defn assign-post-to-tags [path frontmatter]
-  (println "assigner! hawo")
   (let [{tags "tags"} frontmatter]
-    (pprint/pprint tags)
     (doseq [tag tags]
         (let [
             {tag-data tag :or {tag-data []}} @tag-map
         ]
-        (pprint/pprint tag-data)
-        (println tag)
         (swap! tag-map assoc tag (conj tag-data path)))
       )))
 
@@ -87,7 +87,10 @@
                                          relative-out (fr/relative-path current-path out-path)]
                                      (swap! post-map assoc relative-out frontmatter)
                                      (assign-post-to-tags relative-out frontmatter)
-                                     (fm/fungi-replacer frontmatter cleantree)))
+                                     (let [
+                                          fm-replaced (fm/fungi-replacer frontmatter cleantree)
+                                          thumby (ft/image-thumber relative-out img-map fm-replaced)
+                                          ] thumby)))
                                  (fhi/code-replacer)
                                  (fas/aside-noter)
                                  (fhe/heading-linker)
@@ -168,4 +171,6 @@
   (pprint/pprint @post-map)
   (println "Tag map")
   (pprint/pprint @tag-map)
+  (println "Image map")
+  (pprint/pprint @img-map)
   (shutdown-agents))

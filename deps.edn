@@ -6,7 +6,9 @@
         com.rpl/specter {:mvn/version "1.1.6"}
         org.clj-commons/hickory {:mvn/version "0.7.7"}
         fivetonine/collage {:mvn/version "0.3.0"}
-        org.clj-commons/digest {:mvn/version "1.4.100"}}
+        org.clj-commons/digest {:mvn/version "1.4.100"}
+        lambdaisland/uri {:mvn/version "1.19.155"}
+        pathetic/pathetic {:mvn/version "0.5.1"}}
 
  :aliases
  {:run-m {:main-opts ["-m" "fungi.main"]}

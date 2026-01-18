@@ -28,11 +28,11 @@ date: 2025-06-20T07:53:23Z
 
 ## Screenshots
 
-[![TaimiHUD, showing Pathing, Markers and Timers windows and paths visible.](taimihud-pathing.thumb.png)](taimihud-pathing.png)
-[![TaimiHUD, showing a timer.](taimihud-timers.thumb.png)](taimihud-timers.png)
-[![TaimiHUD, showing Pathing, Markers and Timers windows.](taimihud.thumb.png)](taimihud.png)
-[![TaimiHUD, showing the timers UI.](taimihud-timers-ui.thumb.png)](taimihud-timers-ui.png)
-[![TaimiHUD, showing the markers UI.](taimihud-markers-ui.thumb.png)](taimihud-markers-ui.png)
+![TaimiHUD, showing Pathing, Markers and Timers windows and paths visible.](taimihud-pathing.png)
+![TaimiHUD, showing a timer.](taimihud-timers.png)
+![TaimiHUD, showing Pathing, Markers and Timers windows.](taimihud.png)
+![TaimiHUD, showing the timers UI.](taimihud-timers-ui.png)
+![TaimiHUD, showing the markers UI.](taimihud-markers-ui.png)
 
 
 ## Introduction
@@ -66,8 +66,8 @@ I decided to license the project MIT, to allow the community the freedoms over t
 
 I started work on a DX11 rendering engine for the game and got to the point of having models load and a billboarded marker from Timers working.
 
-[![TaimiHUD's cat model testing](taimihud-cats.thumb.png)](taimihud-cats.png)
-[![TaimiHUD's billboard test](taimihud-billboard.thumb.png)](taimihud-billboard.png)
+![TaimiHUD's cat model testing](taimihud-cats.png)
+![TaimiHUD's billboard test](taimihud-billboard.png)
 
 It was at this point that I went to attend to Commander's Markers!
 
