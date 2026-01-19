@@ -115,9 +115,9 @@ Exploration started with being told about [jyn514/flower](https://codeberg.org/j
 
 For one, it would've required exiting my usual way of existing at least partially (I live in Nix's cage) and did not want to deal with a vendored build system and having to figure out building the underlying executable within Nix-land.
 
-The idea of build system orchestration (a "meta build system") is appealing, but for me personally I feel any distinction between the static site generator and the site (provided here by the distinction of a "flower" binary at all) is something I would personally find undesirable, even if the utmost care and effort has been put in to avoid making this problematic for the end-user.
+The idea of build system orchestration (a "meta build system") is appealing, but for me personally I feel any distinction between the static site generator and the site (provided here by the distinction of a "flower" binary at all) is something I would personally find undesirable, even if the utmost care and effort has been put in to avoid making this problematic for the end-user. I don't *particularly* need the fancy templating system espoused, as neat as it is! I like the hiccup/huff syntax just fine, and if I don't, I would personally like to make something myself that suits my needs.
 
-I think the project, its goals and execution are however, laudable; it's clear to me that my needs or wants from such a thing are not entirely the same.
+I think the project, its goals and execution are however, *very* laudable; it's clear to me that my needs or wants from such a thing are not entirely the same.
 
 ## The research journey (ecosystems and paradigms)
 
@@ -251,7 +251,7 @@ I very intentionally chose to allow preprocessors as programs outside of the Clo
 * prevent being locked into the Clojure ecosystem's availability of capacities
 * prevent cognitive overhead by allowing for such things to be considered fungible
 
-In this, I mean, I could switch away from pandoc tomorrow and other than perhaps needing something else to do my table of contents (which, I've written algorithms for before just fine anyway), I would be okay. I would be okay with moving to asciidoc, I would be ok with using org-mode.
+In this, I mean, I could switch away from pandoc tomorrow and other than perhaps needing something else to do my table of contents (which, I've written algorithms for before just fine anyway) and needing to parse my frontmatter (again, done this before!). I would be okay. I would be okay with moving to asciidoc, I would be ok with using org-mode.
 
 The same for SCSS/SASS implementations, although I'm pretty sure the Rust implementation I was looking at does not handle some things within my stylesheet(s) properly. That said, I do not even need SCSS/SASS, I could live perfectly fine with stock CSS.
 

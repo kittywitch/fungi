@@ -1,6 +1,6 @@
-(ns fungi.fungi-test
+(ns kusachi.kusachi-test
   (:require [clojure.test :refer :all]
-            [fungi.fungi :refer :all]))
+            [kusachi.kusachi :refer :all]))
 
 (deftest a-test
   (testing "whee~"

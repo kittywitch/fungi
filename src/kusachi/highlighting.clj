@@ -1,8 +1,8 @@
-(ns fungi.highlighting
+(ns kusachi.highlighting
   (:require [clojure.pprint :as pprint]
             [clojure.zip :as zip]
-            [fungi.hickory :as fh]
-            [fungi.preprocessor :as fp]
+            [kusachi.hickory :as fh]
+            [kusachi.preprocessor :as fp]
             [hickory.core :as hc]
             [hickory.select :as hs]))
 

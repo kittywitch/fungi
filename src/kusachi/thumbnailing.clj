@@ -1,9 +1,9 @@
-(ns fungi.thumbnailing
+(ns kusachi.thumbnailing
   (:require [clojure.pprint :as pprint]
             [clojure.string :as str]
             [clojure.zip :as zip]
             [pathetic.core :as pc]
-            [fungi.hickory :as fh]
+            [kusachi.hickory :as fh]
             [hickory.core :as hc]
             [hickory.select :as hs]
             [lambdaisland.uri :as uri]))
@@ -27,12 +27,8 @@
   (str/replace filename #"(\.[a-zA-Z0-9]+)$" ".thumb$1"))
 
 (defn image-selector [post-path images]
-  (println "selector called")
   (hs/and (hs/descendant (hs/tag :article) (hs/tag :img))
           (hs/not (hs/child (hs/tag :a) (hs/tag :img)))))
-    ;(hs/descendant (hs/tag :article) (hs/not (hs/tag :a)) (hs/tag :img))))
-                                                  ;(hs/attr :href #(exists-in-images % post-path images))
-                                                  ;(hs/attr :href #(check-external %)))))
 
 (defn image-template [elem image]
   (let [
@@ -41,13 +37,10 @@
                      :tag :a
                      :attrs {:href image}
                      :content [
-                                new-img
-                                ]}
+                               new-img
+                               ]}
 
-        ]
-      img-wrapped
-    )
-  )
+        ] img-wrapped))
 
 (defn image-editor [elem]
   (println elem)

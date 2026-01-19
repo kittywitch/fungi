@@ -1,9 +1,9 @@
-(ns fungi.core
+(ns kusachi.core
   (:require [clj-commons.digest :as digest]
             [clojure.edn :as edn]
             [clojure.java.io :as io]
             [clojure.pprint :as pprint]
-            [fungi.routing :as fr]))
+            [kusachi.routing :as fr]))
 
 (defn pipe [initial-data my-functions] ((apply comp my-functions) initial-data))
 
@@ -47,7 +47,7 @@
          (mapv (partial pipeline-file sha-map router compiler)))))
 
 (defn load-output-hashset [sha-map]
-  (let [file-content (with-open [rdr (io/reader "./fungi.lock")]
+  (let [file-content (with-open [rdr (io/reader "./kusachi.lock")]
                        (edn/read (new java.io.PushbackReader rdr)))]
     (reset! sha-map file-content)
     (println "Loaded prior output hashset")
@@ -56,5 +56,5 @@
 
 (defn commit-output-hashset [sha-map]
   (println "Committing output hashset")
-  (with-open [w (io/writer "./fungi.lock" :append false)]
+  (with-open [w (io/writer "./kusachi.lock" :append false)]
     (.write w (prn-str @sha-map))))

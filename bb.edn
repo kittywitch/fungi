@@ -1,10 +1,11 @@
 {:tasks {:requires ([babashka.process :refer [shell process exec]]
-                    [babashka.fs :as fs])
+                    [babashka.fs :as fs]
+                    [clojure.string :as str])
 
          dev (do
-                       (clojure "-M -m fungi.main"))
+                       (clojure (str "-M -m kusachi.main " (str/join " " *command-line-args*))))
 
-         dev:nrepl (do (clojure "-M:dev -m fungi.nrepl"))
+         dev:nrepl (do (clojure "-M:dev -m kusachi.nrepl"))
 
          migrate-all (do (clojure "-M:dev -e '(ragtime-migrate-all)'"))
 

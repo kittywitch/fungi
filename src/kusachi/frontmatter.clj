@@ -1,8 +1,8 @@
-(ns fungi.frontmatter
+(ns kusachi.frontmatter
   (:require [cheshire.core :as ch]
             [clojure.pprint :as pprint]
             [clojure.zip :as zip]
-            [fungi.hickory :as fh]
+            [kusachi.hickory :as fh]
             [hickory.select :as hs]))
 
 (defn frontmatter-selector []
@@ -28,16 +28,16 @@
     {:cleantree clean-tree
      :frontmatter frontmatter}))
 
-(defn fungi-selector []
-  (hs/tag :fungi))
+(defn kusachi-selector []
+  (hs/tag :kusachi))
 
-(defn fungi-cleanup-selector []
-  (hs/tag :fungi-remove))
+(defn kusachi-cleanup-selector []
+  (hs/tag :kusachi-remove))
 
 (defn fallback-func [elem content]
   (assoc elem :tag :span :content [content]))
 
-(defn fungi-title [elem content]
+(defn kusachi-title [elem content]
   (assoc elem :tag :h1 :content [content]))
 
 (defn hickory-link [destination text]
@@ -56,50 +56,50 @@
                :attrs nil
                :content [(hickory-link (str "/tags/" el ".html") (str el))]})})
 
-(defn fungi-tags [elem content]
+(defn kusachi-tags [elem content]
   (assoc elem
          :tag :dt
          :content [(tag-list content)]))
 
-(defn fungi-draft [elem content]
+(defn kusachi-draft [elem content]
   (if content
     (assoc elem :tag :i :content ["This page is a draft!"])
-    (assoc elem :tag :fungi-remove)))
+    (assoc elem :tag :kusachi-remove)))
 
-(defn fungi-date [elem content]
+(defn kusachi-date [elem content]
   (assoc elem
          :tag :time
          :attrs {:datetime content}
          :content [content]))
 
-(defn fungi-embedder [elem frontmatter]
+(defn kusachi-embedder [elem frontmatter]
   (let [{{id :id} :attrs} elem
         {content id} frontmatter
-        {func (keyword id)} {:date fungi-date
-                             :title fungi-title
-                             :draft fungi-draft
-                             :tags fungi-tags}]
+        {func (keyword id)} {:date kusachi-date
+                             :title kusachi-title
+                             :draft kusachi-draft
+                             :tags kusachi-tags}]
     (if content
       (if func (func elem content) (fallback-func elem content))
-      (assoc elem :tag :fungi-remove))))
+      (assoc elem :tag :kusachi-remove))))
 
-(defn fungi-title-setter [elem frontmatter]
+(defn kusachi-title-setter [elem frontmatter]
   (let [{title "title"} frontmatter]
     (if title
       (assoc elem :content [title " - dork.dev"] :attrs {})
       elem)))
 
-(defn fungi-replacer [frontmatter tree]
+(defn kusachi-replacer [frontmatter tree]
   (let [embedded (fh/hickory-update
-                  (fungi-selector)
+                  (kusachi-selector)
                   tree
-                  #(zip/edit % fungi-embedder frontmatter))
+                  #(zip/edit % kusachi-embedder frontmatter))
         cleaned (fh/hickory-update
-                 (fungi-cleanup-selector)
+                 (kusachi-cleanup-selector)
                  embedded
                  zip/remove)
         with-title (fh/hickory-update
                     (hs/and (hs/tag :title)
                             (hs/id :placeholder))
                     cleaned
-                    #(zip/edit % fungi-title-setter frontmatter))] with-title))
+                    #(zip/edit % kusachi-title-setter frontmatter))] with-title))

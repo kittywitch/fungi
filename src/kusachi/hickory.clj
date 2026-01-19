@@ -1,4 +1,4 @@
-(ns fungi.hickory
+(ns kusachi.hickory
   (:require [clojure.zip :as zip]
             [hickory.select :as hs]
             [hickory.zip :as hz]))

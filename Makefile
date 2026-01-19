@@ -5,7 +5,7 @@
 # @version 0.1
 
 run:
-	clojure -M -m fungi.main
+	clojure -M -m kusachi.main
 
 nrepl:
 	clojure -M:dev -m nrepl.cmdline

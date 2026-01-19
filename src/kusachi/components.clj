@@ -1,4 +1,4 @@
-(ns fungi.components
+(ns kusachi.components
   (:require [clojure.string :as str]
             [clojure.pprint :as pprint]
             [huff2.core :as h]))
@@ -14,7 +14,7 @@
           [:meta {:charset "UTF-8"}]
           [:link {:rel "stylesheet"
                   :type "text/css"
-                  :href "/home/kat/src/fungi/output/assets/css/main.css"}]
+                  :href "/assets/css/main.css"}]
           [:link {:rel "stylesheet"
                   :type "text/css"
                   :href "https://cdn.jsdelivr.net/npm/@arborium/arborium/dist/themes/base-rustdoc.css"}]
@@ -30,7 +30,7 @@
           [:meta {:charset "UTF-8"}]
           [:link {:rel "stylesheet"
                   :type "text/css"
-                  :href "/home/kat/src/fungi/output/assets/css/main.css"}]
+                  :href "/assets/css/main.css"}]
           [:link {:rel "stylesheet"
                   :type "text/css"
                   :href "https://cdn.jsdelivr.net/npm/@arborium/arborium/dist/themes/base-rustdoc.css"}]
@@ -41,7 +41,7 @@
 
 (defn header
   []
-  [:header [:nav [:ul [:li {:class "logo"} (link [:img {:src "/home/kat/src/fungi/output/assets/img/logo.svg"}] "/")]]
+  [:header [:nav [:ul [:li {:class "logo"} (link [:img {:src "/assets/img/logo.svg"}] "/")]]
             [:ul [:li (link "Home" "/")
                   [:li (link "External" "/external")]]]]])
 

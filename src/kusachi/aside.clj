@@ -1,7 +1,7 @@
-(ns fungi.aside
+(ns kusachi.aside
   (:require [clojure.pprint :as pprint]
             [clojure.zip :as zip]
-            [fungi.hickory :as fh]
+            [kusachi.hickory :as fh]
             [hickory.core :as hc]
             [hickory.select :as hs]))
 

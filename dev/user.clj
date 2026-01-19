@@ -1,6 +1,6 @@
 (ns user
-  (:require [fungi.config :as configNs]
-            [fungi.system :as system]
+  (:require [kusachi.config :as configNs]
+            [kusachi.system :as system]
             [ragtime.next-jdbc :as jdbc]
             [ragtime.repl :as repl]))
 

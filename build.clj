@@ -3,9 +3,9 @@
   (:require [clojure.tools.build.api :as b]
             [clojure.tools.deps :as t]))
 
-(def lib 'net.clojars.kittywitch/fungi)
+(def lib 'net.clojars.kittywitch/kusachi)
 (def version "0.1.0-SNAPSHOT")
-(def main 'fungi.main)
+(def main 'kusachi.main)
 (def class-dir "target/classes")
 
 (defn test "Run all the tests." [opts]

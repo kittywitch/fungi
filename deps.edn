@@ -8,11 +8,17 @@
         fivetonine/collage {:mvn/version "0.3.0"}
         org.clj-commons/digest {:mvn/version "1.4.100"}
         lambdaisland/uri {:mvn/version "1.19.155"}
-        pathetic/pathetic {:mvn/version "0.5.1"}}
+        pathetic/pathetic {:mvn/version "0.5.1"}
+        org.clojure/tools.cli {:mvn/version "1.3.250"}
+        compojure/compojure {:mvn/version "1.7.2"}
+        ring/ring-core {:mvn/version "1.15.3"}
+        ring/ring-jetty-adapter {:mvn/version "1.15.3"}
+        org.clojure/tools.logging {:mvn/version "1.3.0"}
+        org.slf4j/slf4j-simple {:mvn/version "2.0.17"}}
 
  :aliases
- {:run-m {:main-opts ["-m" "fungi.main"]}
-  :run-x {:ns-default fungi.main
+ {:run-m {:main-opts ["-m" "kusachi.main"]}
+  :run-x {:ns-default kusachi.main
           :exec-fn greet
           :exec-args {:name "Clojure"}}
   :build {:deps {io.github.clojure/tools.build {:mvn/version "0.10.11"}}

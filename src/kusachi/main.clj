@@ -1,20 +1,23 @@
-(ns fungi.main
+(ns kusachi.main
   (:require [clojure.java.io :as io]
             [clojure.pprint :as pprint]
             [clojure.string :as str]
             [fivetonine.collage.core :as fcc]
             [fivetonine.collage.util :as fcu]
-            [fungi.components :as fco]
-            [fungi.core :as fc]
-            [fungi.frontmatter :as fm]
-            [fungi.headings :as fhe]
-            [fungi.highlighting :as fhi]
-            [fungi.aside :as fas]
-            [fungi.preprocessor :as fp]
-            [fungi.thumbnailing :as ft]
-            [fungi.routing :as fr]
+            [kusachi.components :as fco]
+            [kusachi.core :as fc]
+            [kusachi.frontmatter :as fm]
+            [kusachi.headings :as fhe]
+            [kusachi.highlighting :as fhi]
+            [kusachi.aside :as fas]
+            [kusachi.preprocessor :as fp]
+            [kusachi.thumbnailing :as ft]
+            [kusachi.routing :as fr]
+            [kusachi.server :as fs]
             [hickory.core :as hic]
-            [hickory.render :refer [hickory-to-html]]))
+            [hickory.render :refer [hickory-to-html]]
+            [clojure.tools.cli :refer [parse-opts]])
+  (:gen-class))
 
 (defn simple-writer [out-path data]
   (let [parent (.getParentFile (io/as-file out-path))]
@@ -88,7 +91,7 @@
                                      (swap! post-map assoc relative-out frontmatter)
                                      (assign-post-to-tags relative-out frontmatter)
                                      (let [
-                                          fm-replaced (fm/fungi-replacer frontmatter cleantree)
+                                          fm-replaced (fm/kusachi-replacer frontmatter cleantree)
                                           thumby (ft/image-thumber relative-out img-map fm-replaced)
                                           ] thumby)))
                                  (fhi/code-replacer)
@@ -155,8 +158,49 @@
 
 (def sha-map (atom {}))
 
-(defn -main
-  []
+(def cli-options
+  [ ["-h" "--help"]])
+
+(defn usage [options-summary]
+  (->> ["kusachi, a clojure static site generator"
+        ""
+        "Usage: kusachi [options] action"
+        ""
+        "Options:"
+        options-summary
+        ""
+        "Actions:"
+        "  generate Generate the website"
+        "  serve    Serve the website"]
+       (str/join \newline)))
+
+(defn error-msg [errors]
+  (str "The following errors occurred while parsing your command:\n\n"
+       (str/join \newline errors)))
+
+(defn validate-args
+  "Validate command line arguments. Either return a map indicating the program
+  should exit (with an error message, and optional ok status), or a map
+  indicating the action the program should take and the options provided."
+  [args]
+  (let [{:keys [options arguments errors summary]} (parse-opts args cli-options)]
+    (cond
+      (:help options) ; help => exit OK with usage summary
+      {:exit-message (usage summary) :ok? true}
+      errors ; errors => exit with description of errors
+      {:exit-message (error-msg errors)}
+      ;; custom validation on arguments
+      (and (= 1 (count arguments))
+           (#{"generate" "serve"} (first arguments)))
+      {:action (first arguments) :options options}
+      :else ; failed custom validation => exit with usage summary
+      {:exit-message (usage summary)})))
+
+(defn exit [status msg]
+  (println msg)
+  (System/exit status))
+
+(defn generate []
   (pprint/pprint (meta #'fco/page-raw))
   (println "Loading prior output hashset")
   (fc/load-output-hashset sha-map)
@@ -174,3 +218,13 @@
   (println "Image map")
   (pprint/pprint @img-map)
   (shutdown-agents))
+
+(defn -main [& args]
+  (pprint/pprint args)
+  (let [{:keys [action options exit-message ok?]} (validate-args args)]
+    (if exit-message
+      (exit (if ok? 0 1) exit-message)
+      (case action
+        "generate"  (generate)
+        "serve" (fs/serve)
+      ))))
