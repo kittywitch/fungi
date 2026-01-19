@@ -2,7 +2,7 @@
 title: "Zola is dead to me. Long live Kusachi!"
 date: 2026-01-15T03:18Z
 draft: true
-tags: [ssg, programming]
+tags: [ssg, programming, clojure]
 ---
 
 ## In unfair Zola, where we lay our scene (impetus)
@@ -314,7 +314,10 @@ I didn't think this exploration would lead me to look into the history of Lisp, 
 
 ### One more time with feeling; on jyn514/flower
 
-~~y'all ever shadowbox about functional programming and static site generators for several months? no? you're normal and sane? well **fine** ok well at least i had fun~~
+<aside>
+~~y'all ever shadowbox about static site generators for several months? no? you're normal and sane? well **fine** ok well at least i had fun~~
+
+</aside>
 
 Thank you jyn514, I never would have thought that staring at a static site generator shaped abyss to the point of insanity would lead me to grow as a programmer and a person. I could have nothing here but respect for you have led me to grow my own digital garden *properly*.
 

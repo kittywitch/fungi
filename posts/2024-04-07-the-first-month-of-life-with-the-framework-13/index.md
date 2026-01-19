@@ -1,6 +1,7 @@
 ---
 title: "The first month of life with the Framework 13"
 date: 2024-04-07T19:34:59Z
+tags: [nix, linux, framework]
 ---
 ## Preparation
 

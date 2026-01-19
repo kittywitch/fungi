@@ -16,5 +16,8 @@
 (defn output-router [filename]
   (str/replace filename "posts" "output/posts"))
 
+(defn resource-router [filename]
+  (str/replace filename "resources/" "output/assets/"))
+
 (defn refiletyper [from to]
   (fn [file] (str/replace file (re-pattern (str "(\\." from ")$")) (str "." to))))

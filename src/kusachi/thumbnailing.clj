@@ -1,10 +1,14 @@
 (ns kusachi.thumbnailing
-  (:require [clojure.pprint :as pprint]
+  (:require [clojure.java.io :as io]
+            [clojure.pprint :as pprint]
             [clojure.string :as str]
             [clojure.zip :as zip]
+            [fivetonine.collage.core :as fcc]
+            [fivetonine.collage.util :as fcu]
             [pathetic.core :as pc]
             [kusachi.hickory :as fh]
-            [hickory.core :as hc]
+            [kusachi.core :as fc]
+            [kusachi.routing :as fr]
             [hickory.select :as hs]
             [lambdaisland.uri :as uri]))
 
@@ -43,7 +47,6 @@
         ] img-wrapped))
 
 (defn image-editor [elem]
-  (println elem)
   (let [{attrs :attrs} elem
         {src :src} attrs
       ] (image-template elem src)))
@@ -53,3 +56,29 @@
    (image-selector post-path images)
    tree
    #(zip/edit % image-editor)))
+
+(def img-map (atom {}))
+(defn create-thumbnail
+  [path out-path]
+  (swap! img-map assoc out-path path)
+  (let [image (fcu/load-image path)
+        resized (fcc/resize image :width 600)
+        parent (.getParentFile (io/as-file out-path))]
+    (.mkdirs parent)
+    (fcu/save resized out-path :quality 0.7 :progressive true)))
+
+(defn thumb-exists [file]
+  (let [thumb-filename (add-thumb-to-filename (.getAbsolutePath file))]
+    (.exists (io/as-file thumb-filename))))
+
+(def image-core {:path "posts"
+                 :lens {:filter [(fc/glob "*.{png,jpg,webp,gif,bmp}")]
+                        :remove [(fc/glob "*.thumb.*")]}
+                 :router [fr/output-router]
+                 :compiler (fn [path out-path] (fc/copy-file-compiler path out-path))})
+
+(def thumb-core {:path "posts"
+                 :lens {:filter [(fc/glob "*.{png,jpg,webp,gif,bmp}")]
+                        :remove [(fc/glob "*.thumb.*") thumb-exists]}
+                 :router [fr/output-router add-thumb-to-filename]
+                 :compiler (fn [path out-path] (create-thumbnail path out-path))})

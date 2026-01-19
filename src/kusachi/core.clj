@@ -5,13 +5,39 @@
             [clojure.pprint :as pprint]
             [kusachi.routing :as fr]))
 
+(def sha-map (atom {}))
+
+(defn simple-writer [out-path data]
+  (let [parent (.getParentFile (io/as-file out-path))]
+    (.mkdirs parent))
+  (with-open [file-writer (io/writer out-path :append false)]
+    (.write file-writer data)))
+
+(defn copy-file-compiler [path out-path]
+  (let [file (io/as-file path)
+        out-file (io/as-file out-path)
+        parent (.getParentFile out-file)]
+    (.mkdirs parent)
+    (io/copy file out-file)))
+
+(defn glob-criteria [criteria]
+  (str "glob:" criteria))
+
+(defn glob-matcher [criteria]
+  (.getPathMatcher
+   (java.nio.file.FileSystems/getDefault)
+   (glob-criteria criteria)))
+
+(defn glob [criteria]
+  (fn [path] (.matches (glob-matcher criteria) (.getFileName (.toPath path)))))
+
 (defn pipe [initial-data my-functions] ((apply comp my-functions) initial-data))
 
 (defn pipeline-hash [path]
   (let [path-digest (digest/sha-256 (io/file path))]
     path-digest))
 
-(defn pipeline-file [sha-map router compiler path]
+(defn pipeline-file [router compiler path]
   ; TODO: make this less inefficient?
   (let [out-path (pipe path router)
         current-path (.getAbsolutePath (io/file "./"))
@@ -27,7 +53,7 @@
       (identity result))))
 
 (defn pipeline
-  [sha-map core]
+  [core]
   (let [{:keys [path compiler router]
          {filters :filter
           removes :remove} :lens
@@ -44,9 +70,9 @@
          (#(if (> (count filters) 0) (filter filterer %) %))
          (#(if (> (count removes) 0) (remove remover %) %))
          (mapv #(.getAbsolutePath %))
-         (mapv (partial pipeline-file sha-map router compiler)))))
+         (mapv (partial pipeline-file router compiler)))))
 
-(defn load-output-hashset [sha-map]
+(defn load-output-hashset []
   (let [file-content (with-open [rdr (io/reader "./kusachi.lock")]
                        (edn/read (new java.io.PushbackReader rdr)))]
     (reset! sha-map file-content)
@@ -54,7 +80,7 @@
     (print "Contents: ")
     (pprint/pprint @sha-map)))
 
-(defn commit-output-hashset [sha-map]
+(defn commit-output-hashset []
   (println "Committing output hashset")
   (with-open [w (io/writer "./kusachi.lock" :append false)]
     (.write w (prn-str @sha-map))))
