@@ -18,8 +18,9 @@
 * Quality of Life
 - [ ] Figure out a nicer way to handle paths
   - [ ] Replace output router with something that isn't so delirious, same for resource router
-- [ ] Web server
+- [x] Web server
 - [ ] Hot reloading with livereload websocket (self-refer to Gleam project)
+- [ ] Auto-regeneration with hash based checking for incremental compilation connected up to file watcher and hot reloading
 - [ ] Automatic archive.is for all external content
 - [x] Append and prepend hr#note to the content of all aside
 

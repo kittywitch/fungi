@@ -1,6 +1,5 @@
 (ns kusachi.server
   (:require [compojure.core :as cc]
-            [compojure.handler :as handler]
             [compojure.route :as route]
             [ring.adapter.jetty :as rj]))
 

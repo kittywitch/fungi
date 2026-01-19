@@ -6,11 +6,6 @@
             [hickory.core :as hc]
             [hickory.select :as hs]))
 
-(def code-selector
-  (hs/and (hs/tag :pre)
-          (hs/has-child (hs/and (hs/tag :code)
-                                (hs/not (hs/attr :data-lang))))))
-
 (def arborium-themes ["alabaster"
                       "ayu-dark"
                       "ayu-light"
@@ -43,6 +38,11 @@
                       "solarized-light"
                       "tokyo-night"
                       "zenburn"])
+
+(def code-selector
+  (hs/and (hs/tag :pre)
+          (hs/has-child (hs/and (hs/tag :code)
+                                (hs/not (hs/attr :data-lang))))))
 
 (defn elem-maker [tag attrs content]
   {:type :element
