@@ -21,8 +21,13 @@
             [clojure.tools.cli :refer [parse-opts]])
   (:gen-class))
 
-(def resources-core {:path "resources/img"
-                :lens {:filter [(fc/glob "*.{svg,png,gif,jpg}")]
+(def img-core {:path "resources/img"
+                :lens {:filter [(fc/glob "*.{svg,png,gif,jpg,webp}")]
+                       :remove []}
+                :router [fr/resource-router]
+                :compiler (fn [path out-path] (fc/copy-file-compiler path out-path))})
+(def js-core {:path "resources/js"
+                :lens {:filter [(fc/glob "*.js")]
                        :remove []}
                 :router [fr/resource-router]
                 :compiler (fn [path out-path] (fc/copy-file-compiler path out-path))})
@@ -96,7 +101,7 @@
   (println "Loading prior output hashset")
   (fc/load-output-hashset)
   (println "Starting operation")
-  (let [cores [fpo/post-core fsa/sass-core ft/image-core resources-core ft/thumb-core]]
+  (let [cores [fpo/post-core fsa/sass-core ft/image-core ft/thumb-core fhi/arborium-theme-core img-core js-core]]
     (mapv fc/pipeline cores))
   (generate-tags)
   (generate-index)

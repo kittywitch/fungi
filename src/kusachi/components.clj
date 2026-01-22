@@ -1,7 +1,8 @@
 (ns kusachi.components
   (:require [clojure.string :as str]
             [clojure.pprint :as pprint]
-            [huff2.core :as h]))
+            [huff2.core :as h]
+            [kusachi.highlighting :as kh]))
 
 (defn link
   [text url & {:as attrs}]
@@ -17,10 +18,15 @@
                   :href "/assets/css/main.css"}]
           [:link {:rel "stylesheet"
                   :type "text/css"
-                  :href "https://cdn.jsdelivr.net/npm/@arborium/arborium/dist/themes/base-rustdoc.css"}]
+                  :href "/assets/css/arborium/base.css"}]
           [:link {:rel "stylesheet"
                   :type "text/css"
-                  :href "https://cdn.jsdelivr.net/npm/@arborium/arborium/dist/themes/tokyo-night.css"}]
+                  :id "arborium-theme-light"
+                  :href "/assets/css/arborium/catppuccin-latte.css"}]
+          [:link {:rel "stylesheet"
+                  :type "text/css"
+                  :id "arborium-theme-dark"
+                  :href "/assets/css/arborium/catppuccin-macchiato.css"}]
           [:title title]]])
 
 (defn head-placeholder
@@ -33,17 +39,63 @@
                   :href "/assets/css/main.css"}]
           [:link {:rel "stylesheet"
                   :type "text/css"
-                  :href "https://cdn.jsdelivr.net/npm/@arborium/arborium/dist/themes/base-rustdoc.css"}]
+                  :href "/assets/css/arborium/base.css"}]
           [:link {:rel "stylesheet"
                   :type "text/css"
-                  :href "https://cdn.jsdelivr.net/npm/@arborium/arborium/dist/themes/tokyo-night.css"}]
+                  :id "arborium-theme-light"
+                  :href "/assets/css/arborium/catppuccin-latte.css"}]
+          [:link {:rel "stylesheet"
+                  :type "text/css"
+                  :id "arborium-theme-dark"
+                  :href "/assets/css/arborium/catppuccin-macchiato.css"}]
           [:title {:id "placeholder"} title]]])
+
+(def colorscheme
+  [:fieldset {:class "nonoscript"}
+    [:legend "Site color scheme"]
+    [:input {:name "color-scheme"
+             :type "radio"
+             :id "color-scheme-dark"
+             :value "dark"}]
+    [:label {:for "color-scheme-dark"} "Dark"]
+    [:input {:name "color-scheme"
+             :type "radio"
+             :id "color-scheme-light"
+             :value "light"}]
+    [:label {:for "color-scheme-light"} "Light"]
+    [:button {:id "clear-color-scheme"
+              :type "button"
+              :title "Will also revert the page back to the color scheme preference as provided by the system and browser."} "Clear preference"]
+  ]
+)
+
+(defn selectable [label lst & {id :id default :default}]
+  [:<> [:label {:for id} label]
+   [:select {:id id}
+    (map (fn [val] (let [opt [:option {:value val} val]]
+                     (if (= val default)
+                       (assoc-in opt [1 :selected] "true")
+                       opt
+                       ))
+           ) lst)
+    ]])
 
 (defn header
   []
-  [:header [:nav [:ul [:li {:class "logo"} (link [:img {:src "/assets/img/logo.svg"}] "/")]]
-            [:ul [:li (link "Home" "/")
-                  [:li (link "External" "/external")]]]]])
+  [:header [:details
+            [:summary {:id "theme-selector"}"Theme"]
+            colorscheme
+            [:fieldset
+             [:legend "Syntax highlighting theme"]
+              (selectable "Dark preference" kh/arborium-themes :id "syntax-highlighting-dark" :default "catppuccin-macchiato")
+              [:br]
+              (selectable "Light preference" kh/arborium-themes :id "syntax-highlighting-light" :default "catppuccin-latte")
+             ]
+            ]
+   [:script {:src "/assets/js/colorscheme.js"}]
+   [:nav [:ul [:li {:class "logo"} (link [:img {:src "/assets/img/logo.svg"}] "/")]]
+    [:ul [:li (link "Home" "/")
+          [:li (link "External" "/external")]]]]])
 
 (defn footer
   []
@@ -61,11 +113,39 @@
   [content]
   [:body {:class "container"} [[:div {:class "body-wrapper"} [(header)
                                                               (main content)
-                                                              (footer)]]]])
+                                                              (footer)
+                                                              [:script {:src "/assets/js/nonoscript.js"}]]]]])
 
 (defn rubypair [kanji ruby]
   [:<> [:rb kanji]
    [:rt ruby]])
+
+(defn image [src alt]
+  [:img {:src src :alt alt}])
+
+(defn badge-html [src alt]
+  (image (str "/assets/img/88x31/" src) alt))
+
+(defn badge
+  ([src alt]
+  (badge-html src alt))
+  ([src alt url]
+    [:a {:href url} (badge src alt)]))
+
+(def web-badges
+  [:div {:class "badge-container"}
+    (badge "nixos.png" "powered by nixos" "https://nixos.org/")
+    (badge "anybrowser.png" "viewable in any browser" "http://www.anybrowser.org/campaign/")
+    (badge "neovim.gif" "made with neovim" "https://neovim.io/")
+    (badge "librewolf-now.gif" "librewolf now!" "https://librewolf.net/")
+    (badge "button-ublock.gif" "ublock origin now!" "https://ublockorigin.com/")
+    (badge "searxng.png" "searxng" "https://docs.searxng.org/")
+    (badge "tor.gif" "tor project" "https://www.torproject.org/")
+    (badge "badapple.webp" "tohou project, bad apple" "https://en.touhouwiki.net/wiki/Touhou_Wiki")
+    (badge "lain.gif" "serial experiments lain" "https://nyaa.si/view/964646")
+    (badge "ao3.gif" "pro ao3 freak" "https://archiveofourown.org/")
+    (badge "drpepper.gif" "powered by dr pepper")
+  ])
 
 (def isekaijin
   [:ruby (rubypair "異" "い")
@@ -101,7 +181,15 @@
         [:li [:abbr {:title "Political science"} "Polsci"]]
         [:li "Firearms"]
       ]
-    ]]
+    ]
+    [:section {:id "web-badges"}
+     [:h3 {:id "web-badges"} "Web badges "
+      [:small (link "Explain?" "https://en.wikipedia.org/wiki/Web_badge")]
+      ]
+
+     web-badges
+    ]
+   ]
    ])
 
 (defn postlist-for-tag [tag posts]
@@ -136,7 +224,7 @@
                                    [:li (link (str title (when date (str " - " date)))
                                               (str/replace path "output/" ""))]) (into (sorted-map-by #(compare %2 %1)) posts))]]]]
         ]
-    (str (h/html
+    (str (h/page
            {:allow-raw true}
            [:html
             (head "dork.dev")

@@ -1,10 +1,22 @@
 (ns kusachi.highlighting
   (:require [clojure.pprint :as pprint]
+            [clojure.string :as str]
             [clojure.zip :as zip]
             [kusachi.hickory :as fh]
             [kusachi.preprocessor :as fp]
+            [kusachi.core :as kc]
+            [kusachi.routing :as fr]
             [hickory.core :as hc]
             [hickory.select :as hs]))
+
+(defn arborium-theme-router [filename]
+  (str/replace filename "arborium/dist/themes/" "output/assets/css/arborium/"))
+
+(def arborium-theme-core {:path "arborium/dist/themes/"
+                :lens {:filter [(kc/glob "*.css")]
+                       :remove []}
+                :router [fr/resource-router arborium-theme-router]
+                :compiler (fn [path out-path] (kc/copy-file-compiler path out-path))})
 
 (def arborium-themes ["alabaster"
                       "ayu-dark"

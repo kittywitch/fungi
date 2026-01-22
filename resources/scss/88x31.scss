@@ -1,0 +1,19 @@
+@use "colouring";
+
+.badge-container {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: row wrap;
+  gap: .75rem;
+  img {
+    align-self: center;
+  }
+}
+
+.badge-container {
+  a:hover {
+    border-color: colouring.theme-get(a-hover, colouring.$theme);
+  }
+}

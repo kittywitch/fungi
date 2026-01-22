@@ -6,6 +6,7 @@ $theme: dark !default;
 
 $themes: (
   light: (
+    opposite: dark,
     bg: #fcfcfc,
     fg: #333,
     border: #333,
@@ -18,6 +19,7 @@ $themes: (
     lightness: -5%,
   ),
   dark: (
+    opposite: light,
     bg: #141414,
     fg: #ddd,
     border: #ddd,
@@ -87,6 +89,31 @@ hr {
     background: theme-get(bg, $theme);
   }
 
+  blockquote {
+    border-left-color: theme-get(border, $theme);
+  }
+
+  aside {
+  box-shadow: 0 0 .2rem .2rem theme-get(fg, $theme);
+  }
+
+  pre, code {
+    background: var(--arb-bg-#{$theme}, var(--arb-bg-#{theme-get(opposite, $theme)}));
+    color: var(--arb-fg-#{$theme}, var(--arb-fg-#{theme-get(opposite, $theme)}));
+  }
+  pre, :not(pre) > code {
+    border: 2px solid var(--arb-fg-#{$theme}, var(--arb-fg-#{theme-get(opposite, $theme)}));
+  }
+
+  article {
+    a:has(img) img {
+      border-bottom-color: theme-get(a-link, $theme);
+      &:hover {
+        border-bottom-color: theme-get(a-hover, $theme);
+      }
+    }
+  }
+
   #taglist a {
     .counter {
       border-left: 1px solid theme-get(border, $theme);
@@ -107,16 +134,31 @@ hr {
   body div.body-wrapper {
     box-shadow: theme-get(bodyfuzz, $theme) 0rem 0rem 1rem 1rem;
   }
+
   @include utility.headings {
     color: theme-get(heading, $theme);
   }
-  /*pre {
-    background: theme-get(code, $theme);
-    border-color: theme-get(border, $theme);
-  }*/
+
   $link_states: "link", "visited", "hover";
   @each $name in $link_states {
     @include link_state($name, $theme);
+  }
+
+  img#avatar {
+    border-color: theme-get(border, $theme);
+    box-shadow: 0 0 .2rem .2rem theme-get(bodyfuzz, $theme);
+  }
+
+  header nav .logo {
+    a {
+      border-bottom: initial !important;
+      &:hover {
+        background-color: initial !important;
+      }
+    }
+    img {
+      filter: drop-shadow(theme-get(bodyfuzz, $theme) 0rem 0rem .2rem) !important;
+    }
   }
 }
 
@@ -126,7 +168,10 @@ html {
 
 @media (prefers-color-scheme: dark) {
   html {
-  @include set-colors(dark);
+    @include set-colors(dark);
+    #taglist a:hover {
+      color: theme-get(bg, $theme);
+    }
   }
 }
 
@@ -138,6 +183,9 @@ html {
 
 html:has(#color-scheme-dark:checked) {
   @include set-colors(dark);
+  #taglist a:hover {
+    color: theme-get(bg, $theme);
+  }
 }
 
 html:has(#color-scheme-light:checked) {
