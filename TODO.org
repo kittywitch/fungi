@@ -1,6 +1,6 @@
 * SSG Miscellanea
 - [ ] Sitemap
-- [ ] RSS Feed
+- [x] RSS Feed
 - [x] Use frontmatter
   - [x] Retrieve from Pandoc using data#frontmatter selection
 - [x] Post list on index page

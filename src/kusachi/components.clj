@@ -83,7 +83,7 @@
 (defn header
   []
   [:header [:details
-            [:summary {:id "theme-selector"}"Theme"]
+            [:summary {:id "theme-selector"} "Theme"]
             colorscheme
             [:fieldset
              [:legend "Syntax highlighting theme"]
@@ -99,11 +99,13 @@
 
 (defn footer
   []
-  [:footer [:span "Written with " (link [:ruby [:rb "草"] [:rt "くさ"]
+  [:footer [:nav [:ul
+                  [:li [:span "Written with " (link [:ruby [:rb "草"] [:rt "くさ"]
                                          [:rb "地"] [:rt "ち"]
                                          [:rp "くさち"]] "https://github.com/kittywitch/kusachi") " using "
             [:a {:href "https://clojure.org/"} "Clojure"]
-            " in Canada! 🇨🇦"]])
+            " in Canada! 🇨🇦"]]]
+            [:ul [:li [:a {:href "/atom.xml"} "RSS Feed"]]]]])
 
 (defn main
   [content]

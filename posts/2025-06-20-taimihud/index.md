@@ -39,12 +39,14 @@ tags: [video games, programming, rust]
 ## Introduction
 
 Repositories:
+
 * Personal: [kittywitch/TaimiHUD](https://github.com/kittywitch/TaimiHUD)
 * Organization: [TaimiHUD/TaimiHUD](https://github.com/TaimiHUD/TaimiHUD)
 
 For the longest of time, I've felt like that Windows users have a far superior experience of GW2 with addons than Linux users do. This is a real shame, given the amount of people who could play now from a Steam Deck, let alone daily-drive Linux to avoid the horrors of modern Windows. The Windows users had BlishHUD and its modules to turn to.
 
 The things that irked me most were the accessibility challenges, I found myself longing for things like:
+
 * encounter timers
 * auto marker placements
 * pathing for achievements, races, ...

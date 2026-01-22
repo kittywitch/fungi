@@ -15,6 +15,7 @@
             [kusachi.sass :as fsa]
             [kusachi.thumbnailing :as ft]
             [kusachi.routing :as fr]
+            [kusachi.rss :as krss]
             [kusachi.server :as fs]
             [hickory.core :as hic]
             [hickory.render :refer [hickory-to-html]]
@@ -47,6 +48,12 @@
     (let [taglist (generate-tag tag paths)
       file (fc/simple-writer (str "output/tags/" tag ".html") taglist)]
       file )))
+
+(defn generate-rss []
+  (println "Generating RSS feed")
+  (let [rss-feed (krss/rss-feed @fpo/post-map)
+    file (fc/simple-writer "output/atom.xml" rss-feed)]
+    file))
 
 (defn generate-index []
   (println "Generating index page")
@@ -105,6 +112,7 @@
     (mapv fc/pipeline cores))
   (generate-tags)
   (generate-index)
+  (generate-rss)
   (println "Finished operation")
   (fc/commit-output-hashset)
   (println "Post map")
