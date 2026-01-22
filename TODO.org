@@ -6,14 +6,14 @@
 - [x] Post list on index page
 - [x] Syntax highlighting
   - [x] Consider https://fasterthanli.me/articles/introducing-arborium ?
-  - [ ] Syntax highlighting theme selector (Arborium)
+  - [x] Syntax highlighting theme selector (Arborium)
 - [x] Heading self-permalink affix
-- [ ] Theme selector (light/dark)
-- [ ] Tags
+- [x] Theme selector (light/dark)
+- [x] Tags
   - [x] Add to post template
   - [x] Make tag collection pages
   - [x] Make tag list (with counters)
-  - [ ] Add to posts
+  - [x] Add to posts
 
 * Quality of Life
 - [ ] Figure out a nicer way to handle paths
@@ -54,3 +54,6 @@
 - [ ] Look into embedded Clojure expressions within Lucy
 - [ ] Avoid actual HTML render effort by converting to Huff/Hiccup under the hood?
 - [ ] Figure out lucy -> clojure -> lucy expression, e.g. for loops over variables, ...
+
+* CSS DSL / preprocessing
+- [ ] Provide a decent way to do cartesian product mapping with CSS variable interpolation on top of a file demanding variables for attribute definitions, then allow in-line inclusions to produce javascript-less arborium theme management based upon :checked and [value=] selection.
