@@ -34,3 +34,4 @@
 .clj-kondo/
 /output
 /fungi.lock
+/result

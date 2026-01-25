@@ -16,7 +16,7 @@
                              :dir (io/as-file "."))] out))
 
 (defn arborium [lang input]
-  (let [{out :out} (shell/sh "/home/kat/.cargo/bin/arborium"
+  (let [{out :out} (shell/sh "arborium"
                              "-l" lang
                              "--html"
                              :in (str input))] out))

@@ -1,8 +1,50 @@
 {
   description = "clojure experiments";
-  outputs = { self, nixpkgs, systems }: let
-    forAllSystems = nixpkgs.lib.genAttrs (import systems);
+  outputs = { self, nixpkgs, clj-nix, arborium }: let
+    forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
   in {
+    packages = forAllSystems (system: let
+      pkgs = nixpkgs.legacyPackages.${system};
+      in {
+      kusachi = clj-nix.lib.mkCljApp {
+        inherit pkgs;
+        modules = [
+          {
+            projectSrc = ./.;
+            name = "kusachi";
+            main-ns = "kusachi.main";
+            nativeImage = {
+              enable = false;
+              graalvm = pkgs.graalvmPackages.graalvm-ce;
+              extraNativeImageBuildArgs = [
+                "--initialize-at-build-time=com.fasterxml.jackson."
+                "--initialize-at-build-time"
+                "--features=clj_easy.graal_build_time.InitClojureClasses"
+              ];
+            };
+          }
+        ];
+      };
+      kusachi-site = with pkgs; stdenv.mkDerivation {
+        name = "kusachi-site";
+        src = ./.;
+        version = "irrelevant";
+        buildInputs = [
+          self.packages.${system}.kusachi
+          clojure
+          pandoc
+          dart-sass
+          arborium.packages.${system}.arborium-cli
+        ];
+        buildPhase = ''
+          kusachi generate
+        '';
+        installPhase = ''
+          mkdir -p $out
+          cp -r output/* $out/
+        '';
+      };
+    });
     devShells = forAllSystems (system: let
       pkgs = nixpkgs.legacyPackages.${system};
     in {
@@ -16,25 +58,10 @@
           clojure-lsp
           pandoc
           leiningen
+          arborium.packages.${system}.arborium-cli
           postgresql
           cargo
         ];
-        shellHook = ''
-    set -e
-    export PGDIR=''${PROJECT_ROOT}/postgres
-    export PGHOST=$PGDIR
-    export PGDATA=$PGDIR/data
-    export PGLOG=$PGDIR/log
-
-    if test ! -d $PGDIR; then
-      mkdir $PGDIR
-    fi
-
-   if [ ! -d $PGDATA ]; then
-     echo 'Initializing postgresql database...'
-     initdb $PGDATA --auth=trust >/dev/null
-   fi
-        '';
       };
     });
   };
@@ -42,6 +69,10 @@
     nixpkgs = {
       url = "github:nixos/nixpkgs/nixos-unstable";
     };
-    systems.url = "github:nix-systems/default";
+    arborium = {
+      url = "github:kittywitch/arborium-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    clj-nix.url = "github:jlesquembre/clj-nix";
   };
 }
