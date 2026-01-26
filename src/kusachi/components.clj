@@ -201,8 +201,8 @@
         [:html
          (head (str "Posts under tag " tag " - dork.dev"))
          (body [:nav [:h2 (str "Posts under tag: " tag " (" (count posts) ")")]
-                [:ul [:<> (map (fn [{:strs [path title date]}]
-                                 [:li (link (str title (when date (str " - " date)))
+                [:ul [:<> (map (fn [{:strs [path title date draft]}]
+                                 [:li (link [:<> (str title (when date (str " - " date))) (when draft " ") (when draft [:small "Draft"]) ]
                                             (str/replace path "output/" ""))]) (sort-by #(get % "path") #(compare %2 %1) posts))]]])])))
 
 (defn taglist [tags]
@@ -222,6 +222,7 @@
                  (taglist tags)
                  ]]
         postlist [:section {:id "postlist"} [:nav [:h2 "Posts"]
+                  [:p "Drafts are provided here regardless of finality because I would like to produce in the open."]
                   [:ul [:<> (map (fn [[path {:strs [title date draft]}]]
                                    [:li (link [:<> (str title (when date (str " - " date))) (when draft " ") (when draft [:small "Draft"])]
                                               (str/replace path "output/" ""))]) (into (sorted-map-by #(compare %2 %1)) posts))]]]]
