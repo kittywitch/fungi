@@ -36,7 +36,7 @@
 (defn generate-tag [tag paths]
   (let [tag-post-list (map (fn [path]
            (assoc (get @fpo/post-map path)
-                  "path" path)
+                  "path" (str "/" path))
            ) paths)]
     (fco/postlist-for-tag tag tag-post-list)))
 
