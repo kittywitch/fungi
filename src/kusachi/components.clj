@@ -222,8 +222,8 @@
                  (taglist tags)
                  ]]
         postlist [:section {:id "postlist"} [:nav [:h2 "Posts"]
-                  [:ul [:<> (map (fn [[path {:strs [title date]}]]
-                                   [:li (link (str title (when date (str " - " date)))
+                  [:ul [:<> (map (fn [[path {:strs [title date draft]}]]
+                                   [:li (link [:<> (str title (when date (str " - " date))) (when draft " ") (when draft [:small "Draft"])]
                                               (str/replace path "output/" ""))]) (into (sorted-map-by #(compare %2 %1)) posts))]]]]
         ]
     (str (h/page
