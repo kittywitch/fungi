@@ -5,6 +5,14 @@ function theme_css(name) {
 function theme_restore() {
   var ls_dark = localStorage.getItem("arborium-theme-dark");
   var ls_light = localStorage.getItem("arborium-theme-light");
+  if (ls_dark == null) {
+    ls_dark = "catppuccin-macchiato";
+    localStorage.setItem("arborium-theme-dark", ls_dark);
+  }
+  if (ls_light == null) {
+    ls_light = "catppuccin-latte";
+    localStorage.setItem("arborium-theme-light", ls_light);
+  }
   var arb_dark = document.getElementById("arborium-theme-dark");
   var arb_light = document.getElementById("arborium-theme-light");
   var syntax_highlighting_dark = document.getElementById("syntax-highlighting-dark");
