@@ -1,6 +1,7 @@
 * Site itself
 - [ ] External page
 - [ ] General nested filestructure viewer
+- [ ] Test on mobile
 
 * SSG Miscellanea
 - [ ] Sitemap
