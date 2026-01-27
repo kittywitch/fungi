@@ -16,3 +16,15 @@ article {
   height: 100%;
   display: contents;
 }
+
+@media (width < 80ch) {
+  img {
+    max-width: 100%;
+  }
+  .container {
+    main, header, article, footer {
+      max-width: 100vw;
+    }
+    max-width: 100vw;
+  }
+}
