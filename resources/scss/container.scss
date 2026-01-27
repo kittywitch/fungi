@@ -6,9 +6,9 @@ html:has(body.container) {
 
 .container {
   main, header, article, footer {
-    width: 80ch;
+    max-width: 80ch;
   }
-  width: 80ch;
+  max-width: 80ch;
 }
 
 article {
