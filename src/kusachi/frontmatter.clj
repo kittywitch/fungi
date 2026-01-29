@@ -92,7 +92,7 @@
 (defn kusachi-og-setter [elem frontmatter]
   (let [{title "title"} frontmatter]
     (if title
-      (update-in (assoc elem :content [title]) [:attrs] dissoc :id)
+      (update-in (assoc-in elem [:attrs :content] title) [:attrs] dissoc :id)
       elem)))
 
 (defn kusachi-replacer [frontmatter tree]
