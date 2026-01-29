@@ -1,7 +1,7 @@
 * Site itself
 - [ ] External page
 - [ ] General nested filestructure viewer
-- [ ] Test on mobile
+- [x] Test on mobile
 
 * SSG Miscellanea
 - [ ] Sitemap
@@ -19,16 +19,46 @@
   - [x] Make tag collection pages
   - [x] Make tag list (with counters)
   - [x] Add to posts
-- [ ] Open Graph
+- [ ] Track post modification times?
+
+* Transformations refactor
+- [ ] Produce a generalized wrapper around hickory-update and contained transformations?
+
+* Syntax highlighting refactor
+- [ ] See TODO, resolve
+- [ ] Composable regular expression based syntax highlighting a la syntect & two-face et al on top of arborium?
+
+* Templating refactor
+- [ ] Standardize html attributes
+
+* Open Graph
+- [ ] Regular pages
+  - [ ] og:type website
+  - [ ] dynamic og:title
+  - [ ] dynamic og:url
+- [ ] Articles
+  - [x] og:type article
+  - [x] dynamic og:title
+  - [ ] dynamic og:url
+  - [ ] dynamic and optional og:image
+  - [ ] article:published_time
+  - [ ] article:modified_time
+  - [ ] article:tag
+  - [ ] article:author
 
 * Quality of Life
 - [ ] Figure out a nicer way to handle paths
   - [ ] Replace output router with something that isn't so delirious, same for resource router
 - [x] Web server
 - [ ] Hot reloading with livereload websocket (self-refer to Gleam project)
+  - Try https://github.com/nextjournal/beholder
+  - Try https://github.com/babashka/pod-babashka-filewatcher
 - [ ] Auto-regeneration with hash based checking for incremental compilation connected up to file watcher and hot reloading
-- [ ] Automatic archive.is for all external content
 - [x] Append and prepend hr#note to the content of all aside
+
+* Archival
+- [ ] Automatic archive.is for all external content
+  - [ ] Refer to https://gwern.net/archiving for expansion of this to-do item
 
 * Optimization
 - [ ] Incremental compilation
@@ -38,11 +68,7 @@
 * Thumbnailing
 - [x] Build a list of local image files in traversal of the file structure
 - [ ] When processing links within the markdown, check if they are within the list of images
-- [ ] When that is the case, transform them into the thumbnail & link
-
-- [x] Move away from transforming a>img via changing src of the img to .thumb
-- [x] Change markdown documents to omit the link wrap around the images
-- [ ] Automatically create links for all img src= where the path is within the local filesystem
+- [x] When that is the case, transform them into the thumbnail & link
 
 * Compilation pipelining
 - [x] Be preprocessor independent, support pandoc, asciidoc, commonmark, ...

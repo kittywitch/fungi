@@ -34,6 +34,11 @@
   [:head [:meta {:name "viewport"
                  :content "width=device-width, initial-scale=1"}
           [:meta {:charset "UTF-8"}]
+          [:meta {:property "og:type"
+                  :content "article"}]
+          [:meta {:property "og:title"
+                  :id "og-title-placeholder"
+                  :content title}]
           [:link {:rel "stylesheet"
                   :type "text/css"
                   :href "/assets/css/main.css"}]
@@ -204,7 +209,7 @@
   (pprint/pprint posts)
   (str (h/html
         {:allow-raw true}
-        [:html
+        [:html {:lang "en"}
          (head (str "Posts under tag " tag " - dork.dev"))
          (body [:nav [:h2 (str "Posts under tag: " tag " (" (count posts) ")")]
                 [:ul [:<> (map (fn [{:strs [path title date draft]}]
@@ -235,7 +240,7 @@
         ]
     (str (h/page
            {:allow-raw true}
-           [:html
+           [:html {:lang "en"}
             (head "dork.dev")
             (body [:<> home-page
                   [:section
@@ -246,7 +251,9 @@
 
 (defn blogpost [& {:keys [content title]
                    :or {title "dork.dev"}}]
-  (str (h/html {:allow-raw true} [:html (head-placeholder title)
+  (str (h/html {:allow-raw true} [:html {:lang "en"
+                                         :prefix "og: https://ogp.me/ns#"}
+                                  (head-placeholder title)
                                   (body [:article content])])))
 
 (defn page-raw [& {:keys [content title]

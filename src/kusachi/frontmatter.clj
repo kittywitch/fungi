@@ -89,6 +89,12 @@
       (assoc elem :content [title " - dork.dev"] :attrs {})
       elem)))
 
+(defn kusachi-og-setter [elem frontmatter]
+  (let [{title "title"} frontmatter]
+    (if title
+      (update-in (assoc elem :content [title]) [:attrs] dissoc :id)
+      elem)))
+
 (defn kusachi-replacer [frontmatter tree]
   (let [embedded (fh/hickory-update
                   (kusachi-selector)
@@ -102,4 +108,10 @@
                     (hs/and (hs/tag :title)
                             (hs/id :placeholder))
                     cleaned
-                    #(zip/edit % kusachi-title-setter frontmatter))] with-title))
+                    #(zip/edit % kusachi-title-setter frontmatter))
+        with-og (fh/hickory-update
+                  (hs/and (hs/tag :meta)
+                          (hs/id :og-title-placeholder))
+                  with-title
+                  #(zip/edit % kusachi-og-setter frontmatter))
+                    ] with-og))

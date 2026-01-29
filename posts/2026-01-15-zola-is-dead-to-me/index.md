@@ -1,30 +1,14 @@
 ---
 title: "Zola is dead to me. Long live Kusachi!"
 date: 2026-01-15T03:18Z
-draft: true
 tags: [ssg, programming, clojure]
 ---
 
-## In unfair Zola, where we lay our scene (impetus)
+## Why did I decide to abandon Zola?
 
-*record scratch*
+I'd not long since switched from Carbon to Zola and added the `external/` page to dork.dev (which at the time of writing this, still needs to be replaced on Kusachi). Here are some of my problems with Zola!
 
-*freeze frame*
-
-Yep, that's me. You're probably wondering how I got here!
-
-<aside>
-why the fuck did i start my ~~very~~ mildly serious, extremely high effort blogpost like this? now they're gonna think it's a shitpost.
-
-but kat, when are you not shitposting? do you *want* everything to be taken seriously?
-
-touché! certainly not! thank god i have jester's privilege
-
-</aside>
-
-So, what problems do I have with Zola? Well I'm glad you ~~didn't ask~~ asked!
-
-### Template syntax complexity
+### Template syntax verbosity to achieve relatively simple aims
 
 #### Title handling
 
@@ -109,7 +93,7 @@ This for me was the last straw!
 
 I have come to understand that I personally really don't like the kind of static site generators that insist upon using configuration to make up for the fact that their code is no longer *truly* extensible for the end user. Where the function call stack is not yours to mutate, you are in deep need of liberation.
 
-## On jyn514/flower (inspiration and motivation)
+## Inspiration and motivation; jyn514/flower
 
 Exploration started with being told about [jyn514/flower](https://codeberg.org/jyn514/flower/src/branch/dev) by a dear friend, which I thought was very cool, but after a while I had decided was not ultimately what I wanted to pursue using.
 
@@ -119,7 +103,7 @@ The idea of build system orchestration (a "meta build system") is appealing, but
 
 I think the project, its goals and execution are however, *very* laudable; it's clear to me that my needs or wants from such a thing are not entirely the same.
 
-## The research journey (ecosystems and paradigms)
+## The journey
 
 ### The initial experiment; Luau on Lune (glade)
 
@@ -166,6 +150,8 @@ I found Phoenix interesting, but it could not be more than a curiosity given the
 
 That amount of work required to cut it out of everything any time you so much as interact with new potential pieces to integrate really soured me on it. I think Tailwind CSS is a poor default for Phoenix, even if it helps many others be productive, that sort of thing is truly too "frameworky", I like to have to put the batteries in myself, I guess?
 
+I still have a to-do for exploring Elixir without Phoenix, since it seems interesting.
+
 #### Haskell & Servant (Unreleased)
 
 Haskell didn't feel like a good fit overall, but it was nice to play with and I will probably be back for it to sate my curiosity with it and the family of languages it resides within.
@@ -190,7 +176,7 @@ Racket is fascinating! Not only is it a Scheme-derivative, but it allows you to 
 
 I want to revisit Racket at some point for <abbr title="Programming language">PL</abbr> theory exploration to get further ideas on what makes a language good and powerful.
 
-## The end result: Clojure (kusachi; you are here!)
+## The destination; Clojure (kusachi)
 
 [Repository](https://github.com/kittywitch/kusachi)
 
@@ -209,15 +195,7 @@ This project, kusachi, actually started as "fungi", a dynamic site made while fo
 
 ### Reflection
 
-#### On complexity burden and cognitive overhead
-
-##### The static site generator as build-system adjacent tooling
-
-In Glade, I attempted to explore directed-acyclic graph resolution and traversal as a means to produce an artifact. This lead to an increase in cognitive overhead, but I think Kusachi is sufficiently at the point where I could likely extend the way things are built with graph resolution.
-
-For the most part, I currently feel like this is unnecessary; the order of function execution is an implicit modelling of dependencies, as jank as it is.
-
-##### The implications of the grug-brain
+#### On complexity burden and cognitive overhead; the implications of the grug-brain
 
 <div class="quote">
 <blockquote cite="https://grugbrain.dev/">
@@ -243,7 +221,15 @@ I said we would return to caveman, and so here we are! When I started writing Fu
 
 Despite this, Clojure was very easy to pick up and extremely powerful. The way people write Clojure libraries and applications seems extremely logical and data-driven programming is beautiful.
 
-#### On the shell as the near-universal intermediary, imperfect as it is
+In looking at Clojure and how I myself could write it, it felt quite low overhead to reason about things as Clojure seemed to intend them to be.
+
+##### The static site generator as build-system adjacent tooling
+
+In Glade, I attempted to explore directed-acyclic graph resolution and traversal as a means to produce an artifact. This lead to an increase in cognitive overhead, but I think Kusachi is sufficiently at the point where I could likely extend the way things are built with graph resolution.
+
+For the most part, I currently feel like this is unnecessary; the order of function applications and pipeline steps within a pipeline is a semi-explicit modelling of dependency relationships, as perhaps unreified as it is in comparison to something producing either a directed acyclic graph or build system related instruction material.
+
+##### On the shell as the near-universal intermediary, imperfect as it is
 
 I very intentionally chose to allow preprocessors as programs outside of the Clojure ecosystem instead of depending upon libraries internal to it. This choice was for multiple reasons, but namely:
 
@@ -255,9 +241,9 @@ In this, I mean, I could switch away from pandoc tomorrow and other than perhaps
 
 The same for SCSS/SASS implementations, although I'm pretty sure the Rust implementation I was looking at does not handle some things within my stylesheet(s) properly. That said, I do not even need SCSS/SASS, I could live perfectly fine with stock CSS.
 
-### Accepting an imperfect world
+## Conclusion; accepting an imperfect world and future plans
 
-#### Syntax highlighting (Arborium)
+### Accepting an imperfect world; syntax highlighting (Arborium)
 
 I found Arborium, presumably from browsing [Hacker News](https://news.ycombinator.com/item?id=46270298) where I came across [this post](https://fasterthanli.me/articles/introducing-arborium). After prior experiences attempting to get tree-sitter alone working for syntax highlighting with their horrible, inconsistent CLI experience where certain switches don't apply to other subcommands and their handling is reimplemented in several separate places for *NO GOOD REASON*, I was more than happy to use a tool that actually made tree-sitter palatable.
 
@@ -266,9 +252,20 @@ I found Arborium, presumably from browsing [Hacker News](https://news.ycombinato
 
 </aside>
 
-Here is an example Clojure function which, jank as it is, produces my code syntax highlighting.
+Here is an example Clojure function which, jank as it is, is the transformer for the code syntax highlighting on this website.
 
 ```clojure
+(def code-selector
+  (hs/and (hs/tag :pre)
+          (hs/has-child (hs/and (hs/tag :code)
+                                (hs/not (hs/attr :data-lang))))))
+
+(defn elem-maker [tag attrs content]
+  {:type :element
+   :tag tag
+   :attrs attrs
+   :content content})
+
 ; TODO: make less ugly please
 (defn code-edit [elem]
   (let [{attrs :attrs pre-content :content} elem
@@ -286,11 +283,17 @@ Here is an example Clojure function which, jank as it is, produces my code synta
                                                                      {:class "arborium"}
                                                                      [code-inner])]))
                                  (let [[code] pre-content
-                                       new-code (assoc code :attrs {:data-lang "plaintext"})] (println "this branch runs!") (assoc elem :tag :div
-                                                                                                                                   :attrs {:class "pre-wrapper"}
-                                                                                                                                   :content [(elem-maker :pre
-                                                                                                                                                         {:class "arborium"}
-                                                                                                                                                         [new-code])])))))
+                                       new-code (assoc code :attrs {:data-lang "plaintext"})] (assoc elem :tag :div
+                                                                                                     :attrs {:class "pre-wrapper"}
+                                                                                                     :content [(elem-maker :pre
+                                                                                                                           {:class "arborium"}
+                                                                                                                           [new-code])])))))
+
+(defn code-replacer [tree]
+  (fh/hickory-update
+   code-selector
+   tree
+   #(zip/edit % code-edit)))
 ```
 
 You'll notice that thanks to [tree-sitter-clojure; see the scope document](github.com/sogaiu/tree-sitter-clojure/blob/master/doc/scope.md):
@@ -304,15 +307,25 @@ Only "primitives" (e.g. symbols, lists, etc.) are supported, i.e. no higher leve
 
 This is a pretty bad result! Looking at [arborium](https://arborium.bearcove.eu/) it's clear they have an unserious feud with [two-face](https://codeberg.org/CosmicHarper/two-face); members of the ~~(presumably very prestigious)~~ regex hater and regex lover clubs respectively. In my neovim configuration, I have a mixture of tree-sitter and regex-based syntax highlighting that makes a decently complete highlighted representation of my code.
 
-"Pretend feud highlighting methodology elitism"(?) aside, it's a pretty severe issue to not have proper highlighting for Lisp dialects, even Scheme looked relatively barren. The same was true for Nix `k = v;` syntax! I'll accept this for now, but in future I want to apply some regex-based highlighting specifically so that I can cover these bases.
+"Pretend feud highlighting methodology elitism"(?) aside, it's a pretty severe issue to not have proper highlighting for Lisp dialects, even Scheme looked relatively barren. The same was true for Nix `k = v;` syntax! I'll accept this for now, but in future I want to apply some regex-based highlighting specifically so that I can cover these bases. This will be the pragmatic approach and thus, acceptance of an imperfect world.
 
-### Personal reflections
+### Future work
 
-I didn't think this exploration would lead me to look into the history of Lisp, intrinsic and extrinsic type systems, the history of functional programming and so on. I've even begun reading [<abbr title="Structure and Interpretation of Computer Programs, Second Edition">SICP</abbr>](https://github.com/ieure/sicp). :p
+These items noted ahead are not the only intentions, these are only some of my remaining TODOs, which include the explorations of domain-specific languages for HTML and CSS, archival pipelines and refactors for improved quality of life.
 
-## Conclusion
+#### Build system adjacent incremental compilation
 
-### One more time with feeling; on jyn514/flower
+During the creation of this software, I noticed that the slowest part of the process is the thumbnailing of images. I have a to-do item remaining to use the hashes from the input image files to prevent regeneration of thumbnailing under the case that the hash has not changed AND the output file is still existent to speed up generation during development and working on blog posts. However, since I use functions outright that are not themselves scoped to one-to-one with files as templating, making this generalizable over all inputs and outputs without providing a way for functions themselves to provide a manner of being "hashed" and a way of constructing "combinant hashes" over a particular input, following the way the output is generated would be essential.
+
+For now, a shortcut to function will likely be a function providing truthiness as to whether or not a core needs to be be ran again upon particular input to regenerate a corresponding output or outputs shall be decent enough.
+
+#### Hot-reloading with live-reload websocket
+
+During the Gleam project I had set up gleam-radiate and filespy for recompilation and preprocessing of SASS/SCSS and an implementation of live reloading for websockets. I still need to do this within kusachi and I intend to do so, probably with [pod-babashka-filewatcher](https://github.com/babashka/pod-babashka-filewatcher) so it utilizes [notify-rs](https://github.com/notify-rs/notify) under the hood. I like things built on pre-existing composable primitives, so this will likely be the way I go about it.
+
+Ring itself has support for websockets, so it should be possible to reuse [this livereload.js implementation](https://github.com/kittywitch/fauna/blob/main/assets/js/livereload.js).
+
+### One more time with feeling; jyn514/flower
 
 <aside>
 ~~y'all ever shadowbox about static site generators for several months? no? you're normal and sane? well **fine** ok well at least i had fun~~
@@ -322,3 +335,11 @@ I didn't think this exploration would lead me to look into the history of Lisp, 
 Thank you jyn514, I never would have thought that staring at a static site generator shaped abyss to the point of insanity would lead me to grow as a programmer and a person. I could have nothing here but respect for you have led me to grow my own digital garden *properly*.
 
 [It's clear that you do it for love of the game](https://jyn.dev/i-m-just-having-fun/) and this showed me just how much I love to play too!
+
+### Personal reflections
+
+I didn't think this exploration would lead me to look into the history of Lisp and its dialects, intrinsic and extrinsic type systems, the history of functional programming and so on. I've even begun reading [<abbr title="Structure and Interpretation of Computer Programs, Second Edition">SICP</abbr>](https://github.com/ieure/sicp) and trying out [GNU Guix System](https://guix.gnu.org/) on my old Thinkpad x270. :p
+
+I feel like I've probably obtained some personal philosophy on development processes and time commitments to a project going through this experience. I'll probably write about those at another point.
+
+It's not about the destination, it's about the journey. I think in many regards, it's only just begun.
