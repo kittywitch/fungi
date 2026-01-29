@@ -41,6 +41,8 @@
                   :content title}]
           [:meta {:property "og:site_name"
                   :content "dork.dev"}]
+          [:meta {:property "og:locale"
+                  :content "en_CA"}]
           [:link {:rel "stylesheet"
                   :type "text/css"
                   :href "/assets/css/main.css"}]

@@ -33,6 +33,7 @@
 
 * Open Graph
 - [ ] Regular pages
+  - [ ] og:locale
   - [ ] og:site_name
   - [ ] og:type website
   - [ ] dynamic og:title
@@ -41,6 +42,7 @@
   - [x] og:site_name
   - [x] og:type article
   - [x] dynamic og:title
+  - [x] og:locale
   - [ ] dynamic og:url
   - [ ] dynamic and optional og:image
   - [ ] article:published_time
