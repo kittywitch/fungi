@@ -39,6 +39,8 @@
           [:meta {:property "og:title"
                   :id "og-title-placeholder"
                   :content title}]
+          [:meta {:property "og:site_name"
+                  :content "dork.dev"}]
           [:link {:rel "stylesheet"
                   :type "text/css"
                   :href "/assets/css/main.css"}]
