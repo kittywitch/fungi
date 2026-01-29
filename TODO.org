@@ -33,10 +33,12 @@
 
 * Open Graph
 - [ ] Regular pages
+  - [ ] og:site_name
   - [ ] og:type website
   - [ ] dynamic og:title
   - [ ] dynamic og:url
 - [ ] Articles
+  - [x] og:site_name
   - [x] og:type article
   - [x] dynamic og:title
   - [ ] dynamic og:url
