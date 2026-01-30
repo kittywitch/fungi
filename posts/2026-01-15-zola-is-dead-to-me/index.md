@@ -191,7 +191,7 @@ With an ecosystem like this, how could one not?
 
 But I digress!
 
-This project, kusachi, actually started as "fungi", a dynamic site made while following [Caveman, a Clojure Web Framework](https://caveman.mccue.dev/). This led me to do a lot of thinking on the philosophy of what I was doing towards the end of "how kind was I being towards my future self, who has to maintain this 'digital garden', as it were?". We will return to Caveman a little later.
+This project, kusachi, actually started as "fungi", a dynamic site made while following [Caveman, a Clojure Web Framework](https://caveman.mccue.dev/). This led me to do a lot of thinking on the philosophy of what I was doing towards the end of "how kind was I being towards my future self, who has to maintain this 'digital garden', as it were?".
 
 ### Reflection on complexity burden and cognitive overhead; the implications of the grug-brain
 
@@ -215,7 +215,7 @@ given choice between complexity or one on one against t-rex, grug take t-rex: at
 <cite>[The Grug Brained Developer](https://grugbrain.dev/)</cite>
 </div>
 
-I said we would return to caveman, and so here we are! When I started writing Fungi or Kusachi, I had never written anything in a dialect of Lisp before and my only experience with the JVM other than university introductory Java, was [attempting to fork a Kotlin minecraft mod to add trees that fell sideways](https://github.com/kittywitch/fabric-tree-chopper) or [update build-system things for a Java Minecraft mod so I could use it during my Japanese learning](https://github.com/kittywitch/rubi).
+When I started writing Fungi or Kusachi, I had never written anything in a dialect of Lisp before and my only experience with the JVM other than university introductory Java, was [attempting to fork a Kotlin minecraft mod to add trees that fell sideways](https://github.com/kittywitch/fabric-tree-chopper) or [update build-system things for a Java Minecraft mod so I could use it during my Japanese learning](https://github.com/kittywitch/rubi).
 
 Despite this, Clojure was very easy to pick up and extremely powerful. The way people write Clojure libraries and applications seems extremely logical and data-driven programming is beautiful.
 
