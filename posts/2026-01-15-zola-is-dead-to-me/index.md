@@ -193,9 +193,7 @@ But I digress!
 
 This project, kusachi, actually started as "fungi", a dynamic site made while following [Caveman, a Clojure Web Framework](https://caveman.mccue.dev/). This led me to do a lot of thinking on the philosophy of what I was doing towards the end of "how kind was I being towards my future self, who has to maintain this 'digital garden', as it were?". We will return to Caveman a little later.
 
-### Reflection
-
-#### On complexity burden and cognitive overhead; the implications of the grug-brain
+### Reflection on complexity burden and cognitive overhead; the implications of the grug-brain
 
 <div class="quote">
 <blockquote cite="https://grugbrain.dev/">
@@ -223,13 +221,13 @@ Despite this, Clojure was very easy to pick up and extremely powerful. The way p
 
 In looking at Clojure and how I myself could write it, it felt quite low overhead to reason about things as Clojure seemed to intend them to be.
 
-##### The static site generator as build-system adjacent tooling
+#### The static site generator as build-system adjacent tooling
 
 In Glade, I attempted to explore directed-acyclic graph resolution and traversal as a means to produce an artifact. This lead to an increase in cognitive overhead, but I think Kusachi is sufficiently at the point where I could likely extend the way things are built with graph resolution.
 
 For the most part, I currently feel like this is unnecessary; the order of function applications and pipeline steps within a pipeline is a semi-explicit modelling of dependency relationships, as perhaps unreified as it is in comparison to something producing either a directed acyclic graph or build system related instruction material.
 
-##### On the shell as the near-universal intermediary, imperfect as it is
+#### On the shell as the near-universal intermediary, imperfect as it is
 
 I very intentionally chose to allow preprocessors as programs outside of the Clojure ecosystem instead of depending upon libraries internal to it. This choice was for multiple reasons, but namely:
 
