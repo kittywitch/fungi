@@ -20,7 +20,7 @@ I could say that I should've had more in place to prevent this, but the cron job
 
 ## Explanations of the movements involved, who are these so-called rapists?
 
-Active effort to desist from interaction with this propagated perpetual harm to our societies, our peoples, to our way of lives, including all American businesses is something I must now undertake. Not only is America a burgeoning fascist dystopia whose elite full of child rapists, there are those in favour of giving these people more and more power via neo-cameralist ideology to further accelerate the already heavy on suffering technocapitalist rape of the world.
+Active effort to desist from interaction with this propagated perpetual harm to our societies, our peoples, to our way of lives, including all American businesses is something I must now undertake. Not only is America a burgeoning fascist dystopia whose elite class are full of child rapists, there are those in favour of giving these people more and more power via neo-cameralist ideology to further accelerate the already heavy on suffering technocapitalist rape of the world.
 
 ### The Dark Enlightenment
 
