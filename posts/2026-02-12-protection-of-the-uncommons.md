@@ -12,7 +12,7 @@ I've been dealing with being pretty ill while immunocompromised recently as a re
 
 I looked into this problem and what could have been its cause only to find this, shittonnes of this:
 
->>> 216.73.216.128 - - [10/Feb/2026:11:25:05 -0800] "GET /gensokyo-zone/infrastructure/archive/ac2aa8716734c7fe8049a834ea746e661e574540:.github/workflows.tar.gz HTTP/2.0" 200 1017 "-" "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; ClaudeBot/1.0; +claudebot@anthropic.com)"
+> 216.73.216.128 - - [10/Feb/2026:11:25:05 -0800] "GET /gensokyo-zone/infrastructure/archive/ac2aa8716734c7fe8049a834ea746e661e574540:.github/workflows.tar.gz HTTP/2.0" 200 1017 "-" "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; ClaudeBot/1.0; +claudebot@anthropic.com)"
 
 Ah, yes. Of course. It's finally happened to me, too.
 
