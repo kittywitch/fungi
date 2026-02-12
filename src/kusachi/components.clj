@@ -210,7 +210,7 @@
       [:h3 {:id "contact"} "Contact"]
       [:nav
         [:ul
-          [:li "kat on" (link "liberachat" "https://libera.chat/")]
+          [:li "kat on " (link "liberachat" "https://libera.chat/")]
           [:li "@kat:kittywit.ch on Matrix"]
           [:li "kat (at) kittywit.ch on XMPP, OMEMO supported"]
           [:li "this domain has a catch-all for email, note to self, provide PGP"]
