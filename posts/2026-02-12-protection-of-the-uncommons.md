@@ -16,7 +16,7 @@ Ah, yes. Of course. It's finally happened to me, too.
 
 I could say that I should've had more in place to prevent this, but the cron job I had set up for cleanup by default was at midnight, every 24 hours. It's clear I'll now have to step up efforts, preventing unregistered users from downloading archives of my repositories and restricting access to computationally expensive features of my services, alongside likely adopting Anubis and other countermeasures.
 
-Edit: I'll probably refer this wonderful post (thank you friend who passed this along, I had read it before but forgotten all about it!): ["Guarding My Git Forge Against AI Scrapers" by lux](https://vulpinecitrus.info/blog/guarding-git-forge-ai-scrapers/) as a reference, honestly? I've always been upset about Anubis requiring JavaScript.
+Edit: I'll probably refer to this wonderful post (thank you friend who passed this along, I had read it before but forgotten all about it!): ["Guarding My Git Forge Against AI Scrapers" by lux](https://vulpinecitrus.info/blog/guarding-git-forge-ai-scrapers/) as a reference, honestly? I've always been upset about Anubis requiring JavaScript.
 
 ## The movements involved; who rapes the commons?
 
