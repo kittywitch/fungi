@@ -7,11 +7,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1770909633,
-        "narHash": "sha256-D8Q53QsB3ss+Xb/SJBxtuznkPaqYUYyp6A8ChC3LFWY=",
+        "lastModified": 1770909814,
+        "narHash": "sha256-gj5i2kwjwWHKeEMz0VjFWpexTYQsRJlBDVHTcSsZxHE=",
         "owner": "kittywitch",
         "repo": "arborium-flake",
-        "rev": "ea4e8f404d799624879b0a9e92419ad26a91f304",
+        "rev": "3a70b948f7770dd0c620b9584be50c7d17999fdb",
         "type": "github"
       },
       "original": {
