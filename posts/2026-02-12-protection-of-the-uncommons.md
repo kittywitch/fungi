@@ -147,3 +147,9 @@ To those who are not currently taking part in the harm; thank you! I should wish
 If you're involved in all of this and deep in the cults, I don't hate you. I care about you, the same way I would care about anybody else. I just think you're taking part in causing immense harm to everything. Please consider distancing yourself from this web of irrationalism.
 
 If you're involved in this, but not in the cults? Please reconsider how you are contributing to this continuing and worsening state of affairs. Those who are pushing this, every piece of this new narrative and the importance of using generative AI in your processes are setting humanity back, not pushing it forward. There will be a great deal of competency lost, people will be able to own less and less and have to rent more and more. Everything from here, will only get worse without attempts at making change.
+
+## Afterword
+
+I am not yet a permanent resident or a citizen of the beautiful nation of Canada, but my wife is a citizen and I love her and this country very deeply. I do regardless, consider myself Canadian, if only British-Canadian (this is something that took me a long while, almost 5 years to accept wholly, I didn't want to say it for the longest of time).
+
+I was recommended ["Sorry, eh" by Cory Doctorow](https://pluralistic.net/2026/01/13/not-sorry/#mere-billions) by a friend a little after posting this, and I really agreed with the sentiment with regards to how Canada could do better and needs to get out from the American boot.
