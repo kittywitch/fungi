@@ -6,8 +6,6 @@ tags: [llms, polsci]
 cws: [rape, llms]
 ---
 
-# Protection of the now-uncommons
-
 I've been dealing with being pretty ill while immunocompromised recently as a result of trying to fix an ear problem and then catching something, so imagine how I felt when I discovered that my server was suddenly full due to Forgejo archive requests.
 
 I looked into this problem and what could have been its cause only to find this, shittonnes of this:
