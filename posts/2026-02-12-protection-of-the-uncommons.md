@@ -16,6 +16,8 @@ Ah, yes. Of course. It's finally happened to me, too.
 
 I could say that I should've had more in place to prevent this, but the cron job I had set up for cleanup by default was at midnight, every 24 hours. It's clear I'll now have to step up efforts, preventing unregistered users from downloading archives of my repositories and restricting access to computationally expensive features of my services, alongside likely adopting Anubis and other countermeasures.
 
+Edit: I'll probably refer this wonderful post (thank you friend who passed this along, I had read it before but forgotten all about it!): ["Guarding My Git Forge Against AI Scrapers" by lux](https://vulpinecitrus.info/blog/guarding-git-forge-ai-scrapers/) as a reference, honestly? I've always been upset about Anubis requiring JavaScript.
+
 ## The movements involved; who rapes the commons?
 
 Active effort to desist from interaction with this propagated perpetual harm to our societies, our peoples, to our way of lives, including all American businesses is something I must now undertake. Not only is America a burgeoning fascist dystopia whose elite class are full of child rapists, there are those in favour of giving these people more and more power via neo-cameralist ideology to further accelerate the already heavy on suffering technocapitalist rape of the world.
