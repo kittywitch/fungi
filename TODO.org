@@ -9,9 +9,8 @@
 - [x] Use frontmatter
   - [x] Retrieve from Pandoc using data#frontmatter selection
 - [x] Post list on index page
-- [x] Syntax highlighting
-  - [x] Consider https://fasterthanli.me/articles/introducing-arborium ?
-  - [x] Syntax highlighting theme selector (Arborium)
+- [ ] Syntax highlighting
+- [ ] Rip out arborium for being fucking AI slop I swear to god there is nothing good left in this world
 - [x] Heading self-permalink affix
 - [x] Theme selector (light/dark)
 - [x] Tags
