@@ -18,6 +18,7 @@
             [kusachi.rss :as krss]
             [kusachi.server :as fs]
             [hickory.core :as hic]
+            [toml-clj.core :as toml]
             [hickory.render :refer [hickory-to-html]]
             [clojure.tools.cli :refer [parse-opts]])
   (:gen-class))
@@ -59,6 +60,12 @@
   (println "Generating index page")
   (let [posts (fco/postlist @fpo/post-map @fpo/tag-map)
         file (fc/simple-writer "output/index.html" posts)]
+    file))
+
+(defn generate-external []
+  (println "Generating external page")
+  (let [external (fco/external-page)
+  file (fc/simple-writer "output/external.html" external)]
     file))
 
 (def cli-options
@@ -112,6 +119,7 @@
     (mapv fc/pipeline cores))
   (generate-tags)
   (generate-index)
+  (generate-external)
   (generate-rss)
   (println "Finished operation")
   (fc/commit-output-hashset)

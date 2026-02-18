@@ -1,5 +1,7 @@
 (ns kusachi.components
-  (:require [clojure.string :as str]
+  (:require [clojure.java.io :as io]
+            [toml-clj.core :as toml]
+            [clojure.string :as str]
             [clojure.pprint :as pprint]
             [huff2.core :as h]
             [kusachi.highlighting :as kh]))
@@ -82,7 +84,7 @@
    [:script {:src "/assets/js/colorscheme.js"}]
    [:nav [:ul [:li {:class "logo"} (link [:img {:src "/assets/img/logo.svg"}] "/")]]
     [:ul [:li (link "Home" "/")
-          [:li (link "External" "/external")]]]]])
+          [:li (link "External" "/external.html")]]]]])
 
 (defn footer
   []
@@ -203,8 +205,35 @@
    ]
    ])
 
+(defn external-page []
+  (let [
+    external (with-open [rdr (clojure.java.io/reader "resources/external.toml")]
+      (toml/read rdr))
+    categories (get external "categories")
+  ]
+  (pprint/pprint categories)
+  (str (h/html
+        {:allow-raw true}
+        [:html {:lang "en"}
+         (head "Things I find value in sharing")
+         (body [:nav [:h2 "Things I find value in sharing"]
+            (map (fn [{:strs [title note posts] :as all}]
+              (pprint/pprint all)
+              [:<>
+                [:h3 title]
+                (when note [:p note])
+                [:ul
+                (map (fn [{:strs [title author permalink archive suffix]}]
+                  [:li
+                    [:article (link [:strong title] permalink) (when author [:<> " by " author])
+                      (when archive [:<> " - " (link "Archive" archive)])
+                      (when suffix [:<> " (" suffix ")"])
+                    ]
+                  ]
+                  ) posts)
+                ]]) categories)])]))))
+
 (defn postlist-for-tag [tag posts]
-  (pprint/pprint posts)
   (str (h/html
         {:allow-raw true}
         [:html {:lang "en"}
@@ -215,7 +244,6 @@
                                             (str/replace path "output/" ""))]) (sort-by #(get % "path") #(compare %2 %1) posts))]]])])))
 
 (defn taglist [tags]
-  (pprint/pprint tags)
   [:ul {:class "inline-list" :id "taglist"}
       [:<> (map (fn [[tag paths]]
       [:li

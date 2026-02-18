@@ -1,0 +1,105 @@
+[[categories]]
+title = "Posts"
+  [[categories.posts]]
+  title = "Humanity's Endgame"
+  author = "Henry Wismayer"
+  permalink = "https://www.noemamag.com/humanitys-endgame/"
+  archive = "https://archive.ph/wvnUr"
+
+  [[categories.posts]]
+  title = "If all the world were a monorepo"
+  author = "Julie Tibshirani"
+  permalink = "https://jtibs.substack.com/p/if-all-the-world-were-a-monorepo"
+  archive = "https://archive.ph/5ZOw2"
+
+  [[categories.posts]]
+  title = "Education in Brazil"
+  author = "Richard Feynman"
+  permalink = "https://v.cx/2010/04/feynman-brazil-education"
+  archive = "https://archive.ph/BPB7Z"
+
+  [[categories.posts]]
+  title = "Why I am not a professor"
+  author = "Mark Tarver"
+  permalink = "https://marktarver.com/professor.html"
+  archive = "https://archive.ph/g42Dn"
+
+  [[categories.posts]]
+  title = "Jujutsu + Radicle = ❤️"
+  author = "fintohaps"
+  permalink = "https://radicle.xyz/2025/08/14/jujutsu-with-radicle"
+  archive = "https://archive.ph/k15H0"
+
+  [[categories.posts]]
+  title = "Pluralistic: (Digital) Elbows Up (28 Nov 2025)"
+  author = "Cory Doctorow"
+  permalink = "https://pluralistic.net/2025/11/28/disenshittification-nation/#post-american-internet"
+  archive = "https://archive.ph/3VGDX"
+
+[[categories]]
+title = "Long-form writing"
+  [[categories.posts]]
+  title = "How To Ask Questions The Smart Way"
+  author = "Eric S. Raymond, Rick Moen"
+  permalink = "http://catb.org/~esr/faqs/smart-questions.html"
+  archive = "https://archive.ph/4Nsm2"
+
+  [[categories.posts]]
+  title = "Undoing the Pain"
+  permalink = "https://gist.github.com/gcr/47a8f2baaa5810087615b4a858619fe5"
+  archive = "https://archive.ph/QmqKg"
+
+[[categories]]
+title = "Series of posts"
+  [[categories.posts]]
+  title = "The computer of the next 200 years"
+  author = "jyn, jade, ..."
+  permalink = "https://jyn.dev/computer-of-the-future"
+  archive = "https://archive.ph/yHkmU"
+
+[[categories]]
+title = "Books"
+  [[categories.posts]]
+  title = "PiHKAL: A Chemical Love Story"
+  author = "Alexander & Ann Shulgin"
+  permalink = "https://en.wikipedia.org/wiki/PiHKAL"
+  suffix = "ISBN: 0-9630096-0-50"
+
+  [[categories.posts]]
+  title = "TiHKAL: The Continuation"
+  author = "Alexander & Ann Shulgin"
+  permalink = "https://en.wikipedia.org/wiki/TiHKAL"
+  suffix = "ISBN: 0-9630096-9-9"
+
+[[categories]]
+title = "Video"
+note = 'If any of these videos are inaccessible to you, reach out to me and I can provide you with a copy of them.'
+  [[categories.posts]]
+  title = "Microsoft broke my voice"
+  author = "a_lilian"
+  permalink = "https://www.youtube.com/watch?v=LKcT-aQuIFs"
+  suffix = "YouTube"
+
+  [[categories.posts]]
+  title = "Burn After Watching"
+  author = "a_lilian"
+  permalink = "https://www.youtube.com/watch?v=-IargH0hL-s"
+  suffix = "YouTube"
+
+  [[categories.posts]]
+  title = "Lost Ephemera - The traces we left behind"
+  author = "a_lilian"
+  permalink = "https://www.youtube.com/watch?v=xbg-Jjfw2Dg"
+  suffix = "YouTube"
+
+  [[categories.posts]]
+  title = "Mystery of the Quintic / How permutation leads to the insolvability of the Quintic"
+  author = "2swap"
+  permalink = "https://www.youtube.com/watch?v=9HIy5dJE-zQ"
+  suffix = "YouTube"
+
+  [[categories.posts]]
+  title = "What is PLUS times PLUS? / A Visual Introduction to Lambda Calculus"
+  author = "2swap"
+  permalink = "https://www.youtube.com/watch?v=RcVA8Nj6HEo"
+  suffix = "YouTube"
