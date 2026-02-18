@@ -124,8 +124,10 @@
 (def web-badges
   [:div {:class "badge-container"}
     (badge "nixos.png" "powered by nixos" "https://nixos.org/")
+    (badge "nginx.png" "nginx powered" "https://nginx.org/")
     (badge "anybrowser.png" "viewable in any browser" "http://www.anybrowser.org/campaign/")
     (badge "neovim.gif" "made with neovim" "https://neovim.io/")
+    (badge "ISO.png" "ISO 8601 dates" "https://www.w3.org/QA/Tips/iso-date")
     (badge "librewolf-now.gif" "librewolf now!" "https://librewolf.net/")
     (badge "button-ublock.gif" "ublock origin now!" "https://ublockorigin.com/")
     (badge "searxng.png" "searxng" "https://docs.searxng.org/")
@@ -136,9 +138,12 @@
     (badge "emulate.gif" "emulate now" "https://r-roms.github.io/")
     (badge "InternetPrivacy.gif" "internet privacy" "https://anonymousplanet.org/guide/")
     (badge "federate-now.jpg" "federate now!" "https://fediverse.party/en/fediverse/")
+    (badge "anarchy.gif" "anarchy now" "https://bookshelf.theanarchistlibrary.org/library/librarian-picks")
+    (badge "anime.webp" "anime is gay as hell but I approve")
     (badge "lain.gif" "serial experiments lain" "https://nyaa.si/view/964646")
     (badge "badapple.webp" "tohou project, bad apple" "https://en.touhouwiki.net/wiki/Touhou_Wiki")
     (badge "ao3.gif" "pro ao3 freak" "https://archiveofourown.org/")
+    (badge "DIY.png" "DIY HRT!" "https://diyhrt.market/")
     (badge "drpepper.gif" "powered by dr pepper")
   ])
 
