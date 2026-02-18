@@ -1,6 +1,6 @@
 ---
 title: "Arborium removed"
-date: 2026-02-17T23:21Z"
+date: 2026-02-17T23:21Z
 draft: false
 tags: [llms, ssg]
 ---
