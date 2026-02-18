@@ -7,7 +7,7 @@ tags: [llms, ssg]
 
 I've decided to remove Arborium and look for a solution, likely based upon syntect that doesn't involve libraries made with LLMs.
 
-I read ["Arborium is AI slopware and should not be trusted" by Ewie](https://ewie.online/posts/20260214-arborium-is-ai-slopw/) and looked into the README of Arborium and sure enough, he was proclaiming:
+I read ["Arborium is AI slopware and should not be trusted" by Ewie](https://ewie.online/posts/20260214-arborium-is-ai-slopw/) and looked into the README of Arborium and sure enough, they were proclaiming:
 
 <div class="quote">
 <blockquote cite="https://github.com/bearcove/arborium?tab=readme-ov-file#co-developed-with-llms">
