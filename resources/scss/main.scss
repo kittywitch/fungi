@@ -107,8 +107,12 @@ img#avatar {
   border-radius: 2rem;
 }
 
-#posts {
+#posts, #web-badges, #contact {
   clear: left;
+}
+
+#web-badges {
+  margin-top: 2rem;
 }
 
 ul#taglist a {
