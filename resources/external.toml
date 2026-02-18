@@ -36,6 +36,18 @@ title = "Posts"
   permalink = "https://pluralistic.net/2025/11/28/disenshittification-nation/#post-american-internet"
   archive = "https://archive.ph/3VGDX"
 
+  [[categories.posts]]
+  title = "LANGSEC"
+  author = "Occupy Babel"
+  permalink = "https://langsec.org/occupy/"
+  archive = "https://archive.ph/nb8nU"
+
+  [[categories.posts]]
+  title = "Conversational software development"
+  author = "Oliver Caldwell"
+  permalink = "https://oli.me.uk/Blog+archive/2020/Conversational+software+development"
+  archive = "https://archive.ph/xv6fp"
+
 [[categories]]
 title = "Long-form writing"
   [[categories.posts]]
