@@ -139,11 +139,11 @@
     (badge "InternetPrivacy.gif" "internet privacy" "https://anonymousplanet.org/guide/")
     (badge "federate-now.jpg" "federate now!" "https://fediverse.party/en/fediverse/")
     (badge "anarchy.gif" "anarchy now" "https://bookshelf.theanarchistlibrary.org/library/librarian-picks")
-    (badge "anime.webp" "anime is gay as hell but I approve")
     (badge "lain.gif" "serial experiments lain" "https://nyaa.si/view/964646")
     (badge "badapple.webp" "tohou project, bad apple" "https://en.touhouwiki.net/wiki/Touhou_Wiki")
     (badge "ao3.gif" "pro ao3 freak" "https://archiveofourown.org/")
     (badge "DIY.png" "DIY HRT!" "https://diyhrt.market/")
+    (badge "anime.webp" "anime is gay as hell but I approve")
     (badge "drpepper.gif" "powered by dr pepper")
   ])
 
