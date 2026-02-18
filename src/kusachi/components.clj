@@ -16,17 +16,6 @@
           [:link {:rel "stylesheet"
                   :type "text/css"
                   :href "/assets/css/main.css"}]
-          [:link {:rel "stylesheet"
-                  :type "text/css"
-                  :href "/assets/css/arborium/base.css"}]
-          [:link {:rel "stylesheet"
-                  :type "text/css"
-                  :id "arborium-theme-light"
-                  :href "/assets/css/arborium/catppuccin-latte.css"}]
-          [:link {:rel "stylesheet"
-                  :type "text/css"
-                  :id "arborium-theme-dark"
-                  :href "/assets/css/arborium/catppuccin-macchiato.css"}]
           [:title title]]])
 
 (defn head-placeholder
@@ -46,17 +35,6 @@
           [:link {:rel "stylesheet"
                   :type "text/css"
                   :href "/assets/css/main.css"}]
-          [:link {:rel "stylesheet"
-                  :type "text/css"
-                  :href "/assets/css/arborium/base.css"}]
-          [:link {:rel "stylesheet"
-                  :type "text/css"
-                  :id "arborium-theme-light"
-                  :href "/assets/css/arborium/catppuccin-latte.css"}]
-          [:link {:rel "stylesheet"
-                  :type "text/css"
-                  :id "arborium-theme-dark"
-                  :href "/assets/css/arborium/catppuccin-macchiato.css"}]
           [:title {:id "placeholder"} title]]])
 
 (def colorscheme

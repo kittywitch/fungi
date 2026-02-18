@@ -1,7 +1,7 @@
 ---
 title: "Protection of the now-uncommons"
 date: 2026-02-11T18:12Z
-draft: true
+draft: false
 tags: [llms, polsci]
 cws: [rape, llms]
 ---

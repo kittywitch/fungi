@@ -64,26 +64,28 @@
 
 ; TODO: make less ugly please
 (defn code-edit [elem]
-  (let [{attrs :attrs pre-content :content} elem
-        {lang :class} attrs] (if lang (let [[code] pre-content
-                                            {code-contents :content} code
-                                            [code-content] code-contents
-                                            arb (fp/arborium lang code-content)
-                                            frag-parse (map hc/as-hickory (hc/parse-fragment arb))
-                                            code-inner (elem-maker
-                                                        :code
-                                                        {:data-lang lang} frag-parse)]
-                                        (assoc elem :tag :div
-                                               :attrs {:class "pre-wrapper"}
-                                               :content [(elem-maker :pre
-                                                                     {:class "arborium"}
-                                                                     [code-inner])]))
-                                 (let [[code] pre-content
-                                       new-code (assoc code :attrs {:data-lang "plaintext"})] (assoc elem :tag :div
-                                                                                                     :attrs {:class "pre-wrapper"}
-                                                                                                     :content [(elem-maker :pre
-                                                                                                                           {:class "arborium"}
-                                                                                                                           [new-code])])))))
+  elem)
+
+  ; (let [{attrs :attrs pre-content :content} elem
+  ;       {lang :class} attrs] (if lang (let [[code] pre-content
+  ;                                           {code-contents :content} code
+  ;                                           [code-content] code-contents
+  ;                                           arb (fp/arborium lang code-content)
+  ;                                           frag-parse (map hc/as-hickory (hc/parse-fragment arb))
+  ;                                           code-inner (elem-maker
+  ;                                                       :code
+  ;                                                       {:data-lang lang} frag-parse)]
+  ;                                       (assoc elem :tag :div
+  ;                                              :attrs {:class "pre-wrapper"}
+  ;                                              :content [(elem-maker :pre
+  ;                                                                    {:class "arborium"}
+  ;                                                                    [code-inner])]))
+  ;                                (let [[code] pre-content
+  ;                                      new-code (assoc code :attrs {:data-lang "plaintext"})] (assoc elem :tag :div
+  ;                                                                                                    :attrs {:class "pre-wrapper"}
+  ;                                                                                                    :content [(elem-maker :pre
+  ;                                                                                                                          {:class "arborium"}
+  ;                                                                                                                          [new-code])])))))
 
 (defn code-replacer [tree]
   (fh/hickory-update

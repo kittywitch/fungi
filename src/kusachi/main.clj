@@ -108,7 +108,7 @@
   (println "Loading prior output hashset")
   (fc/load-output-hashset)
   (println "Starting operation")
-  (let [cores [fpo/post-core fsa/sass-core ft/image-core ft/thumb-core fhi/arborium-theme-core img-core js-core]]
+  (let [cores [fpo/post-core fsa/sass-core ft/image-core ft/thumb-core img-core js-core]]
     (mapv fc/pipeline cores))
   (generate-tags)
   (generate-index)

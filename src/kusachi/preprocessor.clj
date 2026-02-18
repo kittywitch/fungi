@@ -15,11 +15,5 @@
                              data
                              :dir (io/as-file "."))] out))
 
-(defn arborium [lang input]
-  (let [{out :out} (shell/sh "arborium"
-                             "-l" lang
-                             "--html"
-                             :in (str input))] out))
-
 (defn sass [in out]
   (shell/sh "sass" (str in ":" out)))

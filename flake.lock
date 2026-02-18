@@ -1,25 +1,5 @@
 {
   "nodes": {
-    "arborium": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1770909814,
-        "narHash": "sha256-gj5i2kwjwWHKeEMz0VjFWpexTYQsRJlBDVHTcSsZxHE=",
-        "owner": "kittywitch",
-        "repo": "arborium-flake",
-        "rev": "3a70b948f7770dd0c620b9584be50c7d17999fdb",
-        "type": "github"
-      },
-      "original": {
-        "owner": "kittywitch",
-        "repo": "arborium-flake",
-        "type": "github"
-      }
-    },
     "clj-nix": {
       "inputs": {
         "devshell": "devshell",
@@ -147,7 +127,6 @@
     },
     "root": {
       "inputs": {
-        "arborium": "arborium",
         "clj-nix": "clj-nix",
         "nixpkgs": "nixpkgs_2"
       }

@@ -1,6 +1,6 @@
 {
   description = "clojure experiments";
-  outputs = { self, nixpkgs, clj-nix, arborium }: let
+  outputs = { self, nixpkgs, clj-nix }: let
     forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
   in {
     packages = forAllSystems (system: let
@@ -34,7 +34,6 @@
           clojure
           pandoc
           dart-sass
-          arborium.packages.${system}.arborium-cli
         ];
         buildPhase = ''
           kusachi generate
@@ -58,7 +57,6 @@
           clojure-lsp
           pandoc
           leiningen
-          arborium.packages.${system}.arborium-cli
           postgresql
           cargo
         ];
@@ -68,10 +66,6 @@
   inputs = {
     nixpkgs = {
       url = "github:nixos/nixpkgs/nixos-unstable";
-    };
-    arborium = {
-      url = "github:kittywitch/arborium-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     clj-nix.url = "github:jlesquembre/clj-nix";
   };

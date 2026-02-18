@@ -74,7 +74,7 @@
                                           fm-replaced (fm/kusachi-replacer context cleantree)
                                           thumby (ft/image-thumber relative-out ft/img-map fm-replaced)
                                           ] thumby)))
-                                 (fhi/code-replacer)
+                                 ;;(fhi/code-replacer)
                                  (fas/aside-noter)
                                  (fhe/heading-linker)
                                  (hickory-to-html)
