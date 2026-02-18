@@ -84,7 +84,7 @@
    [:script {:src "/assets/js/colorscheme.js"}]
    [:nav [:ul [:li {:class "logo"} (link [:img {:src "/assets/img/logo.svg"}] "/")]]
     [:ul [:li (link "Home" "/")
-          [:li (link "External" "/external.html")]]]]])
+          [:li (link "Stuff I'd like to share" "/external.html")]]]]])
 
 (defn footer
   []
@@ -215,8 +215,8 @@
   (str (h/html
         {:allow-raw true}
         [:html {:lang "en"}
-         (head "Things I find value in sharing")
-         (body [:nav [:h2 "Things I find value in sharing"]
+         (head "Stuff I'd like to share")
+         (body [:nav [:h2 "Stuff I'd like to share"]
             (map (fn [{:strs [title note posts] :as all}]
               (pprint/pprint all)
               [:<>
