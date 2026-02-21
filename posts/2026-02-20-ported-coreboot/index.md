@@ -5,7 +5,7 @@ draft: false
 tags: [open source, thinkpad, guix]
 ---
 
-In my post from 2026-02-18, I committed myself towards helping work on coreboot + libreboot with the goal of porting it to the X270. It's less than a week later and I have done it. My X270 is a 20HM model and this means that it is a Kaby Lake CPU (and chipset), not Skylake.
+In my post from 2026-02-11, I committed myself towards helping work on coreboot + libreboot with the goal of porting it to the X270. It's less than a month later and I have done it. My X270 is a 20HM model and this means that it is a Kaby Lake CPU (and chipset), not Skylake.
 
 ## The process
 
