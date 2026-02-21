@@ -124,3 +124,5 @@ I am starting to upstream my changes:
 * [X270 coreboot](https://review.coreboot.org/c/coreboot/+/91371)
 
 For the X270 in particular, I got an ath9k wireless dongle so I should now be able to move to linux-libre on my Guix install. I'd like to build it into the laptop if possible in the future through some means and I'll see about doing that, honestly?
+
+I can't recommend [libreboot](https://libreboot.org/) enough, or even [heads](https://osresearch.net/) if libreboot isn't your speed. A big thanks to Leah Rowe for their assistance and the work they have done for libreboot over the years.
