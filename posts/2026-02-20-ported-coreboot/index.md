@@ -21,7 +21,7 @@ Remaining reasons that are important later are:
 
 I set up pico-serprog on an RP2040-zero, which I found builds for from the Libreboot project website. This, in combination with `flashprog` is what I used to dump and write to the SPI flash for the X270.
 
-![Setup for flashing; a SOIC-8 chip clip and an RP2040 zero.](flasher-setup.webp)
+![Setup for flashing; a SOIC-8 chip clip and an RP2040 zero.](flasher-setup.png)
 
 ## Trouble strikes
 
