@@ -83,12 +83,12 @@ The next day, I went with my wife to pick up my capacitors (I had missed them th
 
 ### Why can't my board boot off of NVME? Uh oh.
 
-![A suspiciously shitty looking capacitor](capacitor-there.png)
+![A suspiciously shitty looking capacitor](capacitor-there.jpg)
 
 Wow, a suspiciously shitty looking capacitor. To be fair, that is 0.8x1.6mm? It's pretty small. (This was not the only time this capacitor fell off, I had to fix it again afterwards at least 8 attempts of flashing later.)
 
-![Libreboot, SeaBIOS payload](libreboot-seabios.png)
-![Libreboot, GRUB payload](libreboot-grub.png)
+![Libreboot, SeaBIOS payload](libreboot-seabios.jpg)
+![Libreboot, GRUB payload](libreboot-grub.jpg)
 
 I had something that would actually get to payloads, but when I would select the NVMe NS 1 it would very, very quickly fail out. When I went back to the SeaBIOS menu, I noticed the NVMe NS 1 option then missing. Booting into a LiveUSB, I discovered I had neither the WiFi card or the NVMe present in `lspci`.
 
@@ -108,9 +108,9 @@ Looking into this and the schematic later in the day together with my wife, I en
 
 Adjusting for this and regarding the WWAN allocation within the schematic, I made a new build with these adjustments and flashed it. I was greeted with... a working GRUB.
 
-![GRUB prompt with a cleaner screen](prompt.png)
+![GRUB prompt with a cleaner screen](prompt.jpg)
 
-![A full disk encryption prompt from Guix's GRUB](fde.png)
+![A full disk encryption prompt from Guix's GRUB](fde.jpg)
 
 ![A Guix system booted, showing cbmem -1 on one half of the screen](guix.png)
 
