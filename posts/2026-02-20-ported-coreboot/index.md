@@ -82,7 +82,7 @@ I got something to build and then I decided to go to bed for the night.
 
 The next day, I went with my wife to pick up my capacitors (I had missed them the day prior, whoops).
 
-### Why can't my board boot off of NVME? Uh oh.
+### Why can't my board boot off of NVMe? Uh oh.
 
 ![A suspiciously shitty looking capacitor](capacitor-there.jpg)
 
