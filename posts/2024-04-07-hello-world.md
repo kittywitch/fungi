@@ -2,6 +2,7 @@
 title: "Doing something with this domain!"
 date: 2024-04-07T19:34:53Z
 tags: ["ssg"]
+summary: First blogpost here that wasn't backported.
 ---
 I've moved this website to use [cobalt](http://cobalt-org.github.io/)! Hopefully I should be making posts here, too. ^^
 

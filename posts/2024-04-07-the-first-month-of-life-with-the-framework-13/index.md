@@ -2,10 +2,11 @@
 title: "The first month of life with the Framework 13"
 date: 2024-04-07T19:34:59Z
 tags: [nix, linux, framework]
+summary: Catgirl gets a Framework laptop, enjoys it.
 ---
 ## Preparation
 
-I was starting to feel as if I needed to upgrade away from the Lenovo Thinkpad x270 because of performance issues and I had the money laying around to finally perform that upgrade. I settled upon the Framework 13 for ideological reasons, especially wanting a laptop that could last me a long time and be upgraded as I see fit, through generational improvements of the mainboard.
+I was starting to feel as if I needed to upgrade away from the Lenovo Thinkpad X270 because of performance issues and I had the money laying around to finally perform that upgrade. I settled upon the Framework 13 for ideological reasons, especially wanting a laptop that could last me a long time and be upgraded as I see fit, through generational improvements of the mainboard.
 
 I ordered the Ryzen 5 7640U version without <abbr title="random-access memory">RAM</abbr> or an <abbr title="non-volatile memory express">NVMe</abbr> <abbr title="solid state drive">SSD</abbr>, so I was going to have to source myself both elsewhere. With help from a dear friend, I picked out the Kingston Fury Impact 32GB (2x16GB) 5600MHz DDR5 SODIMM set alongside the Crucial P5 Plus 1TB (which, I should've got a fancier larger SSD instead of, much as the dear friend suggested). These were ordered from Canada Computers with the help of the wife, so they took like a week to arrive (because coast-to-coast...).
 

@@ -2,6 +2,7 @@
 title: New sway setup
 date: 2021-06-28T03:40:00Z
 tags: [nix, linux]
+summary: Pretty sway setup.
 ---
 
 We did some work on our sway+waybar setup and moved to [foot](https://codeberg.org/dnkl/foot).

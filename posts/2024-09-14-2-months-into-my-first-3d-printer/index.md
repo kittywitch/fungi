@@ -2,6 +2,7 @@
 title: "2 months into my first 3D printer"
 date: 2024-09-14T19:26:06Z
 tags: ["3d printing"]
+summary: Catgirl gets a 3D printer and it ends up using an SBC running NixOS; typical!
 ---
 ![Ender 3 V3 SE](printer.jpg)
 
@@ -49,7 +50,7 @@ I had noticed that my prints were alarmingly slow, and that Creality sold "table
 
 On 2024-08-06, we endeavoured to replace that firmware with a [custom version of klipper adjusted for the printer](https://github.com/jpcurti/ender3-v3-se-klipper-with-display). You can see the current version of the configurations we are running [here](https://github.com/gensokyo-zone/infrastructure/tree/main/nixos/klipper). We are building the package [here](https://github.com/gensokyo-zone/infrastructure/tree/main/nixos/klipper). We should probably move to the upstream of that repository instead of my fork.
 
-We were already running Octoprint on a laptop (my prior laptop before upgrading to the Framework, a Thinkpad X260) near the printer. We continued using this for Klipper.
+We were already running Octoprint on a laptop (my prior laptop before upgrading to the Framework, a Thinkpad X270) near the printer. We continued using this for Klipper.
 
 The migration to Klipper with Moonraker and Fluidd went well and we managed to have Motion continue to provide webcam services for the 3D printer.
 

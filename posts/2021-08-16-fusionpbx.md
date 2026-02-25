@@ -2,6 +2,7 @@
 title: FusionPBX
 date: 2021-08-16T01:20:00Z
 tags: ["nix"]
+summary: Ported FusionPBX to NixOS via module and package.
 ---
 
 So, over the last two days I've been working on getting FusionPBX working under NixOS. I wrote packages and a module for this purpose (fusionpbx{,-apps}). Currently, it makes use of my personal modules which makes it not quite adequate for upstreaming, but over the next week I plan to fix it up and make it upstreamable. There are still several kinks to iron out, after all!

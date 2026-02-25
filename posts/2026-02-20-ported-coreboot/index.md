@@ -3,6 +3,7 @@ title: "I ported Coreboot to the Thinkpad X270!"
 date: 2026-02-20T17:39:00Z
 draft: false
 tags: [open source, thinkpad, guix]
+summary: Porting coreboot to the X270 to further my commitment to free software.
 ---
 
 In my post from 2026-02-11, I committed myself towards helping work on coreboot + libreboot with the goal of porting it to the X270. It's less than a month later and I have done it. My X270 is a 20HM model and this means that it is a Kaby Lake CPU (and chipset), not Skylake.

@@ -2,6 +2,7 @@
 title: TaimiHUD - finally, I can play Guild Wars 2 on Linux!
 date: 2025-06-20T07:53:23Z
 tags: [video games, programming, rust]
+summary: Pathing, encounter timers and markers in a Linux-compatible Nexus addon for Guild Wars 2.
 ---
 
 ## An unbelievable quantity of thanks to:

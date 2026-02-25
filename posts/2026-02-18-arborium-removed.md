@@ -3,6 +3,7 @@ title: "Arborium removed"
 date: 2026-02-17T23:21:00Z
 draft: false
 tags: [llms, ssg]
+summary: Arborium removed as kusachi's static site generator for fasterthanlime using LLMs heavily.
 ---
 
 I've decided to remove Arborium and look for a solution, likely based upon syntect that doesn't involve libraries made with LLMs.
