@@ -3,7 +3,7 @@ title: "Protection of the now-uncommons"
 date: 2026-02-11T18:12:00Z
 draft: false
 tags: [llms, polsci]
-cws: [rape, llms]
+cws: [use of the word rape as analogy, talking about LLMs]
 ---
 
 I've been dealing with being pretty ill while immunocompromised recently as a result of trying to fix an ear problem and then catching something, so imagine how I felt when I discovered that my server was suddenly full due to Forgejo archive requests.

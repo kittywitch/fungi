@@ -61,6 +61,22 @@
          :tag :dt
          :content [(tag-list content)]))
 
+(defn cw-list [lst]
+  (if lst
+  {:type :element
+   :tag :ul
+   :attrs {:class "inline-list" :id "tags"}
+   :content (for [el lst]
+              {:type :element
+               :tag :li
+               :attrs nil
+               :content [(str el)]})} "None"))
+
+(defn kusachi-cws [elem content]
+  (assoc elem
+         :tag :dt
+         :content [(cw-list content)]))
+
 (defn kusachi-draft [elem content]
   (if content
     (assoc elem :tag :i :content ["This page is a draft!"])
@@ -78,8 +94,9 @@
         {func (keyword id)} {:date kusachi-date
                              :title kusachi-title
                              :draft kusachi-draft
-                             :tags kusachi-tags}]
-    (if content
+                             :tags kusachi-tags
+                             :cws kusachi-cws}]
+    (if (or content (= id "cws"))
       (if func (func elem content) (fallback-func elem content))
       (assoc elem :tag :kusachi-remove))))
 

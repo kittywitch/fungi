@@ -74,12 +74,6 @@
   [:header [:details
             [:summary {:id "theme-selector"} "Theme"]
             colorscheme
-            [:fieldset
-             [:legend "Syntax highlighting theme"]
-              (selectable "Dark preference" kh/arborium-themes :id "syntax-highlighting-dark" :default "catppuccin-macchiato")
-              [:br]
-              (selectable "Light preference" kh/arborium-themes :id "syntax-highlighting-light" :default "catppuccin-latte")
-             ]
             ]
    [:script {:src "/assets/js/colorscheme.js"}]
    [:nav [:ul [:li {:class "logo"} (link [:img {:src "/assets/img/logo.svg"}] "/")]]
@@ -125,6 +119,7 @@
 
 (def web-badges
   [:div {:class "badge-container"}
+    (badge "valid-atom.png" "Valid Atom 1.0" "https://validator.w3.org/feed/check.cgi?url=https%3A//dork.dev/atom.xml")
     (badge "nixos.png" "powered by nixos" "https://nixos.org/")
     (badge "nginx.png" "nginx powered" "https://nginx.org/")
     (badge "anybrowser.png" "viewable in any browser" "http://www.anybrowser.org/campaign/")
@@ -178,7 +173,9 @@
         [:li "3D Printing"]
         [:li "Mechanical keyboards"]
         [:li "NixOS"]
+        [:li "Guix System"]
         [:li [:abbr {:title "Functional programming"} "FP"]]
+        [:li "Lisp dialects"]
         [:li "Electronics"]
         [:li [:abbr {:title "Political science"} "Polsci"]]
         [:li "Firearms"]
@@ -198,7 +195,7 @@
           [:li "kat on " (link "liberachat" "https://libera.chat/")]
           [:li "@kat:kittywit.ch on Matrix"]
           [:li "kat (at) kittywit.ch on XMPP, OMEMO supported"]
-          [:li "this domain has a catch-all for email, note to self, provide PGP"]
+          [:li "kat (at) kittywit.ch via email"]
         ]
       ]
     ]
@@ -260,8 +257,8 @@
                  ]]
         postlist [:section {:id "postlist"} [:nav [:h2 "Posts"]
                   [:p "Drafts are provided here regardless of finality because I would like to produce in the open."]
-                  [:ul [:<> (map (fn [[path {:strs [title date draft]}]]
-                                   [:li (link [:<> (str title (when date (str " - " date))) (when draft " ") (when draft [:small "Draft"])]
+                  [:ul [:<> (map (fn [[path {:strs [title date draft cws]}]]
+                                   [:li (link [:<> (str title (when date (str " - " date))) (when cws " ") (when cws [:small [:abbr {:title "Content warnings"} "CWs"]]) (when draft " ") (when draft [:small "Draft"])]
                                               (str/replace path "output/" ""))]) (into (sorted-map-by #(compare %2 %1)) posts))]]]]
         ]
     (str (h/page
