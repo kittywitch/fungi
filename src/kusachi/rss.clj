@@ -29,7 +29,8 @@
 
 (defn rss-feed [posts]
   (let [ sorted-posts (into (sorted-map-by #(compare %2 %1)) posts)
-          newest (ffirst sorted-posts)
+          newest-key (ffirst sorted-posts)
+          newest (get sorted-posts newest-key)
           newest-date (get newest "date")
           xml-data (xml/sexp-as-element
                         [:feed {"xmlns" "http://www.w3.org/2005/Atom" "xml:lang" "en" }
@@ -41,4 +42,7 @@
                          (map (fn [[_ post]]
                                 (rss-post post)
                                 ) sorted-posts)
-                         ])] (xml/emit-str xml-data)))
+                         ])]
+                        (pprint/pprint newest)
+                        (pprint/pprint newest-date)
+                        (xml/emit-str xml-data)))
