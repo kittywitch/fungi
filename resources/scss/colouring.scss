@@ -157,7 +157,7 @@ hr {
       }
     }
     img {
-      filter: drop-shadow(theme-get(bodyfuzz, $theme) 0rem 0rem .2rem) !important;
+      filter: drop-shadow(0rem 0rem .2rem theme-get(bodyfuzz, $theme)) !important;
     }
   }
 }
