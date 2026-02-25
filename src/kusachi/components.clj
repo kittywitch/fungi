@@ -280,10 +280,10 @@
 
 (defn postlist [posts tags]
   (let [
-        taglist [:section {:id "taglist-sec"} [:nav [:h3 "Tags"]
+        taglist [:section {:id "taglist-sec"} [:h3 "Tags"] [:nav
                  (taglist tags)
                  ]]
-        postlist [:section {:id "postlist-sec"} [:nav [:h2 "Posts"]
+        postlist [:section {:id "postlist-sec"} [:h2 "Posts"] [:nav
                   [:p "Drafts are provided here regardless of finality because I would like to produce in the open."]
                   [:ul [:<> (map post-for-list (into (sorted-map-by #(compare %2 %1)) posts))]]]]
         ]
@@ -292,11 +292,9 @@
            [:html {:lang "en"}
             (head "dork.dev")
             (body [:<> home-page
-                  [:section
-                   {:id "posts"}
                    postlist
                    taglist
-                   ]])]))))
+                   ])]))))
 
 (defn blogpost [& {:keys [content title]
                    :or {title "dork.dev"}}]
