@@ -1,6 +1,6 @@
 ---
 title: FusionPBX
-date: 2021-08-16T01:20Z
+date: 2021-08-16T01:20:00Z
 tags: ["nix"]
 ---
 

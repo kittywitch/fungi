@@ -1,6 +1,6 @@
 ---
 title: New sway setup
-date: 2021-06-28T03:40Z
+date: 2021-06-28T03:40:00Z
 tags: [nix, linux]
 ---
 

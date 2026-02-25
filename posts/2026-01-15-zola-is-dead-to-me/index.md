@@ -1,6 +1,6 @@
 ---
 title: "Zola is dead to me. Long live Kusachi!"
-date: 2026-01-15T03:18Z
+date: 2026-01-15T03:18:00Z
 tags: [ssg, programming, clojure]
 ---
 

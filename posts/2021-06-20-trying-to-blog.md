@@ -1,6 +1,6 @@
 ---
 title: Trying to Blog
-date: 2021-06-20T02:40Z
+date: 2021-06-20T02:40:00Z
 tags: ["ssg"]
 ---
 

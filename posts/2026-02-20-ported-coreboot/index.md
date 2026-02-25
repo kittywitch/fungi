@@ -1,6 +1,6 @@
 ---
 title: "I ported Coreboot to the Thinkpad X270!"
-date: 2026-02-20T17:39Z
+date: 2026-02-20T17:39:00Z
 draft: false
 tags: [open source, thinkpad, guix]
 ---
