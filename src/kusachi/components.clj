@@ -152,10 +152,9 @@
         (rubypair "人" "じん")])
 
 (def home-page
-  [:<> [:h1 {:id "home"} "Home " [:ruby (rubypair "家" "うち")
-                                  [:rp "うち"]]]
+  [:<> [:h1 {:id "home"} "Home " [:ruby (rubypair "家" "うち")]]
    [:section {:id "about"}
-     [:img {:id "avatar" :src "/assets/img/vrchat.png"}]
+     [:img {:id "avatar" :alt "A purple-haired catgirl with glasses and a nix flake in her hair" :src "/assets/img/vrchat.png"}]
      [:h2 {:id "about-me"} "About me"]
      [:p "Hi, I'm Kat! I'm an eccentric weirdo " isekaijin " with an eclectic set of tastes and interests, exploring them autodidactically. This website is intended to be a place where I write about doing so!"]
    [:section {:id "interests-sec"}
