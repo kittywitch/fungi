@@ -80,12 +80,16 @@
     [:ul [:li (link "Home" "/")
           [:li (link "Stuff I'd like to share" "/external.html")]]]]])
 
+(defn rubypair [kanji ruby]
+  [:<> [:rb kanji]
+   [:rp "("][:rt ruby] [:rp ")"]])
+
 (defn footer
   []
   [:footer [:nav [:ul
-                  [:li [:span "Written with " (link [:ruby [:rb "草"] [:rt "くさ"]
-                                         [:rb "地"] [:rt "ち"]
-                                         [:rp "くさち"]] "https://github.com/kittywitch/kusachi") " using "
+                  [:li [:span "Written with " (link [:ruby (rubypair "草" "くさ")
+                                         (rubypair "地" "ち")
+                                         ] "https://github.com/kittywitch/kusachi") " using "
             [:a {:href "https://clojure.org/"} "Clojure"]
             " in Canada! 🇨🇦"]]]
             [:ul [:li [:a {:href "/atom.xml"} "RSS Feed"]]]]])
@@ -101,9 +105,6 @@
                                                               (footer)
                                                               [:script {:src "/assets/js/nonoscript.js"}]]]]])
 
-(defn rubypair [kanji ruby]
-  [:<> [:rb kanji]
-   [:rt ruby]])
 
 (defn image [src alt]
   [:img {:src src :alt alt}])
@@ -148,8 +149,7 @@
   [:ruby (rubypair "異" "い")
         (rubypair "世" "せ")
         (rubypair "界" "かい")
-        (rubypair "人" "じん")
-        [:rp "いせかいじん"]])
+        (rubypair "人" "じん")])
 
 (def home-page
   [:<> [:h1 {:id "home"} "Home " [:ruby (rubypair "家" "うち")
@@ -164,7 +164,6 @@
         [:li [:ruby (rubypair "日" "に")
                     (rubypair "本" "ほん")
                     (rubypair "語" "ご")
-                    [:rp "にほんご"]
               ]]
         [:li "Anime and Manga"]
         [:li [:abbr {:title "Virtual reality"} "VR"]]
@@ -188,7 +187,7 @@
 
      web-badges
     ]
-    [:section {:id "contact"}
+    [:section {:id "contact-sec"}
       [:h3 {:id "contact"} "Contact"]
       [:nav
         [:ul
@@ -275,17 +274,17 @@
        (link
          [:<> tag
           [:span {:class "counter"} (count paths)]]
-         (str "tags/" tag ".html"))
+         (str/replace (str "tags/" tag ".html") " " "%20"))
       ]) tags)]])
 
 
 
 (defn postlist [posts tags]
   (let [
-        taglist [:section {:id "taglist"} [:nav [:h3 "Tags"]
+        taglist [:section {:id "taglist-sec"} [:nav [:h3 "Tags"]
                  (taglist tags)
                  ]]
-        postlist [:section {:id "postlist"} [:nav [:h2 "Posts"]
+        postlist [:section {:id "postlist-sec"} [:nav [:h2 "Posts"]
                   [:p "Drafts are provided here regardless of finality because I would like to produce in the open."]
                   [:ul [:<> (map post-for-list (into (sorted-map-by #(compare %2 %1)) posts))]]]]
         ]
