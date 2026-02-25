@@ -20,7 +20,7 @@
       [:link {:rel "alternate"
        :type "text/html"
        "xml:base" abs
-       "href" abs}]
+       :href abs}]
       [:content {:type "html" "xml:base" abs} (when summary summary)]
      ]
         ]
@@ -30,9 +30,9 @@
   (let [ xml-data (xml/sexp-as-element
                         [:feed {"xmlns" "http://www.w3.org/2005/Atom" "xml:lang" "en" }
                          [:title "dork.dev"]
-                        [:id "dork.dev"]
-                         [:link {:rel "self"} (str prefix-for-post "atom.xml")]
-                         [:link {:rel "alternate"} prefix-for-post]
+                        [:id "https://dork.dev"]
+                         [:link {:rel "self" :href (str prefix-for-post "atom.xml")}]
+                         [:link {:rel "alternate" :href prefix-for-post}]
                          (map (fn [[_ post]]
                                 (rss-post post)
                                 ) (into (sorted-map-by #(compare %2 %1)) posts))
