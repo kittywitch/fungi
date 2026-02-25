@@ -77,8 +77,8 @@
             ]
    [:script {:src "/assets/js/colorscheme.js"}]
    [:nav [:ul [:li {:class "logo"} (link [:img {:src "/assets/img/logo.svg" :alt "A witch hat with ears"}] "/")]]
-    [:ul [:li (link "Home" "/")
-          [:li (link "Stuff I'd like to share" "/external.html")]]]]])
+    [:ul [:li (link "Home" "/")]
+          [:li (link "Stuff I'd like to share" "/external.html")]]]])
 
 (defn rubypair [kanji ruby]
   [:<> [:rb kanji]
