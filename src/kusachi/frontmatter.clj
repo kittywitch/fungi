@@ -49,7 +49,7 @@
 (defn tag-list [lst]
   {:type :element
    :tag :ul
-   :attrs {:class "inline-list" :id "tags"}
+   :attrs {:class "inline-list" :id "taglist"}
    :content (for [el lst]
               {:type :element
                :tag :li
@@ -58,7 +58,7 @@
 
 (defn kusachi-tags [elem content]
   (assoc elem
-         :tag :dt
+         :tag :dd
          :content [(tag-list content)]))
 
 (defn cw-list [lst]
@@ -74,7 +74,7 @@
 
 (defn kusachi-cws [elem content]
   (assoc elem
-         :tag :dt
+         :tag :dd
          :content [(cw-list content)]))
 
 (defn kusachi-draft [elem content]

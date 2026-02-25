@@ -207,7 +207,7 @@
     categories (get external "categories")
   ]
   (pprint/pprint categories)
-  (str (h/html
+  (str (h/page
         {:allow-raw true}
         [:html {:lang "en"}
          (head "Stuff I'd like to share")
@@ -259,7 +259,7 @@
 ))
 
 (defn postlist-for-tag [tag posts]
-  (str (h/html
+  (str (h/page
         {:allow-raw true}
         [:html {:lang "en"}
          (head (str "Posts under tag " tag " - dork.dev"))
@@ -298,7 +298,7 @@
 
 (defn blogpost [& {:keys [content title]
                    :or {title "dork.dev"}}]
-  (str (h/html {:allow-raw true} [:html {:lang "en"
+  (str (h/page {:allow-raw true} [:html {:lang "en"
                                          :prefix "og: https://ogp.me/ns#"}
                                   (head-placeholder title)
                                   (body [:article content])])))
