@@ -1,7 +1,8 @@
 * Site itself
-- [ ] External page
+- [x] External page
 - [ ] General nested filestructure viewer
 - [x] Test on mobile
+- [ ] Show only newest 5(?) posts, move actual long list to a separate posts page
 
 * SSG Miscellanea
 - [ ] Sitemap
@@ -64,9 +65,9 @@
   - [ ] Refer to https://gwern.net/archiving for expansion of this to-do item
 
 * Optimization
-- [ ] Incremental compilation
+- [x] Incremental compilation
   - [x] Keep database of hashes of inputs
-  - [ ] Only regenerate output if input hash changes
+  - [x] Only regenerate output if input hash changes
 
 * Thumbnailing
 - [x] Build a list of local image files in traversal of the file structure

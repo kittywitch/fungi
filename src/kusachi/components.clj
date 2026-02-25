@@ -230,15 +230,43 @@
                   ) posts)
                 ]]) categories)])]))))
 
+(defn post-for-list-tag [{:strs [path title date draft summary cws] :as all}]
+  (let [post-content [:li
+    [:article
+      [:h2 (link title (str/replace path "output/" ""))
+           (when draft " ") (when draft [:small "Draft"])
+            (when cws "  ") (when cws [:small "Content warnings"])]
+      (when date [:time {:datetime date} date])
+      [:p summary]
+    ]
+  ]]
+  (pprint/pprint all)
+  (pprint/pprint post-content)
+  post-content
+))
+
+(defn post-for-list [[path post]]
+  (let [{:strs [title date draft cws summary]} post
+    post-content
+  [:li
+    [:article
+      [:h3 (link title (str/replace path "output/" ""))
+           (when draft " ") (when draft [:small "Draft"])
+            (when cws "  ") (when cws [:small [:abbr {:title "Content warnings"} "CWs"]])]
+      (when date [:<> [:span "Posted on: "] [:time {:datetime date} date]])
+      (when summary [:p summary])
+    ]
+  ]]
+  post-content
+))
+
 (defn postlist-for-tag [tag posts]
   (str (h/html
         {:allow-raw true}
         [:html {:lang "en"}
          (head (str "Posts under tag " tag " - dork.dev"))
          (body [:nav [:h2 (str "Posts under tag: " tag " (" (count posts) ")")]
-                [:ul [:<> (map (fn [{:strs [path title date draft]}]
-                                 [:li (link [:<> (str title (when date (str " - " date))) (when draft " ") (when draft [:small "Draft"]) ]
-                                            (str/replace path "output/" ""))]) (sort-by #(get % "path") #(compare %2 %1) posts))]]])])))
+                [:ul [:<> (map post-for-list-tag (sort-by #(get % "path") #(compare %2 %1) posts))]]])])))
 
 (defn taglist [tags]
   [:ul {:class "inline-list" :id "taglist"}
@@ -250,6 +278,8 @@
          (str "tags/" tag ".html"))
       ]) tags)]])
 
+
+
 (defn postlist [posts tags]
   (let [
         taglist [:section {:id "taglist"} [:nav [:h3 "Tags"]
@@ -257,9 +287,7 @@
                  ]]
         postlist [:section {:id "postlist"} [:nav [:h2 "Posts"]
                   [:p "Drafts are provided here regardless of finality because I would like to produce in the open."]
-                  [:ul [:<> (map (fn [[path {:strs [title date draft cws]}]]
-                                   [:li (link [:<> (str title (when date (str " - " date))) (when cws " ") (when cws [:small [:abbr {:title "Content warnings"} "CWs"]]) (when draft " ") (when draft [:small "Draft"])]
-                                              (str/replace path "output/" ""))]) (into (sorted-map-by #(compare %2 %1)) posts))]]]]
+                  [:ul [:<> (map post-for-list (into (sorted-map-by #(compare %2 %1)) posts))]]]]
         ]
     (str (h/page
            {:allow-raw true}
