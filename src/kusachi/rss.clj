@@ -16,12 +16,13 @@
      [:title title]
      [:id abs]
      [:published date]
+     [:updated date]
      [:author [:name "Kat"]]
       [:link {:rel "alternate"
        :type "text/html"
-       "xml:base" abs
+       ;"xml:base" abs
        :href abs}]
-      [:content {:type "html" "xml:base" abs} (when summary summary)]
+      [:content {:type "html" "xml:base" abs} (if summary summary "Content should not be left blank, but summary was not provided. Sorry!")]
      ]
         ]
     base))
