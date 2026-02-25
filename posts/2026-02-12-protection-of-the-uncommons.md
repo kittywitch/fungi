@@ -4,7 +4,7 @@ date: 2026-02-11T18:12:00Z
 draft: false
 tags: [llms, polsci]
 cws: [use of the word rape as analogy, talking about LLMs]
-summary: A diatribe against the neo-reactionary movement, rationalists, AIbros and the fascists on the rise.
+summary: A diatribe against the neo-reactionary movement, rationalists, AI-bros and the fascists on the rise.
 ---
 
 I've been dealing with being pretty ill while immunocompromised recently as a result of trying to fix an ear problem and then catching something, so imagine how I felt when I discovered that my server was suddenly full due to Forgejo archive requests.
