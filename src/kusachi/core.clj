@@ -37,27 +37,30 @@
   (let [path-digest (digest/sha-256 (io/file path))]
     path-digest))
 
-(defn pipeline-file [router compiler path]
+(defn pipeline-file [recalculate router compiler path]
   ; TODO: make this less inefficient?
   (let [out-path (pipe path router)
         current-path (.getAbsolutePath (io/file "./"))
         relative-current (fr/relative-path current-path path)
         relative-out (fr/relative-path current-path out-path)
-        path-hash (pipeline-hash path)]
+        path-hash (pipeline-hash path)
+        existing-hash (get @sha-map relative-current)
+        file-exists (.exists (io/as-file relative-out))]
     (println (str "← " relative-current))
     (println (str "→ " relative-out))
     (swap! sha-map assoc relative-current path-hash)
     (println (str "# " path-hash))
-    (let [result (compiler path out-path)]
+    (if (or (recalculate) (not file-exists) (not= path-hash existing-hash)) (let [result (compiler path out-path)]
       (println)
-      (identity result))))
+      (identity result)) (println (str "Skipping compilation of " path ", hashes are equal, destination exists and recalculate function returns false.")))))
 
 (defn pipeline
   [core]
-  (let [{:keys [path compiler router]
+  (let [{:keys [path compiler router recalculate]
          {filters :filter
           removes :remove} :lens
          :or {filters []
+              recalculate (fn [] false)
               removes []
               compiler (fn [])
               router [fr/output-router]}} core
@@ -70,7 +73,7 @@
          (#(if (> (count filters) 0) (filter filterer %) %))
          (#(if (> (count removes) 0) (remove remover %) %))
          (mapv #(.getAbsolutePath %))
-         (mapv (partial pipeline-file router compiler)))))
+         (mapv (partial pipeline-file recalculate router compiler)))))
 
 (defn load-output-hashset []
   (let [file-content (with-open [rdr (io/reader "./kusachi.lock")]

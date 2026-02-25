@@ -65,9 +65,9 @@
                                                output-path (.getAbsolutePath (io/file "./output"))
                                                relative-out (fr/relative-path current-path out-path)
                                                relative-output (fr/relative-path output-path out-path)
-                                               rsstree (prepare-xml-post (xml-fragment-wrapper (map hic/as-hickory (hic/parse-fragment post-html))))
-                                               rsshtml (hickory-to-html rsstree)
-                                               context (assoc frontmatter :rss rsshtml :rel relative-output)]
+                                               ;;rsstree (prepare-xml-post (xml-fragment-wrapper (map hic/as-hickory (hic/parse-fragment post-html))))
+                                               ;;rsshtml (hickory-to-html rsstree)
+                                               context (assoc frontmatter :rel relative-output)]
                                      (swap! post-map assoc relative-out context)
                                      (assign-post-to-tags relative-out context)
                                      (let [
