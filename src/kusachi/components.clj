@@ -120,6 +120,8 @@
 
 (def web-badges
   [:div {:class "badge-container"}
+    (badge "html5.png" "Valid HTML5!" "https://validator.w3.org/nu/?level=warning&doc=https%3A%2F%2Fdork.dev")
+    (badge "vcss.png" "Valid CSS!" "https://jigsaw.w3.org/css-validator/check/referer")
     (badge "valid-atom.png" "Valid Atom 1.0" "https://validator.w3.org/feed/check.cgi?url=https%3A//dork.dev/atom.xml")
     (badge "nixos.png" "powered by nixos" "https://nixos.org/")
     (badge "nginx.png" "nginx powered" "https://nginx.org/")
