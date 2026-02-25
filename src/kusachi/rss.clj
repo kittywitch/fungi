@@ -28,13 +28,17 @@
     base))
 
 (defn rss-feed [posts]
-  (let [ xml-data (xml/sexp-as-element
+  (let [ sorted-posts (into (sorted-map-by #(compare %2 %1)) posts)
+          newest (ffirst sorted-posts)
+          newest-date (get newest "date")
+          xml-data (xml/sexp-as-element
                         [:feed {"xmlns" "http://www.w3.org/2005/Atom" "xml:lang" "en" }
                          [:title "dork.dev"]
                         [:id "https://dork.dev"]
+                        [:updated newest-date]
                          [:link {:rel "self" :href (str prefix-for-post "atom.xml")}]
                          [:link {:rel "alternate" :href prefix-for-post}]
                          (map (fn [[_ post]]
                                 (rss-post post)
-                                ) (into (sorted-map-by #(compare %2 %1)) posts))
+                                ) sorted-posts)
                          ])] (xml/emit-str xml-data)))
