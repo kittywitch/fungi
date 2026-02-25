@@ -158,7 +158,7 @@
      [:img {:id "avatar" :src "/assets/img/vrchat.png"}]
      [:h2 {:id "about-me"} "About me"]
      [:p "Hi, I'm Kat! I'm an eccentric weirdo " isekaijin " with an eclectic set of tastes and interests, exploring them autodidactically. This website is intended to be a place where I write about doing so!"]
-   [:section {:id "interests"}
+   [:section {:id "interests-sec"}
       [:h3 {:id "interests"} "Interests"]
       [:ul {:class "inline-list"}
         [:li [:ruby (rubypair "日" "に")
@@ -180,7 +180,7 @@
         [:li "Firearms"]
       ]
     ]
-    [:section {:id "web-badges"}
+    [:section {:id "web-badges-sec"}
      [:h3 {:id "web-badges"} "Web badges "
       [:small (link "Explain?" "https://en.wikipedia.org/wiki/Web_badge")]
       ]
