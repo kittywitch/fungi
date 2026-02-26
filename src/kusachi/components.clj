@@ -251,7 +251,7 @@
     post-content
   [:li
     [:article
-      [:h3 (link title (str/replace path "output/" ""))
+      [:h3 (link title (str/replace path "output/" "/"))
            (when draft " ") (when draft [:small "Draft"])
             (when cws "  ") (when cws [:small [:abbr {:title "Content warnings"} "CWs"]])]
       (when date [:<> [:span "Posted on: "] [:time {:datetime date} date]])
