@@ -176,6 +176,7 @@
         [:li "NixOS"]
         [:li "Guix System"]
         [:li [:abbr {:title "Functional programming"} "FP"]]
+        [:li "Rust"]
         [:li "Lisp dialects"]
         [:li "Electronics"]
         [:li [:abbr {:title "Political science"} "Polsci"]]
