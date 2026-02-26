@@ -76,7 +76,24 @@ blockquote {
   margin: .5rem;
 }
 
-hr#note {
+.clearfix {
+  margin-bottom: 2rem;
+}
+
+section + section, .clearfix + section, section + .clearfix {
+  margin-top: 2rem;
+}
+
+hr.elipsis {
+  border-top-style: solid;
+  margin: 1rem 0;
+  &::after {
+    content: "⋯";
+    font-size: 1.5rem;
+    top: -1.4rem;
+  }
+}
+hr.note {
   border-top-style: solid;
   margin: 1rem 0;
   &::after {
@@ -94,8 +111,15 @@ aside {
 h1 {
   text-align: center;
 }
+
 .text-center {
   text-align: center;
+}
+
+span.elipsis {
+  text-align: center;
+  margin: 0 auto;
+  display: block;
 }
 
 img#avatar {
@@ -107,12 +131,8 @@ img#avatar {
   border-radius: 2rem;
 }
 
-#posts, #web-badges, #contact {
+.clearer, #posts, #web-badges, #contact, #postlist-sec, #taglist-sec {
   clear: left;
-}
-
-#web-badges {
-  margin-top: 2rem;
 }
 
 ul#taglist a {
@@ -121,7 +141,6 @@ ul#taglist a {
 }
 
 ul#taglist {
-  float: left;
   gap: 1rem .5rem;
 }
 

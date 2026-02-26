@@ -78,6 +78,7 @@
    [:script {:src "/assets/js/colorscheme.js"}]
    [:nav [:ul [:li {:class "logo"} (link [:img {:src "/assets/img/logo.svg" :alt "A witch hat with ears"}] "/")]]
     [:ul [:li (link "Home" "/")]
+          [:li (link "Blog" "/posts")]
           [:li (link "Stuff I'd like to share" "/external.html")]]]])
 
 (defn rubypair [kanji ruby]
@@ -213,7 +214,7 @@
         {:allow-raw true}
         [:html {:lang "en"}
          (head "Stuff I'd like to share")
-         (body [:nav [:h2 "Stuff I'd like to share"]
+         (body [:nav [:h1 "Stuff I'd like to share"]
             (map (fn [{:strs [title note posts] :as all}]
               (pprint/pprint all)
               [:<>
@@ -282,7 +283,7 @@
 
 (defn postlist [posts tags]
   (let [
-        taglist [:section {:id "taglist-sec"} [:h3 "Tags"] [:nav
+        taglist [:section {:id "taglist-sec"} [:h2 "Tags"] [:nav
                  (taglist tags)
                  ]]
         postlist [:section {:id "postlist-sec"} [:h2 "Posts"] [:nav
@@ -292,10 +293,31 @@
     (str (h/page
            {:allow-raw true}
            [:html {:lang "en"}
+            (head "dork.dev - Blog")
+            (body [:<> [:h1 "Blog"]
+                    taglist
+                    postlist
+                   ])]))))
+
+(defn homepage [posts tags]
+  (let [
+        taglist [:section {:id "taglist-sec"} [:h2 "Tags"] [:nav
+                 (taglist tags)
+                 ]]
+        postlist [:section {:id "postlist-sec"} [:h2 "Posts"] [:nav
+                  [:p "Drafts are provided here regardless of finality because I would like to produce in the open."]
+                  [:ul [:<> (map post-for-list (take 5 (into (sorted-map-by #(compare %2 %1)) posts)))]]]
+                  [:span {:class "elipsis"} "⋯"]
+                  [:p "Only the newest 5 posts are shown. Please visit " (link "Blog" "/blog") " to see more."]
+                  ]
+        ]
+    (str (h/page
+           {:allow-raw true}
+           [:html {:lang "en"}
             (head "dork.dev")
             (body [:<> home-page
-                   postlist
                    taglist
+                    postlist
                    ])]))))
 
 (defn blogpost [& {:keys [content title]

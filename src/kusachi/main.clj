@@ -56,9 +56,15 @@
     file (fc/simple-writer "output/atom.xml" rss-feed)]
     file))
 
-(defn generate-index []
+(defn generate-postlist []
   (println "Generating index page")
   (let [posts (fco/postlist @fpo/post-map @fpo/tag-map)
+        file (fc/simple-writer "output/posts/index.html" posts)]
+    file))
+
+(defn generate-index []
+  (println "Generating index page")
+  (let [posts (fco/homepage @fpo/post-map @fpo/tag-map)
         file (fc/simple-writer "output/index.html" posts)]
     file))
 
@@ -118,6 +124,7 @@
   (let [cores [fpo/post-core fsa/sass-core ft/image-core ft/thumb-core img-core js-core]]
     (mapv fc/pipeline cores))
   (generate-tags)
+  (generate-postlist)
   (generate-index)
   (generate-external)
   (generate-rss)

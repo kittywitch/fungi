@@ -8,10 +8,10 @@
 (def aside-selector
   (hs/and (hs/tag :aside)
           (hs/not (hs/ancestor (hs/tag :aside) (hs/and (hs/tag :hr)
-                                     (hs/id "note"))))))
+                                     (hs/class "note"))))))
 (def note-rule {:type :element
             :tag :hr
-            :attrs {:id "note"}
+            :attrs {:class "note"}
             :content nil})
 
 (defn aside-editor [elem]
