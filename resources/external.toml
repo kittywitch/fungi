@@ -61,6 +61,12 @@ title = "Long-form writing"
   permalink = "https://gist.github.com/gcr/47a8f2baaa5810087615b4a858619fe5"
   archive = "https://archive.ph/QmqKg"
 
+  [[categories.posts]]
+  title = "You don't have to if you don't want to"
+  author = "Scott Smitelli"
+  permalink = "https://www.scottsmitelli.com/articles/you-dont-have-to/"
+  archive = "https://archive.ph/Jdw25"
+
 [[categories]]
 title = "Series of posts"
   [[categories.posts]]
