@@ -309,7 +309,7 @@
                   [:p "Drafts are provided here regardless of finality because I would like to produce in the open."]
                   [:ul [:<> (map post-for-list (take 5 (into (sorted-map-by #(compare %2 %1)) posts)))]]]
                   [:span {:class "elipsis"} "⋯"]
-                  [:p "Only the newest 5 posts are shown. Please visit " (link "Blog" "/blog") " to see more."]
+                  [:p "Only the newest 5 posts are shown. Please visit " (link "Blog" "/posts") " to see more."]
                   ]
         ]
     (str (h/page
