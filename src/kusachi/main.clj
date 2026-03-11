@@ -33,6 +33,11 @@
                        :remove []}
                 :router [fr/resource-router]
                 :compiler (fn [path out-path] (fc/copy-file-compiler path out-path))})
+(def fuck-ai-core {:path "resources/"
+                :lens {:filter [(fc/glob "robots.txt")]
+                       :remove []}
+                :router [fr/root-resource-router]
+                :compiler (fn [path out-path] (fc/copy-file-compiler path out-path))})
 
 (defn generate-tag [tag paths]
   (let [tag-post-list (map (fn [path]
@@ -121,7 +126,7 @@
   (println "Loading prior output hashset")
   (fc/load-output-hashset)
   (println "Starting operation")
-  (let [cores [fpo/post-core fsa/sass-core ft/image-core ft/thumb-core img-core js-core]]
+  (let [cores [fpo/post-core fsa/sass-core ft/image-core ft/thumb-core fuck-ai-core img-core js-core]]
     (mapv fc/pipeline cores))
   (generate-tags)
   (generate-postlist)

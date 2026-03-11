@@ -19,5 +19,8 @@
 (defn resource-router [filename]
   (str/replace filename "resources/" "output/assets/"))
 
+(defn root-resource-router [filename]
+  (str/replace filename "resources/" "output/"))
+
 (defn refiletyper [from to]
   (fn [file] (str/replace file (re-pattern (str "(\\." from ")$")) (str "." to))))
